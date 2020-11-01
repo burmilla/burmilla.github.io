@@ -1,0 +1,22 @@
+# Cloud-Init
+
+Userdata and metadata can be fetched from a cloud provider, VM runtime, or management service during the BurmillaOS boot process. Since v0.8.0, this process occurs while BurmillaOS is still running from memory and before System Docker starts. It is configured by the `burmilla.cloud_init.datasources` configuration parameter. For cloud-provider specific images, such as AWS and GCE, the datasource is pre-configured.
+
+### Userdata
+
+Userdata is a file given by users when launching BurmillaOS hosts. It is stored in different locations depending on its format. If the userdata is a [cloud-config](/configuration/#cloud-config) file, indicated by beginning with `#cloud-config` and being in YAML format, it is stored in `/var/lib/burmilla/conf/cloud-config.d/boot.yml`. If the userdata is a script, indicated by beginning with `#!`, it is stored in `/var/lib/burmilla/conf/cloud-config-script`.
+
+### Metadata
+
+Although the specifics vary based on provider, a metadata file will typically contain information about the BurmillaOS host and contain additional configuration. Its primary purpose within BurmillaOS is to provide an alternate source for SSH keys and hostname configuration. For example, AWS launches hosts with a set of authorized keys and BurmillaOS obtains these via metadata. Metadata is stored in `/var/lib/burmilla/conf/metadata`.
+
+## Configuration Load Order
+
+[Cloud-config](/configuration/#cloud-config/) is read by system services when they need to get configuration. Each additional file overwrites and extends the previous configuration file.
+
+1. `/usr/share/ros/os-config.yml` - This is the system default configuration, which should **not** be modified by users.
+2. `/usr/share/ros/oem/oem-config.yml` - This will typically exist by OEM, which should **not** be modified by users.
+3. Files in `/var/lib/burmilla/conf/cloud-config.d/` ordered by filename. If a file is passed in through user-data, it is written by cloud-init and saved as `/var/lib/burmilla/conf/cloud-config.d/boot.yml`.
+4. `/var/lib/burmilla/conf/cloud-config.yml` - If you set anything with `ros config set`, the changes are saved in this file.
+5. Kernel parameters with names starting with `burmilla`.
+6. `/var/lib/burmilla/conf/metadata` - Metadata added by cloud-init.
