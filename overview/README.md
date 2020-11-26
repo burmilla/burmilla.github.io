@@ -1,12 +1,12 @@
 # Overview of BurmillaOS
 
-BurmillaOS is the smallest, easiest way to run Docker in production.  Every process in BurmillaOS is a container managed by Docker. This includes system services such as `udev` and `syslog`.  Because it only includes the services necessary to run Docker, BurmillaOS is significantly smaller than most traditional operating systems. By removing unnecessary libraries and services, requirements for security patches and other maintenance are also reduced. This is possible because, with Docker, users typically package all necessary libraries into their containers.
+BurmillaOS is our reaction of us to the End of RancherOS, which was one of the smallest and easiest ways to run docker as every process including services as `udev` or even `syslog` are running in their own containers. As the system is stripped of anything unnecessary to run docker, the resulting system is way smaller than most others of todays operating systems.
 
-Another way in which BurmillaOS is designed specifically for running Docker is that it always runs the latest version of Docker. This allows users to take advantage of the latest Docker capabilities and bug fixes.
+Speaking of security, the stripping of unneeded components also greatly reduces the ammount of work going into security patching and other maintenance tasks. This is possible because, with Docker, users typically package all necessary libraries into their containers. As it is a total shame to see RancherOS vanish into thin air (read: end of life / maintenance), we decided to pick up where they left by still including the latest version of Docker to allow users to take the advantage of the latest Docker capabilities and fixes.
 
-Like other minimalist Linux distributions, BurmillaOS boots incredibly quickly. Starting Docker containers is nearly instant, similar to starting any other process. This speed is ideal for organizations adopting microservices and autoscaling.
+Unlike the big players, BurmillaOS boots very quick and is nearly instantly ready to fire up your container workloads.
 
-Docker is an open-source platform designed for developers, system admins, and DevOps. It is used to build, ship, and run containers, using a simple and powerful command line interface (CLI). To get started with Docker, please visit the [Docker user guide](https://docs.docker.com/config/daemon/).
+To read more about Docker, please head over to [Docker user guide](https://docs.docker.com/config/daemon/).
 
 ### Hardware Requirements
 
