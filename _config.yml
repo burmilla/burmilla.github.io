@@ -1,3 +1,3 @@
 title: BurmillaOS
 description: BurmillaOS documentation
-theme: jekyll-theme-tactile
+remote_theme: tomjoht/documentation-theme-jekyll
