@@ -1,3 +1,6 @@
 title: BurmillaOS
 description: BurmillaOS documentation
+plugins:
+  - jekyll-remote-theme
+  
 remote_theme: tomjoht/documentation-theme-jekyll
