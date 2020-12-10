@@ -1,0 +1,19 @@
+baseurl = "http://localhost"
+languageCode = "en-us"
+title = "BurmillaOS"
+
+theme = "book"
+enableGitInfo = true
+disableKinds = ['taxonomy', 'taxonomyTerm']
+pygmentsStyle = "monokai"
+
+[Params]
+  BookTheme = 'auto'
+  BookToC = true
+  favicon = "img/favicon.ico"
+  BookDateFormat = "December 10, 2020"
+  BookSearch = true
+  BookComments = false
+  BookRepo = 'https://github.com/burmilla/burmilla.github.io'
+  BookPortableLinks = true
+  BookServiceWorker = true
