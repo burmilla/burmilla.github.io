@@ -1,11 +1,22 @@
 # Date and time zone
 
-The default console keeps time in the Coordinated Universal Time (UTC) zone and synchronizes clocks with the Network Time Protocol (NTP). The Network Time Protocol daemon (ntpd) is an operating system program that maintains the system time in synchronization with time servers using the NTP. 
+## Host system
+The default console keeps time in the Coordinated Universal Time (UTC) zone and synchronizes clocks with the Network Time Protocol (NTP). The Network Time Protocol daemon (ntpd) is an operating system program that maintains the system time in synchronization with time servers using the NTP.
+
+Changing the timezone in the default console can be for example done using a system-wide environment variable `/etc/environment`
+```
+write_files:
+- path: /etc/environment
+  content: |
+    TZ="Europe/Amsterdam"
+  append: true
+```
 
 BurmillaOS can run ntpd in the System Docker container. You can update its configurations by updating `/etc/ntp.conf`. For an example of how to update a file such as `/etc/ntp.conf` within a container, refer to [this page.](/configuration/write-files/#writing-files-in-specific-system-services)
 
-The default console cannot support changing the time zone because including `tzdata` (time zone data) will increase the ISO size. However, you can change the time zone in the container by passing a flag to specify the time zone when you run the container:
+## Usage in containers
 
+The host timezone is not used within containers and therefore needs to be set as an environment variable:
 ```
 $ docker run -e TZ=Europe/Amsterdam debian:jessie date
 Tue Aug 20 09:28:19 CEST 2019
