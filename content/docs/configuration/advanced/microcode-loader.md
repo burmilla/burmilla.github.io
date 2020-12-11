@@ -17,18 +17,18 @@ You can get more details from [here](https://www.kernel.org/doc/html/latest/x86/
 
 BurmillaOS supports `Late loading`. To update the Intel microcode, get the latest Intel microcode. An example is [here](https://downloadcenter.intel.com/download/28087/Linux-Processor-Microcode-Data-File?v=t). Then copy the data files to the firmware directory:
 
-```
+```shell
 mkdir -p /lib/firmware/intel-ucode/
 cp -v intel-ucode/* /lib/firmware/intel-ucode/
 ```
 Reload the microcode. This file does not exist if you are running BurmillaOS on the hypervisor. Usually, the VM does not need to update the microcode.
 
-```
+```shell
 echo 1 > /sys/devices/system/cpu/microcode/reload
 ```
 Check the result:
 
-```
+```shell
 dmesg | grep microcode
 [   13.659429] microcode: sig=0x306f2, pf=0x1, revision=0x36
 [   13.665981] microcode: Microcode Update Driver: v2.01 <tigran@aivazian.fsnet.co.uk>, Peter Oruba
@@ -37,7 +37,7 @@ dmesg | grep microcode
 
 You can use `runcmd` to reload the microcode every boot:
 
-```
+```yaml
 runcmd:
 - echo 1 > /sys/devices/system/cpu/microcode/reload
 ```

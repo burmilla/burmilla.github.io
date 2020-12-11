@@ -1,16 +1,17 @@
 ---
 weight: 5
 bookCollapseSection: true
+bookToc: false
 ---
 # System Services
 
 A system service is a container that can be run in either System Docker or Docker. Rancher provides services that are already available in BurmillaOS by adding them to the [os-services repo](https://github.com/burmilla/os-services). Anything in the `index.yml` file from the repository for the tagged release will be an available system service when using the `ros service list` command.
 
-### Enabling and Starting System Services
+## Enabling and Starting System Services
 
 For any services that are listed from the `ros service list`, they can be enabled by running a single command. After enabling a service, you will need to run start the service.
 
-```
+```shell
 # List out available system services
 $ sudo ros service list
 disabled amazon-ecs-agent
@@ -23,11 +24,11 @@ $ sudo ros service enable kernel-headers
 $ sudo ros service up kernel-headers
 ```
 
-### Disabling and Removing System Services
+## Disabling and Removing System Services
 
 In order to stop a system service from running, you will need to stop and disable the system service.
 
-```
+```shell
 # List out available system services
 $ sudo ros service list
 disabled amazon-ecs-agent
@@ -42,9 +43,8 @@ $ sudo ros service stop kernel-headers
 $ sudo ros service down kernel-headers
 ```
 
-<br>
 If you want to remove a system service from the list of service, just delete the service.
 
-```
+```shell
 $ sudo ros service delete <serviceName>
 ```

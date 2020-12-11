@@ -1,16 +1,12 @@
----
-weight: 3
----
-
 # How to use recovery console
 
-### Test Environment
+## Test Environment
 
 In order to demonstrate how to use the recovery console, we choose a scene that the disk space is full and the OS cannot boot.
 
 | Term                  | Definition                                       |
 |-----------------------|--------------------------------------------------|
-| BurmillaOS             |  v1.4.0  |
+| BurmillaOS             |  v1.9.0  |
 | Platform              |  Virtualbox |
 | Root Disk             |  2GB  |
 | CPU                   |  1C   |
@@ -21,7 +17,7 @@ In order to demonstrate how to use the recovery console, we choose a scene that 
 
 Start this VM to check disk usage:
 
-```
+```shell
 /dev/sda1            ext4            1.8G    567.2M      1.2G  32% /opt
 /dev/sda1            ext4            1.8G    567.2M      1.2G  32% /mnt
 ...
@@ -30,7 +26,7 @@ Start this VM to check disk usage:
 
 Fill the remaining space with `dd`:
 
-```
+```shell
 $ cd /opt/
 $ dd if=/dev/zero of=2GB.img bs=1M count=2000
 dd: writing '2GB.img': No space left on device
@@ -46,7 +42,7 @@ drwxr-xr-x    1 root     root        4.0K Jul 19 06:58 ..
 
 At this point you cannot reboot in the OS,  but you can reboot via Virtualbox:
 
-```
+```shell
 $ shutdown -h now
 Failed to write to log, write /var/log/boot/shutdown.log: no space left on device
 [            ] shutdown:info: Setting shutdown timeout to 60 (burmilla.shutdown_timeout set to 60)
@@ -60,11 +56,9 @@ After rebooting, you will not be able to enter the OS and there will be a kernel
 
 ![](https://ws1.sinaimg.cn/mw1024/006tNc79ly1ftf8071p5sj31kw0s14or.jpg)
 
-### Boot with recovery console
+## Boot with recovery console
 
-When you can access the bootloader, you should select the `Recovery console` and  press `<Tab>` to edit:
-
-![](https://ws3.sinaimg.cn/mw1024/006tNc79ly1ftf7mpir3fj312u0i4a9z.jpg)
+When you can access the bootloader, you should select the `Recovery console` and  press `<Tab>` to edit.
 
 You need add `burmilla.autologin=tty1` to the end, then press `<Enter>`. If all goes well, you will automatically login to the recovery console.
 
@@ -72,7 +66,7 @@ You need add `burmilla.autologin=tty1` to the end, then press `<Enter>`. If all 
 
 We need to mount the root disk in the recovery console and delete some data:
 
-```
+```shell
 # If you couldn't see any disk devices created under `/dev/`, please try this command:
 $ ros udev-settle
 

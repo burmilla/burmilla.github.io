@@ -2,7 +2,8 @@
 
 You can also create your own system service in [Docker Compose](https://docs.docker.com/compose/) format. After creating your own custom service, you can launch it in BurmillaOS in a couple of methods. The service could be directly added to the [cloud-config](/configuration/#cloud-config), or a `docker-compose.yml` file could be saved at a http(s) url location or in a specific directory of BurmillaOS.
 
-### Launching Services through Cloud-Config
+## Launching Services
+### Using Cloud-Config
 
 If you want to boot BurmillaOS with a system service running, you can add the service to the cloud-config that is passed to BurmillaOS. When BurmillaOS starts, this service will automatically be started.
 
@@ -15,7 +16,7 @@ burmilla:
       restart: always
 ```
 
-### Launching Services using local files
+### Using Local Files
 
 If you already have BurmillaOS running, you can start a system service by saving a `docker-compose.yml` file at `/var/lib/burmilla/conf/`.
 
@@ -27,24 +28,22 @@ nginxapp:
 
 To enable a custom system service from the file location, the command must indicate the file location if saved in BurmillaOS. If the file is saved at a http(s) url, just use the http(s) url when enabling/disabling.
 
-```
+```bash
 # Enable the system service saved in /var/lib/burmilla/conf
 $ sudo ros service enable /var/lib/burmilla/conf/example.yml
 # Enable a system service saved at a http(s) url
 $ sudo ros service enable https://mydomain.com/example.yml
 ```
 
-<br>
-
 After the custom system service is enabled, you can start the service using `sudo ros service up <serviceName>`. The `<serviceName>` will be the names of the services inside the `docker-compose.yml`.
 
-```
+```bash
 $ sudo ros service up nginxapp
 # If you have more than 1 service in your docker-compose.yml, add all service names to the command
 $ sudo ros service up service1 service2 service3
 ```
 
-### Launching Services from a web repository
+### Using a Web Repository
 
 The https://github.com/burmilla/os-services repository is used for the built-in services, but you can create your own, and configure BurmillaOS to use it in addition (or to replace) it.
 
@@ -52,13 +51,72 @@ The config settings to set the url in which `ros` should look for an `index.yml`
 
 For example, in BurmillaOS v0.7.0, the `core` repository is set to `https://raw.githubusercontent.com/burmilla/os-services/v0.7.0`.
 
-### Service development and testing
+## Existing Services
+### Cron
+
+_Available as of RancherOS v1.1_
+
+BurmillaOS has a system cron service based on [Container Crontab](https://github.com/burmilla/container-crontab). This can be used to start, restart or stop system containers.
+
+To use this on your service, add a `cron.schedule` label to your service's description:
+
+```
+my-service:
+  image: namespace/my-service:v1.0.0
+  command: my-command
+  labels:
+    io.burmilla.os.scope: "system"
+    cron.schedule: "0 * * * * ?"
+```
+
+For a cron service that can be used with user Docker containers, see the `crontab` system service.
+
+### Log rotation
+
+BurmillaOS provides a built in `logrotate` container that makes use of logrotate(8) to rotate system logs. This is called on an hourly basis by the `system-cron` container.
+
+If you would like to make use of system log rotation for your system service, do the following.
+
+Add `system-volumes` to your service description's `volumes_from` section. You could also use a volume group containing `system-volumes` e.g. `all-volumes`.
+
+```
+my-service:
+  image: namespace/my-service:v1.0.0
+  command: my-command
+  labels:
+    io.burmilla.os.scope: "system"
+  volumes_from:
+    - system-volumes
+```
+
+Next, add an entry point script to your image and copy your logrotate configs to `/etc/logrotate.d/` on startup.
+
+Example Dockerfile:
+```
+FROM alpine:latest
+COPY logrotate-myservice.conf entrypoint.sh /
+ENTRYPOINT ["/entrypoint.sh"]
+```
+
+Example entrypoint.sh (Ensure that this script has the execute bit set).
+```
+#!/bin/sh
+
+cp logrotate-myservice.conf /etc/logrotate.d/myservice
+
+exec "$@"
+```
+
+Your service's log rotation config will now be included when the system logrotate runs. You can view logrotate output with `system-docker logs logrotate`.
+
+
+## Development and Testing
 
 If you're building your own services in a branch on GitHub, you can push to it, and then load your service from there.
 
 For example, when developing the zfs service:
 
-```
+```bash
 burmilla@zfs:~$ sudo ros config set burmilla.repositories.zfs.url https://raw.githubusercontent.com/SvenDowideit/os-services/zfs-service
 burmilla@zfs:~$ sudo ros service list
 disabled amazon-ecs-agent
@@ -99,63 +157,6 @@ delete the files in `/var/lib/burmilla/cache`.
 
 The image that you specify in the service yml file needs to be pullable - either from a private registry, or on the Docker Hub.
 
-### Service cron
-
-_Available as of v1.1_
-
-BurmillaOS has a system cron service based on [Container Crontab](https://github.com/burmilla/container-crontab). This can be used to start, restart or stop system containers.
-
-To use this on your service, add a `cron.schedule` label to your service's description:
-
-```
-my-service:
-  image: namespace/my-service:v1.0.0
-  command: my-command
-  labels:
-    io.burmilla.os.scope: "system"
-    cron.schedule: "0 * * * * ?"
-```
-
-For a cron service that can be used with user Docker containers, see the `crontab` system service.
-
-### Service log rotation
-
-BurmillaOS provides a built in `logrotate` container that makes use of logrotate(8) to rotate system logs. This is called on an hourly basis by the `system-cron` container.
-
-If you would like to make use of system log rotation for your system service, do the following.
-
-Add `system-volumes` to your service description's `volumes_from` section. You could also use a volume group containing `system-volumes` e.g. `all-volumes`.
-
-```
-my-service:
-  image: namespace/my-service:v1.0.0
-  command: my-command
-  labels:
-    io.burmilla.os.scope: "system"
-  volumes_from:
-    - system-volumes
-```
-
-Next, add an entry point script to your image and copy your logrotate configs to `/etc/logrotate.d/` on startup.
-
-Example Dockerfile:
-```
-FROM alpine:latest
-COPY logrotate-myservice.conf entrypoint.sh /
-ENTRYPOINT ["/entrypoint.sh"]
-```
-
-Example entrypoint.sh (Ensure that this script has the execute bit set).
-```
-#!/bin/sh
-
-cp logrotate-myservice.conf /etc/logrotate.d/myservice
-
-exec "$@"
-```
-
-Your service's log rotation config will now be included when the system logrotate runs. You can view logrotate output with `system-docker logs logrotate`.
-
 ### Creating your own Console
 
 Once you have your own Services repository, you can add a new service to its index.yml, and then add a `<service-name>.yml` file to the directory starting with the first letter.
@@ -194,7 +195,7 @@ labels:
 ```
 
 
-### Example of how to order container deployment
+#### Example of how to order container deployment
 
 ```yaml
 foo:

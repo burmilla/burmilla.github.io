@@ -1,5 +1,5 @@
 ---
-weight: 2
+weight: 1
 ---
 
 # How to custom partition layout
@@ -9,8 +9,8 @@ It will be the only partition with the label BURMILLA_STATE.
 But sometimes users want to be able to customize the root disk partition to isolate the data.
 
 > The following defaults to MBR mode, GPT mode has not been tested.
-
-### Use BURMILLA_STATE partition
+## Partions
+### BURMILLA_STATE
 
 As mentioned above, the default mode is that ROS will automatically create one partition with the label BURMILLA_STATE.
 
@@ -18,7 +18,7 @@ In addition, we can have other partitions, e.g.: two partitions, one is BURMILLA
 
 First boot a ROS instance from ISO, then manually format and partition `/dev/sda` , the reference configuration is as follows:
 
-```
+```shell
 [root@burmilla oem]# fdisk -l
 Disk /dev/sda: 5 GiB, 5377622016 bytes, 10503168 sectors
 Units: sectors of 1 * 512 = 512 bytes
@@ -40,7 +40,7 @@ Then install ROS to the disk with `ros install -t noformat -d /dev/sda ...`.
 
 After rebooting, you can use `/dev/sda2`. For example, changing the data root of user-docker:
 
-```
+```shell
 $ ros config set mounts '[["/dev/sda2","/mnt/s","ext4",""]]’
 $ ros config set burmilla.docker.graph /mnt/s
 $ reboot
@@ -48,11 +48,11 @@ $ reboot
 
 > In this mode, the BURMILLA_STATE partition capacity cannot exceed 3.8GiB, otherwise the bootloader may not recognize the boot disk. This is the test result on VirtualBox.
 
-### Use BURMILLA_BOOT partition
+### BURMILLA_BOOT
 
 When you only use the BURMILLA_STATE partition, the bootloader will be installed in the `/boot` directory.
 
-```
+```shell
 $ system-docker run -it --rm -v /:/host alpine
 ls /host/boot
 ...
@@ -60,7 +60,7 @@ ls /host/boot
 
 If you want to use a separate boot partition, you also need to boot a ROS instance from ISO, then manually format and partition `/dev/sda`:
 
-```
+```shell
 [root@burmilla burmilla]# fdisk -l
 Disk /dev/sda: 5 GiB, 5377622016 bytes, 10503168 sectors
 Units: sectors of 1 * 512 = 512 bytes
@@ -88,7 +88,7 @@ Then install ROS to the disk with `ros install -t noformat -d /dev/sda ...`.
 
 After rebooting, you can check the boot partition:
 
-```
+```shell
 [root@burmilla burmilla]# mkdir /boot
 [root@burmilla burmilla]# mount /dev/sda1 /boot
 [root@burmilla burmilla]# ls -ahl /boot/
@@ -104,11 +104,11 @@ If you are not using the first partition as a BOOT partition, you need to set BO
 
 > In this mode, the BURMILLA_BOOT partition capacity cannot exceed 3.8GiB, otherwise the bootloader may not recognize the boot disk. This is the test result on VirtualBox.
 
-### Use BURMILLA_OEM partition
+### BURMILLA_OEM
 
 If you format any partition with the label BURMILLA_OEM, ROS will mount this partition to `/usr/share/ros/oem`:
 
-```
+```shell
 [root@burmilla burmilla]# blkid
 /dev/sda2: LABEL="BURMILLA_OEM" UUID="4f438455-63a3-4d29-ac90-50adbeced412" TYPE="ext4" PARTUUID="9fff87e9-02"
 
@@ -118,11 +118,11 @@ If you format any partition with the label BURMILLA_OEM, ROS will mount this par
 
 Currently, this OEM directory is hardcoded and not configurable.
 
-### Use BURMILLA_SWAP partition
+### BURMILLA_SWAP
 
 Suppose you have a partition(`/dev/sda2`) and you want to use it as a SWAP partition:
 
-```
+```shell
 $ mkswap -L BURMILLA_SWAP /dev/sda2
 
 $ blkid
@@ -132,14 +132,14 @@ $ blkid
 
 After you install ROS to the disk, you can add the `runcmd` to enable SWAP:
 
-```
+```yaml
 runcmd:
 - swapon -L BURMILLA_SWAP
 ```
 
 Then check the memory information:
 
-```
+```shell
 [root@burmilla burmilla]# free -m
             total       used       free     shared    buffers     cached
 Mem:          1996        774       1221        237         20        614

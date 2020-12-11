@@ -1,13 +1,16 @@
+---
+title: Using ZFS
+---
 # Using ZFS
 
-#### Installing the ZFS service
+## Installing the ZFS service
 
 The `zfs` service will install the kernel-headers for your kernel (if you build your own kernel, you'll need to replicate this service), and then download the [ZFS on Linux](https://zfsonlinux.org/) source, and build and install it. Then it will build a `zfs-tools` image that will be used to give you access to the zfs tools.
 
 The only restriction is that you must mount your zpool into `/mnt`, as this is the only shared mount directory that will be accessible throughout the system-docker managed containers (including the console).
 
 
-```
+```shell
 $ sudo ros service enable zfs
 $ sudo ros service up zfs
 # you can follow the progress of the build by running the following command in another ssh session:
@@ -18,14 +21,14 @@ $ lsmod | grep zfs
 
 > *Note:* if you switch consoles, you may need to re-run `sudo ros service up zfs`.
 
-#### Creating ZFS pools
+## Creating ZFS pools
 
 After it's installed, it should be ready to use. Make a zpool named `zpool1` using a device that you haven't yet partitioned (you can use `sudo fdisk -l` to list all the disks and their partitions).
 
 > *Note:* You need to mount the zpool in `/mnt` to make it available to your host and in containers.
 
 
-```
+```shell
 $ sudo zpool list
 $ sudo zpool create zpool1 -m /mnt/zpool1 /dev/<some-disk-dev>
 $ sudo zpool list
@@ -34,30 +37,30 @@ $ sudo cp /etc/* /mnt/zpool1
 $ docker run --rm -it -v /mnt/zpool1/:/data alpine ls -la /data
 ```
 
-<br>
-
 To experiment with ZFS, you can create zpool backed by just ordinary files, not necessarily real block devices. In fact, you can mix storage devices in your ZFS pools; it's perfectly fine to create a zpool backed by real devices **and** ordinary files.
 
-#### Using the ZFS debugger utility
+## Using the ZFS debugger utility
 
 The `zdb` command may be used to display information about ZFS pools useful to diagnose failures and gather statistics. By default the utility tries to load pool configurations from `/etc/zfs/zpool.cache`. Since the BurmillaOS ZFS service does not make use of the ZFS cache file and instead detects pools by inspecting devices, the `zdb` utility has to be invoked with the `-e` flag.
 
 E.g. to show the configuration for the pool `zpool1` you may run the following command:
 
-> $ sudo zdb -e -C zpool1
+```shell
+$ sudo zdb -e -C zpool1
+```
 
 ## ZFS storage for Docker on BurmillaOS
 
 First, you need to stop  the`docker` system service and wipe out `/var/lib/docker` folder:
 
-```
+```shell
 $ sudo system-docker stop docker
 $ sudo rm -rf /var/lib/docker/*
 ```
 
 To enable ZFS as the storage driver for Docker, you'll need to create a ZFS filesystem for Docker and make sure it's mounted.
 
-```
+```shell
 $ sudo zfs create zpool1/docker
 $ sudo zfs list -o name,mountpoint,mounted
 ```
@@ -66,7 +69,7 @@ At this point you'll have a ZFS filesystem created and mounted at `/zpool1/docke
 
 Now you'll need to remove `-s overlay` (or any other storage driver) from the Docker daemon args to allow docker to automatically detect `zfs`.
 
-```
+```shell
 $ sudo ros config set burmilla.docker.storage_driver 'zfs'
 $ sudo ros config set burmilla.docker.graph /mnt/zpool1/docker
 # Now that you've changed the Docker daemon args, you'll need to start Docker
@@ -75,7 +78,7 @@ $ sudo system-docker start docker
 
 After customizing the Docker daemon arguments and restarting `docker` system service, ZFS will be used as Docker storage driver:
 
-```
+```shell
 $ docker info
 Containers: 0
  Running: 0

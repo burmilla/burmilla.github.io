@@ -1,8 +1,8 @@
 ---
-title:  Additional Resources
-weight: 6
+title: Aditional Resources
+weight: 10
+bookCollapseSection: true
 ---
-
 # Additional Resources
 
 ## Developing
@@ -17,7 +17,7 @@ Development is easiest done with QEMU on Linux. OS X works too, although QEMU do
 * make
 * Docker 1.10.3+
 
-```
+```shell
 $ make
 ```
 
@@ -71,6 +71,3 @@ All of repositories are located within our main GitHub [page](https://github.com
 If you find any bugs or are having any trouble, please contact us by filing an [issue](https://github.com/burmilla/os/issues/new).
 
 If you have any updates to our documentation, please make any PRs to our [docs repo](https://burmilla.github.io).
-
-<br>
-<br>

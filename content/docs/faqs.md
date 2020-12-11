@@ -5,11 +5,11 @@ weight: 11
 
 # FAQs
 
-### What is required to run BurmillaOS?
+## What is required to run BurmillaOS?
 
 BurmillaOS runs on any laptop, physical, or virtual servers.
 
-### What are some commands?
+## What are some commands?
 
 Command | Description
 --------|------------
@@ -18,7 +18,7 @@ Command | Description
 `ros` | Control and configure BurmillaOS
 
 
-### How can I extend my disk size in Amazon?
+## How can I extend my disk size in Amazon?
 
 Assuming your EC2 instance with BurmillaOS with more disk space than what's being read, run the following command to extend the disk size. This allows BurmillaOS to see the disk size.
 

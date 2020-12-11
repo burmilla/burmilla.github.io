@@ -1,3 +1,6 @@
+---
+bookToc: false
+---
 # Environment
 
 The [environment key](https://docs.docker.com/compose/compose-file/#environment) can be used to customize system services. When a value is not assigned, BurmillaOS looks up the value from the `burmilla.environment` key.
@@ -27,8 +30,6 @@ burmilla:
       environment:
       - ETCD_*
 ```
-
-_Available as of v1.2_
 
 There is also a way to extend PATH environment variable, `PATH` or `path` can be set, and multiple values can be comma-separated. Note that need to reboot before taking effect.
 

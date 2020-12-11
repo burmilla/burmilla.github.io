@@ -1,8 +1,11 @@
+---
+title: Network Interfaces
+---
 # Configuring Network Interfaces
 
 Using `ros config`, you can configure specific interfaces. Wildcard globbing is supported so `eth*` will match `eth1` and `eth2`.  The available options you can configure are `address`, `gateway`, `mtu`, and `dhcp`.
 
-```
+```bash
 $ sudo ros config set burmilla.network.interfaces.eth1.address 172.68.1.100/24
 $ sudo ros config set burmilla.network.interfaces.eth1.gateway 172.68.1.1
 $ sudo ros config set burmilla.network.interfaces.eth1.mtu 1500
@@ -25,7 +28,7 @@ burmilla:
 
 > **Note:** The `address` item should be the CIDR format.
 
-### Multiple NICs
+## Multiple NICs
 
 If you want to configure one of multiple network interfaces, you can specify the MAC address of the interface you want to configure.
 
@@ -46,7 +49,7 @@ burmilla:
          dhcp: true
 ```
 
-### NIC bonding
+## NIC bonding
 
 You can aggregate several network links into one virtual link for redundancy and increased throughput. For example:
 
@@ -79,11 +82,11 @@ In this example two physical NICs (with MACs `0c:c4:d7:b2:14:d2` and `0c:c4:d7:b
 
 During the bootup process, BurmillaOS runs cloud-init. It automatically detects the data sources of cloud-init, but sometimes a data source requires a network connection. By default, in cloud-init, we open `burmilla.network.interfaces.eth*.dhcp=true`, which may affect the bonding NIC. If you do not require the network connection for your data-source, use `burmilla.network.interfaces.eth*.dhcp=false` in the kernel cmdline to disable DHCP for all NICs.
 
-### VLANS
+## VLANS
 
 In this example, you can create an interface `eth0.100` which is tied to VLAN 100 and an interface `foobar` that will be tied to VLAN 200.
 
-```
+```yaml
 #cloud-config
 burmilla:
   network:
@@ -92,11 +95,11 @@ burmilla:
         vlans: 100,200:foobar
 ```
 
-### Bridging
+## Bridging
 
 In this example, you can create a bridge interface.
 
-```
+```yaml
 #cloud-config
 burmilla:
   network:
@@ -108,15 +111,15 @@ burmilla:
         bridge: br0
 ```
 
-### Run custom network configuration commands
+## Run custom network configuration commands
 
-_Available as of v1.1_
+_Available as of RancherOS v1.1_
 
 You can configure `pre` and `post` network configuration commands to run in the `network` service container by adding `pre_cmds` and `post_cmds` array keys to `burmilla.network`, or `pre_up` and`post_up` keys for specific `burmilla.network.interfaces`.
 
 For example:
 
-```
+```yaml
 #cloud-config
 write_files:
   - container: network
@@ -164,9 +167,9 @@ burmilla:
         - /var/lib/iptables/rules.sh post_up eth2
 ```
 
-### WiFi
+## WiFi
 
-_Available as of v1.5_
+_Available as of RancherOS v1.5_
 
 In order to enable WiFi access, update the `cloud-config` with the WiFi network information. You can use `DHCP` or `STATIC` mode.
 
@@ -186,9 +189,9 @@ burmilla:
         scan_ssid: 1
 ```
 
-#### Example of a wireless adapter using STATIC
+### Example single adapter
 
-
+This Adapter uses a specified network to connect to and sets the IP statically:
 ```yaml
 burmilla:
   network:
@@ -208,8 +211,9 @@ burmilla:
         gateway: 192.168.1.1
 ```
 
-#### Example using two wireless adapters with DHCP
+### Example multiple adapters
 
+This configuration connects to multiple wireless networks and uses DHCP on each of them:
 ```yaml
 burmilla:
   network:
@@ -231,19 +235,17 @@ burmilla:
 
 When adding in WiFi access, you do not need a system reboot, you only need to restart the `network` service in System Docker.
 
-```
+```bash
 $ sudo system-docker restart network
 ```
 
 > **Note:** For Intel wireless adapters, there are some built-in firmware and modules, which prevents requiring to install any new modules or firmware. For other adapters, you may need to install additional os kernel-extras.
 
-### 4G-LTE
+## 4G-LTE
 
-_Available as of v1.5_
+_Available as of RancherOS v1.5_
 
-In order to support 4G-LTE, 4G-LTE module will need to be connected to the motherboard and to get a good signal, an external antenna will need to be added. You can assemble such a device, which supports USB interface and SIM cards slot:
-
-![](https://ws1.sinaimg.cn/bmiddle/006tNc79ly1fzcuvhu6zpj30k80qwag1.jpg)
+In order to support 4G-LTE, 4G-LTE module will need to be connected to the motherboard and to get a good signal, an external antenna will need to be added. You can assemble such a device, which supports USB interface and SIM cards slot.
 
 In order to use BurmillaOS, you will need to use the ISO built for 4G-LTE support. This ISO has a built-in `modem-manager` service and is available with each release.
 
@@ -259,7 +261,7 @@ burmilla:
 
 After any configuration changes, restart the `modem-manager` service to apply these changes.
 
-```
+```bash
 $ sudo system-docker restart modem-manager
 ```
 
