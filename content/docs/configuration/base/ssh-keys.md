@@ -5,7 +5,7 @@ bookToc: false
 ---
 # SSH Settings
 
-BurmillaOS supports adding SSH keys through the [cloud-config](/configuration/#cloud-config) file. Within the cloud-config file, you simply add the ssh keys within the `ssh_authorized_keys` key.
+BurmillaOS supports adding SSH keys through the [cloud-config](/docs/configuration/#cloud-config) file. Within the cloud-config file, you simply add the ssh keys within the `ssh_authorized_keys` key.
 
 ```yaml
 #cloud-config

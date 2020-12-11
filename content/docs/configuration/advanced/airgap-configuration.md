@@ -7,10 +7,10 @@ In the air gap environment, the Docker registry, BurmillaOS repositories URL, an
 
 You should use a private Docker registry so that `user-docker` and `system-docker` can pull images.
 
-1. Add the private Docker registry domain to the [images prefix](/configuration/images-prefix/).
-2. Set the private registry certificates for `user-docker`. For details, refer to [Certificates for Private Registries](/configuration/private-registries/#certificates-for-private-registries)
+1. Add the private Docker registry domain to the [images prefix](/docs/configuration/docker/images-prefix).
+2. Set the private registry certificates for `user-docker`. For details, refer to [Certificates for Private Registries](/docs/configuration/docker/private-registries#certificates-for-private-registries)
 3. Set the private registry certificates for `system-docker`. There are two ways to set the certificates:
-  - To set the private registry certificates before BurmillaOS starts, you can run a script included with BurmillaOS. For details, refer to [Set Custom Certs in ISO](/configuration/airgap-configuration/#set-custom-certs-in-iso).
+  - To set the private registry certificates before BurmillaOS starts, you can run a script included with BurmillaOS. For details, refer to [Set Custom Certs in ISO](/docs/configuration/advanced/airgap-configuration#set-custom-certs-in-iso).
   - To set the private registry certificates after BurmillaOS starts, append your private registry certs to the `/etc/ssl/certs/ca-certificates.crt.burmilla` file. Then reboot to make the certs fully take effect.
 4. The images used by BurmillaOS should be pushed to your private registry.
 
@@ -81,7 +81,7 @@ $ sudo ros config set burmilla.upgrade.url https://foo.bar.com/os/releases.yml
 
 Here is a total cloud-config example for using BurmillaOS in an air gap environment.
 
-For `system-docker`, see [Configuring Private Docker Registry](/configuration/airgap-configuration/#configuring-private-docker-registry).
+For `system-docker`, see [Configuring Private Docker Registry](/docs/configuration/advanced/airgap-configuration#configuring-private-docker-registry).
 
 ```yaml
 #cloud-config

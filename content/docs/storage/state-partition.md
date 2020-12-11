@@ -13,7 +13,7 @@ burmilla:
     dev: LABEL=BURMILLA_STATE
 ```
 
-For other labels such as `BURMILLA_BOOT` and `BURMILLA_OEM` and `BURMILLA_SWAP`, please refer to [Custom partition layout](/docs/about/custom-partition-layout/).
+For other labels such as `BURMILLA_BOOT` and `BURMILLA_OEM` and `BURMILLA_SWAP`, please refer to [Custom partition layout](/docs/storage/custom-partition-layout).
 
 ## Autoformat
 

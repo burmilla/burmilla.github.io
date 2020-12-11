@@ -18,7 +18,7 @@ write_files:
   append: true
 ```
 
-BurmillaOS can run ntpd in the System Docker container. You can update its configurations by updating `/etc/ntp.conf`. For an example of how to update a file such as `/etc/ntp.conf` within a container, refer to [this page.](/configuration/write-files/#writing-files-in-specific-system-services)
+BurmillaOS can run ntpd in the System Docker container. You can update its configurations by updating `/etc/ntp.conf`. For an example of how to update a file such as `/etc/ntp.conf` within a container, refer to [this page.](/docs/configuration/advanced/write-files#writing-files-in-specific-system-services)
 
 ## Usage in containers
 

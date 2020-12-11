@@ -18,7 +18,7 @@ To edit the kernel boot parameters of an already installed BurmillaOS system, us
 
 ## During installation
 
-If you want to set the extra kernel parameters when you are [Installing BurmillaOS to Disk](/installation/server/install-to-disk/) please use the `--append` parameter.
+If you want to set the extra kernel parameters when you are [Installing BurmillaOS to Disk](/docs/installation/server/install-to-disk) please use the `--append` parameter.
 
 ```bash
 $ sudo ros install -d /dev/sda --append "burmillaos.autologin=tty1"

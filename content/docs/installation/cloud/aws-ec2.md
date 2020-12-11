@@ -27,17 +27,17 @@ Let’s walk through how to import and create a BurmillaOS on EC2 machine using 
 
 
 1. First login to your AWS console, and go to the EC2 dashboard, click on **Launch Instance**:
-![BurmillaOS on AWS 1](/docs/images/BurmillaOS_aws1.png)
+![BurmillaOS on AWS 1](/images/BurmillaOS_aws1.png)
 2. Select the **Community AMIs** on the sidebar and search for **BurmillaOS**. Pick the latest version and click **Select**.
-![BurmillaOS on AWS 2](/docs/images/BurmillaOS_aws2.png)
-3. Go through the steps of creating the instance type through the AWS console. If you want to pass in a [cloud-config](/configuration/#cloud-config) file during boot of BurmillaOS, you'd pass in the file as **User data** by expanding the **Advanced Details** in **Step 3: Configure Instance Details**. You can pass in the data as text or as a file.
-![BurmillaOS on AWS 6](/docs/images/BurmillaOS_aws6.png)
+![BurmillaOS on AWS 2](/images/BurmillaOS_aws2.png)
+3. Go through the steps of creating the instance type through the AWS console. If you want to pass in a [cloud-config](/docs/configuration/#cloud-config) file during boot of BurmillaOS, you'd pass in the file as **User data** by expanding the **Advanced Details** in **Step 3: Configure Instance Details**. You can pass in the data as text or as a file.
+![BurmillaOS on AWS 6](/images/BurmillaOS_aws6.png)
      After going through all the steps, you finally click on **Launch**, and either create a new key pair or choose an existing key pair to be used with the EC2 instance. If you have created a new key pair, download the key pair. If you have chosen an existing key pair, make sure you have the key pair accessible. Click on **Launch Instances**.
-![BurmillaOS on AWS 3](/docs/images/BurmillaOS_aws3.png)
+![BurmillaOS on AWS 3](/images/BurmillaOS_aws3.png)
 4. Your instance will be launching and you can click on **View Instances** to see it's status.
-![BurmillaOS on AWS 4](/docs/images/BurmillaOS_aws4.png)
+![BurmillaOS on AWS 4](/images/BurmillaOS_aws4.png)
     Your instance is now running!
-![BurmillaOS on AWS 5](/docs/images/BurmillaOS_aws5.png)
+![BurmillaOS on AWS 5](/images/BurmillaOS_aws5.png)
 
 ## Logging into BurmillaOS
 

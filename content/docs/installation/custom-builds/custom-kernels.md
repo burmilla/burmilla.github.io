@@ -58,7 +58,7 @@ Your kernel should be packaged and published as a set of files of the following 
 
 ## Building a BurmillaOS release using the Packaged kernel files.
 
-By default, BurmillaOS ships with the kernel provided by the [os-kernel repository](https://github.com/burmilla/os-kernel). Swapping out the default kernel can by done by [building your own custom BurmillaOS ISO](/docs/installation/custom-builds/custom-burmillaos-iso/).
+By default, BurmillaOS ships with the kernel provided by the [os-kernel repository](https://github.com/burmilla/os-kernel). Swapping out the default kernel can by done by [building your own custom BurmillaOS ISO](/docs/installation/custom-builds/custom-burmillaos-iso).
 
 Create a clone of the main [BurmillaOS repository](https://github.com/burmilla/os) to your local machine with a `git clone`.
 
@@ -74,6 +74,6 @@ ARG KERNEL_VERSION_amd64=4.14.63-burmilla
 ARG KERNEL_URL_amd64=https://link/xxxx
 ```
 
-After you've replaced the URL with your custom kernel, you can follow the steps in [building your own custom BurmillaOS ISO](/docs/installation/custom-builds/custom-burmillaos-iso/).
+After you've replaced the URL with your custom kernel, you can follow the steps in [building your own custom BurmillaOS ISO](/docs/installation/custom-builds/custom-burmillaos-iso).
 
 > **Note:** `KERNEL_URL` settings should point to a Linux kernel, compiled and packaged in a specific way. You can fork [os-kernel repository](https://github.com/burmilla/os-kernel) to package your own kernel.

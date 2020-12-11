@@ -20,7 +20,7 @@ VMWare     | 1GB
 GCE        | 1GB
 AWS        | 1GB
 
-You can adjust memory requirements by custom building BurmillaOS, please refer to [reduce-memory-requirements](/docs/installation/custom-builds/custom-burmillaos-iso/#reduce-memory-requirements)
+You can adjust memory requirements by custom building BurmillaOS, please refer to [reduce-memory-requirements](/docs/installation/custom-builds/custom-burmillaos-iso#reduce-memory-requirements)
 
 ## How BurmillaOS Works
 
@@ -34,7 +34,7 @@ System Docker runs a special container called **Docker**, which is another Docke
 
 ## Running BurmillaOS
 
-To get started with BurmillaOS, head over to our [Quick Start Guide](/docs/quick-start-guide/).
+To get started with BurmillaOS, head over to our [Quick Start Guide](/docs/quick-start-guide).
 
 ## Latest Release
 

@@ -1,12 +1,12 @@
 # Custom Console
 
-When [booting from the ISO](/installation/workstation//boot-from-iso/), BurmillaOS starts with the default console, which is based on busybox.
+When [booting from the ISO](/docs/installation/workstation/boot-from-iso), BurmillaOS starts with the default console, which is based on busybox.
 
-You can select which console you want BurmillaOS to start with using the [cloud-config](/configuration/#cloud-config).
+You can select which console you want BurmillaOS to start with using the [cloud-config](/docs/configuration/#cloud-config).
 
 ### Enabling Consoles using Cloud-Config
 
-When launching BurmillaOS with a [cloud-config](/configuration/#cloud-config) file, you can select which console you want to use.
+When launching BurmillaOS with a [cloud-config](/docs/configuration/#cloud-config) file, you can select which console you want to use.
 
 Currently, the list of available consoles are:
 
@@ -89,7 +89,7 @@ All consoles except the default (busybox) console are persistent. Persistent con
 
 <br>
 
-> **Note:** When using a persistent console and in the current version's console, [rolling back](/upgrading/#rolling-back-an-upgrade) is not supported. For example, rolling back to v0.4.5 when using a v0.5.0 persistent console is not supported.
+> **Note:** When using a persistent console and in the current version's console, [rolling back](/docs/installation/upgrading#rolling-back-an-upgrade) is not supported. For example, rolling back to v0.4.5 when using a v0.5.0 persistent console is not supported.
 
 ### Enabling Consoles
 

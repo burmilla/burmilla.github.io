@@ -1,6 +1,6 @@
 # Installing to Disk
 
-BurmillaOS comes with a simple installer that will install BurmillaOS on a given target disk. To install BurmillaOS on a new disk, you can use the `ros install` command. Before installing, you'll need to have already [booted BurmillaOS from ISO](/installation/workstation//boot-from-iso). Please be sure to pick the `burmillaos.iso` from our release [page](https://github.com/burmilla/os/releases).
+BurmillaOS comes with a simple installer that will install BurmillaOS on a given target disk. To install BurmillaOS on a new disk, you can use the `ros install` command. Before installing, you'll need to have already [booted BurmillaOS from ISO](/docs/installation/workstation//boot-from-iso). Please be sure to pick the `burmillaos.iso` from our release [page](https://github.com/burmilla/os/releases).
 
 ## Installing BurmillaOS
 

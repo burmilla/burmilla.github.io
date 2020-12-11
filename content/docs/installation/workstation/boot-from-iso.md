@@ -17,4 +17,4 @@ You must boot with enough memory which you can refer to [here](/#hardware-requir
 
 ## Install to Disk
 
-After you boot BurmillaOS from ISO, you can follow the instructions [here](/docs/installation/server/install-to-disk/) to install BurmillaOS to a hard disk.
+After you boot BurmillaOS from ISO, you can follow the instructions [here](/docs/installation/server/install-to-disk) to install BurmillaOS to a hard disk.

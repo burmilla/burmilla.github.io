@@ -4,7 +4,7 @@ weight: 1
 ---
 # Switching Docker Versions
 
-The version of User Docker used in BurmillaOS can be configured using a [cloud-config](/configuration/#cloud-config) file or by using the `ros engine` command.
+The version of User Docker used in BurmillaOS can be configured using a [cloud-config](/docs/configuration/#cloud-config) file or by using the `ros engine` command.
 
 > **Note:** There are known issues in Docker when switching between versions. For production systems, we recommend setting the Docker engine only once [using a cloud-config](#setting-the-docker-engine-using-cloud-config).
 
@@ -13,8 +13,10 @@ The version of User Docker used in BurmillaOS can be configured using a [cloud-c
 The `ros engine list` command can be used to show which Docker engines are available to switch to. This command will also provide details of which Docker engine is currently being used.
 
 ```shell
-$ sudo ros engine list
+$ sudo ros engine list --update
 current  docker-19.03.13
+disabled docker-19.03.14
+disabled docker-20.10.0
 ```
 
 ## Setting the Docker engine using cloud-config
@@ -90,7 +92,7 @@ FROM scratch
 COPY engine /engine
 ```
 
-Once the image is built a [system service](/system-services/) configuration file must be created. An [example file](https://github.com/burmilla/os-services/blob/master/d/docker-19.03.13.yml) can be found in the burmilla/os-services repo. Change the `image` field to point to the Docker engine image you've built.
+Once the image is built a [system service](/docs/system-services/) configuration file must be created. An [example file](https://github.com/burmilla/os-services/blob/master/d/docker-19.03.13.yml) can be found in the burmilla/os-services repo. Change the `image` field to point to the Docker engine image you've built.
 
 All of the previously mentioned methods of switching Docker engines are now available. For example, if your service file is located at `https://myservicefile` then the following cloud-config file could be used to use your custom Docker engine.
 

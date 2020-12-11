@@ -3,7 +3,7 @@ weight: 1
 ---
 # Quick Start
 
-If you have a specific BurmillaOS [machine requirements](/#hardware-requirements), please check out our [guides on running BurmillaOS](/docs/installation). With the rest of this guide, we'll start up a BurmillaOS using [Docker machine](/docs/installation/workstation/docker-machine/) and show you some of what BurmillaOS can do.
+If you have a specific BurmillaOS [machine requirements](/#hardware-requirements), please check out our [guides on running BurmillaOS](/docs/installation). With the rest of this guide, we'll start up a BurmillaOS using [Docker machine](/docs/installation/workstation/docker-machine) and show you some of what BurmillaOS can do.
 
 ## Launching BurmillaOS using Docker Machine
 
@@ -93,7 +93,7 @@ $ sudo system-docker run -d --net=host --name busydash husseingalal/busydash
 ```
 In the command, we used `--net=host` to tell System Docker not to containerize the container's networking, and use the host’s networking instead. After running the container, you can see the monitoring server by accessing `http://<IP_OF_MACHINE>`.
 
-![System Docker Container](/docs/images/busydash.png)
+![System Docker Container](/images/busydash.png)
 
 
 To make the container survive during the reboots, you can create the `/opt/burmilla/bin/start.sh` script, and add the Docker start line to launch the Docker at each startup.
@@ -122,7 +122,7 @@ $ sudo ros config get burmilla.network.dns.nameservers
 ```
 
 
-When using the native Busybox console, any changes to the console will be lost after reboots, only changes to `/home` or `/opt` will be persistent. You can use the `ros console switch` command to switch to a [persistent console](/docs/installation/custom-builds/custom-console/#console-persistence) and replace the native Busybox console. For example, to switch to the Ubuntu console:
+When using the native Busybox console, any changes to the console will be lost after reboots, only changes to `/home` or `/opt` will be persistent. You can use the `ros console switch` command to switch to a [persistent console](/docs/installation/custom-builds/custom-console#console-persistence) and replace the native Busybox console. For example, to switch to the Ubuntu console:
 
 ```bash
 $ sudo ros console switch ubuntu

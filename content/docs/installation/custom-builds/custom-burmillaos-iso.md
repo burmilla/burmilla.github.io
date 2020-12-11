@@ -12,7 +12,7 @@ Create a clone of the main [BurmillaOS repository](https://github.com/burmilla/o
 $ git clone https://github.com/burmilla/os.git
 ```
 
-In the root of the repository, the "General Configuration" section of `Dockerfile.dapper` can be updated to use [custom kernels](/installation/custom-builds/custom-kernels).
+In the root of the repository, the "General Configuration" section of `Dockerfile.dapper` can be updated to use [custom kernels](/docs/installation/custom-builds/custom-kernels).
 After you've saved your edits, run `make` in the root directory. After the build has completed, a `./dist/artifacts` directory will be created with the custom built BurmillaOS release files.
 Build Requirements: `bash`, `make`, `docker` (Docker version >= 1.10.3)
 
@@ -30,7 +30,7 @@ If you need a compressed ISO, you can run this command:
 $ make release
 ```
 
-The `burmillaos.iso` is ready to be used to [boot BurmillaOS from ISO](/docs/installation/workstation/boot-from-iso/) or [launch BurmillaOS using Docker Machine](/docs/installation/workstation/docker-machine).
+The `burmillaos.iso` is ready to be used to [boot BurmillaOS from ISO](/docs/installation/workstation/boot-from-iso) or [launch BurmillaOS using Docker Machine](/docs/installation/workstation/docker-machine).
 
 ## Creating a GCE Image Archive
 

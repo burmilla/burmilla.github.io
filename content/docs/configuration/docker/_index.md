@@ -5,7 +5,7 @@ bookCollapseSection: true
 ---
 # Configuring Docker or System Docker
 
-In BurmillaOS, you can configure System Docker and Docker daemons by using [cloud-config](/configuration/#cloud-config).
+In BurmillaOS, you can configure System Docker and Docker daemons by using [cloud-config](/docs/configuration/#cloud-config).
 
 ## Configuring Docker
 
@@ -63,7 +63,7 @@ Key | Value | Default | Description
 ---|---|---| ---
 `extra_args` | List of Strings | `[]` | Arbitrary daemon arguments, appended to the generated command
 `environment` | List of Strings | `[]` |
-`tls` | Boolean | `false` | When [setting up TLS](/configuration/setting-up-docker-tls/), this key needs to be set to true.
+`tls` | Boolean | `false` | When [setting up TLS](/docs/configuration/docker/setting-up-docker-tls), this key needs to be set to true.
 `tls_args` | List of Strings (used only if `tls: true`) | `[]` |
 `server_key` | String (used only if `tls: true`)| `""` | PEM encoded server TLS key.
 `server_cert` | String (used only if `tls: true`) | `""` | PEM encoded server TLS certificate.
@@ -117,7 +117,7 @@ $ ros config set burmilla.system_docker.bip 172.19.0.0/16
 ```
 
 The default path of system-docker logs is `/var/log/system-docker.log`. If you want to write the system-docker logs to a separate partition,
-e.g. [BURMILLA_OEM partition](/about/custom-partition-layout/#use-burmilla-oem-partition), you can try `burmilla.defaults.system_docker_logs`:
+e.g. [BURMILLA_OEM partition](/docs/storage/custom-partition-layout#BURMILLA_OEM), you can try `burmilla.defaults.system_docker_logs`:
 
 ```
 #cloud-config

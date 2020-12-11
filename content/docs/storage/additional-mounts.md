@@ -19,7 +19,7 @@ As you will use the `ros` cli most probably, it would look like this:
 ros config set mounts '[["/dev/vdb","/mnt/s","ext4",""]]'
 ```
 
-> *Note:* You need to pre-format the disks, BurmillaOS will not do this for you. The mount will not work (silently) until you formatted the disk or enabled [autoformatting](/docs/storage/state-partition/#autoformat).
+> *Note:* You need to pre-format the disks, BurmillaOS will not do this for you. The mount will not work (silently) until you formatted the disk or enabled [autoformatting](/docs/storage/state-partition#autoformat).
 
 ```bash
 mkfs.ext4 /dev/vdb

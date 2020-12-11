@@ -14,7 +14,7 @@ BurmillaOS is available as an image in Aliyun, and can be easily run in Elastic 
 
 Example:
 
-![BurmillaOS on Aliyun 1](/docs/images/BurmillaOS_aliyun1.jpg)
+![BurmillaOS on Aliyun 1](/images/BurmillaOS_aliyun1.jpg)
 
 ## Options
 
@@ -30,6 +30,6 @@ After the image is uploaded, we can use the `Aliyun Console` to start a new inst
 
 Since the image is private, we need to use the `Custom Images`.
 
-![BurmillaOS on Aliyun 2](/docs/images/BurmillaOS_aliyun2.jpg)
+![BurmillaOS on Aliyun 2](/images/BurmillaOS_aliyun2.jpg)
 
 After the instance is successfully started, we can login with the `burmilla` user via SSH.

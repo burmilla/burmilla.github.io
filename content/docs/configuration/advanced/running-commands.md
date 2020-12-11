@@ -33,4 +33,4 @@ write_files:
       docker run -d nginx
 ```
 
-Running Docker commands in this manner is useful when pieces of the `docker run` command are dynamically generated. For services whose configuration is static, [adding a system service](/system-services/) is recommended.
+Running Docker commands in this manner is useful when pieces of the `docker run` command are dynamically generated. For services whose configuration is static, [adding a system service](/docs/system-services/) is recommended.

@@ -1,6 +1,6 @@
 # Custom System Services
 
-You can also create your own system service in [Docker Compose](https://docs.docker.com/compose/) format. After creating your own custom service, you can launch it in BurmillaOS in a couple of methods. The service could be directly added to the [cloud-config](/configuration/#cloud-config), or a `docker-compose.yml` file could be saved at a http(s) url location or in a specific directory of BurmillaOS.
+You can also create your own system service in [Docker Compose](https://docs.docker.com/compose/) format. After creating your own custom service, you can launch it in BurmillaOS in a couple of methods. The service could be directly added to the [cloud-config](/docs/configuration/#cloud-config), or a `docker-compose.yml` file could be saved at a http(s) url location or in a specific directory of BurmillaOS.
 
 ## Launching Services
 ### Using Cloud-Config

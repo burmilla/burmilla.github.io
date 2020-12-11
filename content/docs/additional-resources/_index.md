@@ -61,7 +61,7 @@ All of repositories are located within our main GitHub [page](https://github.com
 
 [BurmillaOS Repo](https://github.com/burmilla/os): This repo contains the bulk of the BurmillaOS code.
 
-[BurmillaOS Services Repo](https://github.com/burmilla/os-services): This repo is where any [system-services](/system-services/) can be contributed.
+[BurmillaOS Services Repo](https://github.com/burmilla/os-services): This repo is where any [system-services](/docs/system-services/) can be contributed.
 
 [BurmillaOS Images Repo](https://github.com/burmilla/os-images): This repo is for the corresponding service images.
 
