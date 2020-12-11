@@ -11,11 +11,6 @@ When launching BurmillaOS with a [cloud-config](/configuration/#cloud-config) fi
 Currently, the list of available consoles are:
 
 * default
-* alpine
-* centos
-* debian
-* fedora
-* ubuntu
 
 Here is an example cloud-config file that can be used to enable the debian console.
 
@@ -31,12 +26,7 @@ You can easily list the available consoles in BurmillaOS and what their status i
 
 ```
 $ sudo ros console list
-disabled alpine
-disabled centos
-disabled debian
 current  default
-disabled fedora
-disabled ubuntu
 ```
 
 ### Changing Consoles after BurmillaOS has started

@@ -1,8 +1,11 @@
+---
+title: Google Compute Engine (GCE)
+---
 # Google Compute Engine (GCE)
 
 > **Note:** Due to the maximum transmission unit (MTU) of [1460 bytes on GCE](https://cloud.google.com/compute/docs/troubleshooting#packetfragmentation), you will need to configure your [network interfaces](networking/interfaces/) and both the [Docker and System Docker](/configuration/docker/) to use a MTU of 1460 bytes or you will encounter weird networking related errors.
 
-### Adding the BurmillaOS Image into GCE
+## Adding the BurmillaOS Image into GCE
 
 BurmillaOS is available as an image in GCE, and can be easily run in Google Compute Engine (GCE).  Let’s walk through how to upload GCE image.
 
@@ -11,62 +14,62 @@ BurmillaOS is available as an image in GCE, and can be easily run in Google Comp
 3. Follow Google's instructions on how to [import a RAW image](https://cloud.google.com/compute/docs/images/import-existing-image#use_saved_image).
 4. Once the image is added to your Google Compute Engine, we can start creating new instances!
 
-### Launching BurmillaOS using `gcloud compute`
+## Launching BurmillaOS using `gcloud compute`
 
 After the image is uploaded, we can use the `gcloud compute` [command-line tool](https://cloud.google.com/compute/docs/gcloud-compute/) to start a new instance. It automatically merges the SSH keys from the project and adds the keys to the **burmilla** user. If you don't have any project level SSH keys, go to the _Adding SSH Keys_ section to learn more about adding SSH keys.
 
 Since the image is private, we need to follow Google's [instructions](https://cloud.google.com/compute/docs/creating-custom-image#start_an_instance_from_a_custom_image).
 
-```
+```bash
 $ gcloud compute instances create --project <PROJECT_ID> --zone <ZONE_TO_CREATE_INSTANCE> <INSTANCE_NAME> --image <PRIVATE_IMAGE_NAME>
 ```
 
-### Using a Cloud Config File with GCE
+## Using a Cloud Config File with GCE
 
 If you want to pass in your own cloud config file that will be processed by [cloud init](/configuration/#cloud-config), you can pass it as metadata upon creation of the instance during the `gcloud compute` command. The file will need to be stored locally before running the command. The key of the metadata will be `user-data` and the value is the location of the file. If any SSH keys are added in the cloud config file, it will also be added to the **burmilla** user.
 
-```
+```bash
 $ gcloud compute instances create --project <PROJECT_ID> --zone <ZONE_TO_CREATE_INSTANCE> <INSTANCE_NAME> --image <PRIVATE_IMAGE_NAME> --metadata-from-file user-data=/Directory/of/Cloud_Config.yml
 ```
 
-**Adding your Cloud Config to Existing Instance**
+### Adding your Cloud Config to Existing Instance
 
 If you have already created the instance, you can still add the cloud config file after the instance is created. You will just need to reset the machine after you've added the metadata.
 
-```
+```bash
 $ gcloud compute instances add-metadata <INSTANCE_NAME> --metadata-from-file user-data=/Directory/of/File --project <PROJECT_ID> --zone <ZONE_OF_INSTANCE>
 Updated [https://www.googleapis.com/compute/v1/projects/PROJECT_ID/zones/ZONE_OF_INSTANCE/instances/INSTANCE_NAME].
 $ gcloud compute instances reset <INSTANCE_NAME> --project <PROJECT_ID> --zone <ZONE_OF_INSTANCE>
 Updated [https://www.googleapis.com/compute/v1/projects/PROJECT_ID/zones/ZONE_OF_INSTANCE/instances/INSTANCE_NAME].
 ```
 
-**Reviewing your Cloud Config**
+### Reviewing your Cloud Config
 
 If you want to review the cloud config file for your instance, review the **metadata** section:
 
-```
+```bash
 $ gcloud compute instances describe <INSTANCE_NAME> --project <PROJECT_ID> --zone <ZONE_OF_INSTANCE>
 ```
 
-**Removing your Cloud Config**
+### Removing your Cloud Config
 
 If you want to remove your cloud config file, use the following command to remove the metadata.
 
-```
+```bash
 $ gcloud compute instances remove-metadata <INSTANCE_NAME> --project <PROJECT_ID> --zone <ZONE_OF_INSTANCE> --keys user-data
 Updated [https://www.googleapis.com/compute/v1/projects/PROJECT_ID/zones/ZONE_OF_INSTANCE/instances/INSTANCE_NAME].
 ```
 
-**Resetting your Instance**
+### Resetting your Instance
 
 After any changes to the cloud config file, you'll need to reset the machine. You can reset either using the console or using this command:
 
-```
+```bash
 $ gcloud compute instances reset <INSTANCE_NAME> --project <PROJECT_ID> --zone <ZONE_OF_INSTANCE>
 Updated [https://www.googleapis.com/compute/v1/projects/PROJECT_ID/zones/ZONE_OF_INSTANCE/instances/INSTANCE_NAME].
 ```
 
-### Launching BurmillaOS using the Google Console
+## Launching BurmillaOS using the Google Console
 
 After the image is uploaded, it's easy to use the console to create new instances. You will **not** be able to upload your own cloud config file when creating instances through the console. You can add it after the instance is created using `gcloud compute` commands and resetting the instance.
 
@@ -78,7 +81,7 @@ After the image is uploaded, it's easy to use the console to create new instance
 ![BurmillaOS on GCE 6](https://raw.githubusercontent.com/burmilla/burmilla.github.io/master/img/BurmillaOS_gce6.png)
 3. Your instance is being created and will be up and running shortly!
 
-#### Adding SSH keys
+### Adding SSH keys
 
 In order to SSH into the GCE instance, you will need to have SSH keys set up in either the project instance, add them to the instance after the instance is created, or add them using the `gcloud compute` commands to add meta-data to an instance.
 

@@ -1,9 +1,10 @@
 ---
 title: iPXE
+bookToc: false
 ---
 # iPXE
 
-```
+```bash
 #!ipxe
 # Boot a persistent BurmillaOS to RAM
 
@@ -19,14 +20,16 @@ If you want to autoformat the disk when booting by iPXE, you should add the `bur
 
 If you don't add `burmilla.state.autoformat`, BurmillaOS will run completely in memory, you can execute `ros install` to install to disk.
 
-### Hiding sensitive kernel commandline parameters
+## Hiding sensitive kernel commandline parameters
 
-From BurmillaOS v0.9.0, secrets can be put on the `kernel` parameters line afer a `--` double dash, and they will be not be shown in any `/proc/cmdline`. These parameters
+_Available as of RancherOS v0.9_
+
+Secrets can be put on the `kernel` parameters line afer a `--` double dash, and they will be not be shown in any `/proc/cmdline`. These parameters
 will be passed to the BurmillaOS init process and stored in the `root` accessible `/var/lib/burmilla/conf/cloud-init.d/init.yml` file, and are available to the root user from the `ros config` commands.
 
 For example, the `kernel` line above could be written as:
 
-```
+```bash
 kernel ${base-url}/vmlinuz burmilla.state.dev=LABEL=BURMILLA_STATE burmilla.state.autoformat=[/dev/sda] -- burmilla.cloud_init.datasources=[url:http://example.com/cloud-config]
 ```
 
@@ -34,7 +37,7 @@ The hidden part of the command line can be accessed with either `sudo ros config
 
 An example service.yml file:
 
-```
+```yaml
 test:
   image: alpine
   command: echo "tell me a secret ${EXTRA_CMDLINE}"
@@ -63,11 +66,11 @@ Valid cloud-init datasources for BurmillaOS.
 | cmdline | Kernel command line: `cloud-config-url=http://link/user_data` |
 | configdrive | /media/config-2 |
 | url | URL address |
-| vmware| Set `guestinfo` cloud-init or interface data as per [VMware ESXi](/installation/cloud/vmware-esxi) |
+| vmware| Set `guestinfo` cloud-init or interface data as per [VMware ESXi](/docs/installation/cloud/vmware-esxi) |
 | * | This will add ["configdrive", "vmware", "ec2", "digitalocean", "packet", "gce"] into the list of datasources to try |
 
 The vmware datasource was added as of v1.1.
 
 ### Cloud-Config
 
-When booting via iPXE, BurmillaOS can be configured using a [cloud-config file](/configuration/#cloud-config).
+When booting via iPXE, BurmillaOS can be configured using a [cloud-config file](/docs/configuration/base/#cloud-config).

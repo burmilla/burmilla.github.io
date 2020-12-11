@@ -1,14 +1,17 @@
+---
+bookToc: false
+---
 # Raspberry Pi
 
 BurmillaOS releases include a Raspberry Pi image that can be found on our [releases page](https://github.com/burmilla/os/releases). The official Raspberry Pi documentation contains instructions on how to [install operating system images](https://www.raspberrypi.org/documentation/installation/installing-images/).
 
-When installing, there is no ability to pass in a [cloud-config](/configuration/#cloud-config). You will need to boot up, change the configuration and then reboot to apply those changes.
+When installing, there is no ability to pass in a [cloud-config](/docs/configuration/base/#cloud-config). You will need to boot up, change the configuration and then reboot to apply those changes.
 
 Currently, only Raspberry Pi 3 is tested and known to work.
 
 > **Note:** It is not necessary to run `ros install` after installing BurmillaOS to an SD card.
 
-### Using the entire SD Card
+## Using the entire SD Card
 
 BurmillaOS does not currently expand the root partition to fill the remainder of the SD card automatically. Instead, the following workaround can be used to store Docker containers on a larger partition that fills the remainder.
 
@@ -27,9 +30,9 @@ If this is not a new installation, you'll have to copy over your existing Docker
 1. `sudo cp -R /var/lib/docker/* /mnt/docker` to recursively copy all files
 2. `sudo system-docker restart docker` to restart Docker using the new root
 
-### Using Wi-Fi
+## Using Wi-Fi
 
-_Available as of v1.5.2_
+_Available as of RancherOS v1.5.2_
 
 Here are steps about how to enable Wi-Fi on a Raspberry Pi:
 

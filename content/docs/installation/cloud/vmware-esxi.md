@@ -1,3 +1,7 @@
+---
+title: VMware ESXi
+bookToc: false
+---
 # VMware ESXi
 
 BurmillaOS automatically detects that it is running on VMware ESXi, and automatically adds the `open-vm-tools` service to be downloaded and started, and uses `guestinfo` keys to set the cloud-init data.

@@ -1,8 +1,11 @@
+---
+bookToc: false
+---
 # Azure
 
 BurmillaOS has been published in Azure Marketplace, you can get it from [here](https://azuremarketplace.microsoft.com/en-us/marketplace/apps/burmilla.burmillaos).
 
-### Launching BurmillaOS through the Azure Portal
+## Launching BurmillaOS through the Azure Portal
 
 Using the new Azure Resource Management portal, click on **Marketplace**. Search for **BurmillaOS**. Click on **Create**.
 
@@ -22,16 +25,16 @@ After the VM has been provisioned, click on the VM to find the public IP address
 $ ssh burmilla@<public_ip_of_vm> -p 22
 ```
 
-### Launching BurmillaOS with custom data
+## Launching BurmillaOS with custom data
 
-_Available as of v1.5.2_
+_Available as of RancherOS v1.5.2_
 
 Instance Metadata Service provides the ability for the VM to have access to its custom data. The binary data must be less than 64 KB and is provided to the VM in base64 encoded form.
 You can get more details from [here](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/instance-metadata-service#custom-data)
 
 For example, you can add custom data through [CLI](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/cli-ps-findimage):
 
-```
+```bash
 # list images from marketplace
 az vm image list --location westus --publisher Rancher --offer burmillaos --sku os --all --output table
 
@@ -60,7 +63,7 @@ az vm create --resource-group mygroup \
 
 The `custom_data.txt` can be the cloud-config format or a shell script, such as:
 
-```
+```yaml
 #cloud-config
 runcmd:
 - [ touch, /home/burmilla/test1 ]

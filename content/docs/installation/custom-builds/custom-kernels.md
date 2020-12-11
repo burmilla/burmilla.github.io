@@ -1,28 +1,30 @@
+---
+bookToc: true
+---
 # Custom Kernels
 
-### Kernel version in BurmillaOS
+## Kernel version in BurmillaOS
 
 BurmillaOS basically uses the standard Linux kernel, but we maintain a kernel config ourselves. Due to various feature support and security fixes, we are constantly updating the kernel version.
 
 BurmillaOS | Kernel
 --------- | ------
-<=v0.7.1  | 4.4.x
-<=v1.3.0  | 4.9.x
->=v1.4.0  | 4.14.x
+=v2.0.x   | 5.9.x
+=v1.9.x   | 4.14.x
 
-### Building and Packaging a Kernel to be used in BurmillaOS
+## Building and Packaging a Kernel to be used in BurmillaOS
 
 We build the kernel for BurmillaOS at the [os-kernel repository](https://github.com/burmilla/os-kernel). You can use this repository to help package your own custom kernel to be used in BurmillaOS.
 
 Create a clone of the [os-kernel](https://github.com/burmilla/os-kernel) repository to your local machine using `git clone`.
 
-```
+```bash
 $ git clone https://github.com/burmilla/os-kernel.git
 ```
 
 If you want to build kernel v4.14.53, you can refer to the following command. After the build is completed, a `./dist/kernel` directory will be created with the freshly built kernel tarball and headers.
 
-```
+```bash
 $ git tag v4.14.53-burmilla
 $ KERNEL_TAG=4.14.53 make release
 ...snip...
@@ -54,24 +56,24 @@ Your kernel should be packaged and published as a set of files of the following 
 
 3. `extra-<kernel-name-and-version>.tar.gz` contains extra modules and firmware for your kernel and should be built into a `kernel-extras` service.
 
-### Building a BurmillaOS release using the Packaged kernel files.
+## Building a BurmillaOS release using the Packaged kernel files.
 
-By default, BurmillaOS ships with the kernel provided by the [os-kernel repository](https://github.com/burmilla/os-kernel). Swapping out the default kernel can by done by [building your own custom BurmillaOS ISO](/installation/custom-builds/custom-burmillaos-iso/).
+By default, BurmillaOS ships with the kernel provided by the [os-kernel repository](https://github.com/burmilla/os-kernel). Swapping out the default kernel can by done by [building your own custom BurmillaOS ISO](/docs/installation/custom-builds/custom-burmillaos-iso/).
 
 Create a clone of the main [BurmillaOS repository](https://github.com/burmilla/os) to your local machine with a `git clone`.
 
-```
+```bash
 $ git clone https://github.com/burmilla/os.git
 ```
 
 In the root of the repository, the "General Configuration" section of `Dockerfile.dapper` will need to be updated. Using your favorite editor, replace the appropriate `KERNEL_URL` value with a URL of your compiled custom kernel tarball. Ideally, the URL will use `HTTPS`.
 
-```
+```bash
 # Update the URL to your own custom kernel tarball
 ARG KERNEL_VERSION_amd64=4.14.63-burmilla
 ARG KERNEL_URL_amd64=https://link/xxxx
 ```
 
-After you've replaced the URL with your custom kernel, you can follow the steps in [building your own custom BurmillaOS ISO](/installation/custom-builds/custom-burmillaos-iso/).
+After you've replaced the URL with your custom kernel, you can follow the steps in [building your own custom BurmillaOS ISO](/docs/installation/custom-builds/custom-burmillaos-iso/).
 
 > **Note:** `KERNEL_URL` settings should point to a Linux kernel, compiled and packaged in a specific way. You can fork [os-kernel repository](https://github.com/burmilla/os-kernel) to package your own kernel.
