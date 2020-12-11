@@ -1,3 +1,6 @@
+---
+weight: 2
+---
 # Upgrading
 
 If BurmillaOS has released a new version and you want to learn how to upgrade your OS, we make it easy using the `ros os` command.
@@ -6,46 +9,41 @@ Since BurmillaOS is a kernel and initrd, the upgrade process is downloading a ne
 
 Before upgrading to any version, please review the release notes on our [releases page](https://github.com/burmilla/os/releases) in GitHub to review any updates in the release.
 
-> **Note:** If you are using [`docker-machine`](/installation/workstation//docker-machine/) then you will not be able to upgrade your BurmillaOS version. You need to delete and re-create the machine.
+> **Note:** If you are using [`docker-machine`](/installation/workstation/docker-machine/) then you will not be able to upgrade your BurmillaOS version. You need to delete and re-create the machine.
 
 
-### Version Control
+## Version Control
 
 First, let's check what version you have running on your system.
 
-```
+```bash
 $ sudo ros os version
-v0.4.5
+v1.9.0
 ```
 
 If you just want to find out the available releases from the command line, it's a simple command.
 
-```
+```bash
 # List all available releases
 $ sudo ros os list
-burmilla/os:v0.4.0 remote
-burmilla/os:v0.4.1 remote
-burmilla/os:v0.4.2 remote
-burmilla/os:v0.4.3 remote
-burmilla/os:v0.4.4 remote
-burmilla/os:v0.4.5 remote
-burmilla/os:v0.5.0 local
+burmilla/os:v1.9.0 local latest running
+burmilla/os:v1.9.0-rc1 remote available
 ```
 
 The `local`/`remote` label shows which images are available to System Docker locally versus which need to be pulled from Docker Hub. If you choose to upgrade to a version that is remote, we will automatically pull that image during the upgrade.
 
-### Upgrading
+## Upgrading
 
 Let's walk through upgrading! The `ros os upgrade` command will automatically upgrade to the current release of BurmillaOS. The current release is designated as the most recent release of BurmillaOS.
 
-```
+```bash
 $ sudo ros os upgrade
-Upgrading to burmilla/os:v0.5.0
+Upgrading to burmilla/os:v1.9.0
 ```
 
 Confirm that you want to continue and the final step will be to confirm that you want to reboot.
 
-```
+```bash
 Continue [y/N]: y
 ...
 ...
@@ -56,18 +54,18 @@ INFO[0037] Rebooting
 
 After rebooting, you can check that your version has been updated.
 
-```
+```bash
 $ sudo ros -v
 ros version v0.5.0
 ```
 
-> **Note:** If you are booting from ISO and have not installed to disk, your upgrade will not be saved. You can view our guide to [installing to disk](/installation/server/install-to-disk/).
+> **Note:** If you are booting from ISO and have not installed to disk, your upgrade will not be saved. You can view our guide to [installing to disk](/docs/installation/server/install-to-disk/).
 
 #### Upgrading to a Specific Version
 
 If you are a couple of versions behind the current version, use the `-i` option to pick the version that you want to upgrade to.
 
-```
+```bash
 $ sudo ros os upgrade -i burmilla/os:v0.5.0
 Upgrading to burmilla/os:v0.5.0
 Continue [y/N]: y
@@ -90,7 +88,7 @@ If you've upgraded your BurmillaOS and something's not working anymore, you can 
 
 The `ros os upgrade` command works for rolling back. We'll use the `-i` option to "upgrade" to a specific version. All you need to do is pick the previous version! Same as before, you will be prompted to confirm your upgrade version as well as confirm your reboot.
 
-```
+```bash
 $ sudo ros -v
 ros version v0.4.5
 $ sudo ros os upgrade -i burmilla/os:v0.4.4
@@ -104,21 +102,21 @@ INFO[0082] Rebooting
 ```
 After rebooting, the rollback will be complete.
 
-```
+```bash
 $ sudo ros -v
 ros version 0.4.4
 ```
 
 <br>
 
-> **Note:** If you are using a [persistent console](/installation/custom-builds/custom-console/#console-persistence) and in the current version's console, rolling back is not supported. For example, rolling back to v0.4.5 when using a v0.5.0 persistent console is not supported.
+> **Note:** If you are using a [persistent console](/docs/installation/custom-builds/custom-console/#console-persistence) and in the current version's console, rolling back is not supported. For example, rolling back to v0.4.5 when using a v0.5.0 persistent console is not supported.
 
 ### Staging an Upgrade
 
 During an upgrade, the template of the upgrade is downloaded from the burmilla/os repository. You can download this template ahead of time so that it's saved locally. This will decrease the time it takes to upgrade. We'll use the `-s` option to stage the specific template. You will need to specify the image name with the `-i` option, otherwise it will automatically stage the current version.
 
-```
-$ sudo ros os upgrade -s -i burmilla/os:v0.5.0
+```bash
+$ sudo ros os upgrade -s -i burmilla/os:v1.9.0
 ```
 
 ### Custom Upgrade Sources

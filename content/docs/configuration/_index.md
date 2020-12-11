@@ -1,5 +1,1 @@
----
-title: Configuration
-weight: 1
-bookCollapseSection: true
----
+base/_index.md

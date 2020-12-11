@@ -2,7 +2,6 @@
 title: Disabling Access to BurmillaOS
 weight: 1
 bookToc: false
-bookCollapseSection: true
 ---
 # Disabling Access to BurmillaOS
 In BurmillaOS, you can set `burmilla.password` as a kernel parameter and `auto-login` to be enabled, but there may be some cases where we want to disable both of these options. Both of these options can be disabled in the cloud-config or as part of a `ros` command.

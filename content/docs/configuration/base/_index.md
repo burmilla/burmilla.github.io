@@ -1,6 +1,5 @@
 ---
-title: Base
-weight: 1
+weight: 3
 bookCollapseSection: true
 ---
 # Configuration
