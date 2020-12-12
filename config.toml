@@ -1,4 +1,4 @@
-baseurl = "http://localhost"
+baseurl = "https://burmillaos.org/"
 languageCode = "en-us"
 title = "BurmillaOS"
 
@@ -17,3 +17,8 @@ pygmentsStyle = "monokai"
   BookRepo = 'https://github.com/burmilla/burmilla.github.io'
   BookPortableLinks = true
   BookServiceWorker = true
+
+[languages]
+  [languages.en]
+    languageName = "English"
+    weight = 1
