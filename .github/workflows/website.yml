@@ -19,6 +19,7 @@ jobs:
           git submodule init
           git submodule update --recursive
           hugo --minify
+          echo -n "burmillaos.org" > public/CNAME
 
       - name: Deploy to GitHub Pages
         if: success()
