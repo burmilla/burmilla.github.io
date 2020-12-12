@@ -5,7 +5,7 @@ bookToc: false
 ---
 # Sysctl Settings
 
-The `burmilla.sysctl` cloud-config key can be used to control sysctl parameters. This works in a manner similar to `/etc/sysctl.conf` for other Linux distros.
+The `rancher.sysctl` cloud-config key can be used to control sysctl parameters. This works in a manner similar to `/etc/sysctl.conf` for other Linux distros.
 
 ```yaml
 #cloud-config

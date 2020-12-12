@@ -3,7 +3,7 @@ bookToc: false
 ---
 # Cloud Init
 
-Userdata and metadata can be fetched from a cloud provider, VM runtime, or management service during the BurmillaOS boot process. Since v0.8.0, this process occurs while BurmillaOS is still running from memory and before System Docker starts. It is configured by the `burmilla.cloud_init.datasources` configuration parameter. For cloud-provider specific images, such as AWS and GCE, the datasource is pre-configured.
+Userdata and metadata can be fetched from a cloud provider, VM runtime, or management service during the BurmillaOS boot process. Since v0.8.0, this process occurs while BurmillaOS is still running from memory and before System Docker starts. It is configured by the `rancher.cloud_init.datasources` configuration parameter. For cloud-provider specific images, such as AWS and GCE, the datasource is pre-configured.
 
 ## Userdata
 

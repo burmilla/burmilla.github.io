@@ -116,7 +116,7 @@ version v1.9.0 from os image burmilla/os:v1.9.0
 BurmillaOS state is controlled by a cloud config file. `ros` is used to edit the configuration of the system, to see for example the dns configuration of the system:
 
 ```bash
-$ sudo ros config get burmilla.network.dns.nameservers
+$ sudo ros config get rancher.network.dns.nameservers
 - 8.8.8.8
 - 8.8.4.4
 ```

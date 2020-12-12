@@ -50,8 +50,8 @@ If you're on OS X, you can run BurmillaOS using [_xhyve_](https://github.com/mis
 
 You can enable extra log information in the console by setting them using `sudo ros config set`,
 or as kernel boot parameters.
-Enable all logging by setting `burmilla.debug` true
-or you can set `burmilla.docker.debug`, `burmilla.system_docker.debug`, `burmilla.bootstrap_docker.debug`, or `burmilla.log` individually.
+Enable all logging by setting `rancher.debug` true
+or you can set `rancher.docker.debug`, `rancher.system_docker.debug`, `rancher.bootstrap_docker.debug`, or `rancher.log` individually.
 
 You will also be able to view the debug logging information by running `dmesg` as root.
 
@@ -70,4 +70,4 @@ All of repositories are located within our main GitHub [page](https://github.com
 
 If you find any bugs or are having any trouble, please contact us by filing an [issue](https://github.com/burmilla/os/issues/new).
 
-If you have any updates to our documentation, please make any PRs to our [docs repo](https://burmilla.github.io).
+If you have any updates to our documentation, please make any PRs to our [docs repo](https://github.com/burmilla/burmilla.github.io).

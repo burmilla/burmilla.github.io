@@ -12,10 +12,10 @@ Remember, all `ros` commands need to be used with `sudo` or as a `root` user.
 
 #### Enable TLS for Docker and Generate Server Certificate
 
-To have docker secured by TLS you need to set `burmilla.docker.tls` to `true`, and generate a set of server and client keys and certificates:
+To have docker secured by TLS you need to set `rancher.docker.tls` to `true`, and generate a set of server and client keys and certificates:
 
 ```
-$ sudo ros config set burmilla.docker.tls true
+$ sudo ros config set rancher.docker.tls true
 $ sudo ros tls gen --server -H localhost -H <hostname1> -H <hostname2> ... -H <hostnameN>
 $ sudo system-docker restart docker
 ```

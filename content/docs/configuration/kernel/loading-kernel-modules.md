@@ -9,12 +9,12 @@ We provide both loading kernel modules with parameters and loading extra kernel 
 
 ## Loading Kernel Modules with parameters
 
-The `burmilla.modules` can help you to set kernel modules or module parameters.
+The `rancher.modules` can help you to set kernel modules or module parameters.
 
 As an example, I'm going to set a parameter for kernel module `ndb`
 
 ```shell
-$ sudo ros config set burmilla.modules "['nbd nbds_max=1024', 'nfs']"
+$ sudo ros config set rancher.modules "['nbd nbds_max=1024', 'nfs']"
 ```
 
 Or

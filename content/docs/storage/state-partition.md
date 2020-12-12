@@ -22,7 +22,7 @@ You can specify a list of devices to check to format on boot. If the state parti
 BurmillaOS will autoformat the partition to `ext4` (_not_ what is set in `fstype`) if the device specified in `autoformat`:
 
 * Contains a boot2docker magic string
-* Starts with 1 megabyte of zeros and `burmilla.state.formatzero` is true
+* Starts with 1 megabyte of zeros and `rancher.ate.formatzero` is true
 
 
 ```yaml

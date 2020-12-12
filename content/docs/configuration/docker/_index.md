@@ -9,7 +9,7 @@ In BurmillaOS, you can configure System Docker and Docker daemons by using [clou
 
 ## Configuring Docker
 
-In your cloud-config, Docker configuration is located under the `burmilla.docker` key.
+In your cloud-config, Docker configuration is located under the `rancher.docker` key.
 
 ```yaml
 #cloud-config
@@ -28,12 +28,12 @@ rancher:
 You can also customize Docker after it's been started using `ros config`.
 
 ```shell
-$ sudo ros config set burmilla.docker.storage_driver overlay
+$ sudo ros config set rancher.docker.storage_driver overlay
 ```
 
 ### User Docker settings
 
-Many of the standard Docker daemon arguments can be placed under the `burmilla.docker` key. The command needed to start the Docker daemon will be generated based on these arguments. The following arguments are currently supported.
+Many of the standard Docker daemon arguments can be placed under the `rancher.docker` key. The command needed to start the Docker daemon will be generated based on these arguments. The following arguments are currently supported.
 
 Key | Value
 ---|---
@@ -86,12 +86,12 @@ rancher:
 The docker0 bridge can be configured with docker args, it will take effect after reboot.
 
 ```
-$ ros config set burmilla.docker.bip 192.168.0.0/16
+$ ros config set rancher.docker.bip 192.168.0.0/16
 ```
 
 ## Configuring System Docker
 
-In your cloud-config, System Docker configuration is located under the `burmilla.system_docker` key.
+In your cloud-config, System Docker configuration is located under the `rancher.system_docker` key.
 
 ```yaml
 #cloud-config
@@ -113,11 +113,11 @@ Key | Value | Default | Description
 The docker-sys bridge can be configured with system-docker args, it will take effect after reboot.
 
 ```
-$ ros config set burmilla.system_docker.bip 172.19.0.0/16
+$ ros config set rancher.system_docker.bip 172.19.0.0/16
 ```
 
 The default path of system-docker logs is `/var/log/system-docker.log`. If you want to write the system-docker logs to a separate partition,
-e.g. [BURMILLA_OEM partition](/docs/storage/custom-partition-layout#BURMILLA_OEM), you can try `burmilla.defaults.system_docker_logs`:
+e.g. [BURMILLA_OEM partition](/docs/storage/custom-partition-layout#BURMILLA_OEM), you can try `rancher.defaults.system_docker_logs`:
 
 ```
 #cloud-config

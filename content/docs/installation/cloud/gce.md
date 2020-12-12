@@ -74,11 +74,11 @@ Updated [https://www.googleapis.com/compute/v1/projects/PROJECT_ID/zones/ZONE_OF
 After the image is uploaded, it's easy to use the console to create new instances. You will **not** be able to upload your own cloud config file when creating instances through the console. You can add it after the instance is created using `gcloud compute` commands and resetting the instance.
 
 1. Make sure you are in the project that the image was created in.
-![BurmillaOS on GCE 4](https://raw.githubusercontent.com/burmilla/burmilla.github.io/master/img/BurmillaOS_gce4.png)
+![BurmillaOS on GCE 4](https://raw.githubusercontent.com/burmilla/rancher.github.io/master/img/BurmillaOS_gce4.png)
 2. In the navigation bar, click on the **VM instances**, which is located at Compute -> Compute Engine -> Metadata.  Click on **Create instance**.
-![BurmillaOS on GCE 5](https://raw.githubusercontent.com/burmilla/burmilla.github.io/master/img/BurmillaOS_gce5.png)
+![BurmillaOS on GCE 5](https://raw.githubusercontent.com/burmilla/rancher.github.io/master/img/BurmillaOS_gce5.png)
 2.  Fill out the information for your instance. In the **Image** dropdown, your private image will be listed among the public images provided by Google. Select the private image for BurmillaOS. Click **Create**.
-![BurmillaOS on GCE 6](https://raw.githubusercontent.com/burmilla/burmilla.github.io/master/img/BurmillaOS_gce6.png)
+![BurmillaOS on GCE 6](https://raw.githubusercontent.com/burmilla/rancher.github.io/master/img/BurmillaOS_gce6.png)
 3. Your instance is being created and will be up and running shortly!
 
 ### Adding SSH keys
@@ -89,7 +89,7 @@ In order to SSH into the GCE instance, you will need to have SSH keys set up in 
 
 In your project, click on **Metadata**, which is located within Compute -> Compute Engine -> Metadata. Click on **SSH Keys**.
 
-![BurmillaOS on GCE 7](https://raw.githubusercontent.com/burmilla/burmilla.github.io/master/img/BurmillaOS_gce7.png)
+![BurmillaOS on GCE 7](https://raw.githubusercontent.com/burmilla/rancher.github.io/master/img/BurmillaOS_gce7.png)
 
 Add the SSH keys that you want to have access to any instances within your project.
 
@@ -99,11 +99,11 @@ Note: If you do this after any BurmillaOS instance is created, you will need to 
 
 After your instance is created, click on the instance name. Scroll down to the **SSH Keys** section and click on **Add SSH key**. This key will only be applicable to the instance.
 
-![BurmillaOS on GCE 8](https://raw.githubusercontent.com/burmilla/burmilla.github.io/master/img/BurmillaOS_gce8.png)
+![BurmillaOS on GCE 8](https://raw.githubusercontent.com/burmilla/rancher.github.io/master/img/BurmillaOS_gce8.png)
 
 After the SSH keys have been added, you'll need to reset the machine, by clicking **Reset**.
 
-![BurmillaOS on GCE 9](https://raw.githubusercontent.com/burmilla/burmilla.github.io/master/img/BurmillaOS_gce9.png)
+![BurmillaOS on GCE 9](https://raw.githubusercontent.com/burmilla/rancher.github.io/master/img/BurmillaOS_gce9.png)
 
 After a little bit, you will be able to SSH into the box using the **burmilla** user.
 

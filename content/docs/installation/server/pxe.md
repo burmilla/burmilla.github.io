@@ -11,14 +11,14 @@ bookToc: false
 # Location of Kernel/Initrd images
 set base-url <url>
 
-kernel ${base-url}/vmlinuz burmilla.state.dev=LABEL=BURMILLA_STATE burmilla.state.autoformat=[/dev/sda] burmilla.state.wait burmilla.cloud_init.datasources=[url:http://example.com/cloud-config]
+kernel ${base-url}/vmlinuz rancher.state.dev=LABEL=BURMILLA_STATE rancher.state.autoformat=[/dev/sda] rancher.state.wait rancher.cloud_init.datasources=[url:http://example.com/cloud-config]
 initrd ${base-url}/initrd
 boot
 ```
 
-If you want to autoformat the disk when booting by iPXE, you should add the `burmilla.state.autoformat` part to kernel cmdline. However, this does not install the bootloader to disk, so you cannot upgrade BurmillaOS.
+If you want to autoformat the disk when booting by iPXE, you should add the `rancher.state.autoformat` part to kernel cmdline. However, this does not install the bootloader to disk, so you cannot upgrade BurmillaOS.
 
-If you don't add `burmilla.state.autoformat`, BurmillaOS will run completely in memory, you can execute `ros install` to install to disk.
+If you don't add `rancher.state.autoformat`, BurmillaOS will run completely in memory, you can execute `ros install` to install to disk.
 
 ## Hiding sensitive kernel commandline parameters
 
@@ -30,10 +30,10 @@ will be passed to the BurmillaOS init process and stored in the `root` accessibl
 For example, the `kernel` line above could be written as:
 
 ```bash
-kernel ${base-url}/vmlinuz burmilla.state.dev=LABEL=BURMILLA_STATE burmilla.state.autoformat=[/dev/sda] -- burmilla.cloud_init.datasources=[url:http://example.com/cloud-config]
+kernel ${base-url}/vmlinuz rancher.state.dev=LABEL=BURMILLA_STATE rancher.state.autoformat=[/dev/sda] -- rancher.cloud_init.datasources=[url:http://example.com/cloud-config]
 ```
 
-The hidden part of the command line can be accessed with either `sudo ros config get burmilla.environment.EXTRA_CMDLINE`, or by using a service file's environment array.
+The hidden part of the command line can be accessed with either `sudo ros config get rancher.environment.EXTRA_CMDLINE`, or by using a service file's environment array.
 
 An example service.yml file:
 

@@ -38,7 +38,7 @@ For example, on my current test system, I have set the kernel boot line to:
 
 
 ```shell
-printk.devkmsg=on console=tty1 burmilla.autologin=tty1 console=ttyS0 burmilla.autologin=ttyS0 burmilla.state.dev=LABEL=BURMILLA_STATE burmilla.state.autoformat=[/dev/sda,/dev/vda] burmilla.rm_usr loglevel=8 netconsole=+9999@10.0.2.14/,514@192.168.42.223/
+printk.devkmsg=on console=tty1 rancher.autologin=tty1 console=ttyS0 rancher.autologin=ttyS0 rancher.state.dev=LABEL=BURMILLA_STATE rancher.state.autoformat=[/dev/sda,/dev/vda] rancher.rm_usr loglevel=8 netconsole=+9999@10.0.2.14/,514@192.168.42.223/
 ```
 
 The kernel boot parameters can be set during installation using `sudo ros install --append "...."`, or on an installed BurmillaOS system,  by running `sudo ros config syslinux` (which will start vi in a container, editing the `global.cfg` boot config file.

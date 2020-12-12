@@ -79,9 +79,9 @@ _Available as of RancherOS v1.5.3_
 
 Some configurations included in `cloud-config` require images to be downloaded from Docker to start. After installation, these images are downloaded automatically by BurmillaOS when booting. An example of these configurations are:
 
-- burmilla.services_include
-- burmilla.console
-- burmilla.docker
+- rancher.services_include
+- rancher.console
+- rancher.docker
 
 If you want to download and save these images to disk during installation, they will be cached and not need to be downloaded again upon each boot. You can cache these images by adding `-s` when using `ros install`:
 

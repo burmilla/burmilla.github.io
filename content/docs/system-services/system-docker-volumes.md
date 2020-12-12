@@ -15,7 +15,7 @@ Provides user accessible persistent storage directories, used by console service
 If you want to change user-volumes, for example, add `/etc/kubernetes` directory:
 
 ```shell
-$ sudo ros config set burmilla.services.user-volumes.volumes  [/home:/home,/opt:/opt,/var/lib/kubelet:/var/lib/kubelet,/etc/kubernetes:/etc/kubernetes]
+$ sudo ros config set rancher.services.user-volumes.volumes  [/home:/home,/opt:/opt,/var/lib/kubelet:/var/lib/kubelet,/etc/kubernetes:/etc/kubernetes]
 $ sudo reboot
 ```
 
