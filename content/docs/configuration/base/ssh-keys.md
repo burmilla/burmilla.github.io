@@ -27,7 +27,7 @@ Please note that OpenSSH 7.0 and greater similarly disable the ssh-dss (DSA) pub
 BurmillaOS supports changing the sshd port and IP, you can use these in the cloud-config file:
 
 ```yaml
-burmilla:
+rancher:
   ssh:
     port: 10022
     listen_address: 172.22.100.100

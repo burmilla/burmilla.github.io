@@ -69,7 +69,7 @@ To output and review the current configuration state you can use the `ros config
 
 ```shell
 $ sudo ros config export
-burmilla:
+rancher:
   docker:
     tls: true
   network:

@@ -11,7 +11,7 @@ Once the partition has been resized to fill the device, a `/var/lib/burmilla/res
 
 ```yaml
 #cloud-config
-burmilla:
+rancher:
   resize_device: /dev/sda
 ```
 

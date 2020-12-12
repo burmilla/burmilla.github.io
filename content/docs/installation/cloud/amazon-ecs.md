@@ -23,7 +23,7 @@ For the **User Data**, you'll need to pass in the [cloud-config](/docs/configura
 
 ```yaml
 #cloud-config
-burmilla:
+rancher:
   environment:
     ECS_CLUSTER: your-ecs-cluster-name
     # Note: You will need to add this variable, if using awslogs for ECS task.
@@ -43,7 +43,7 @@ To select the version, you can update your [cloud-config](/docs/configuration/ba
 
 ```yaml
 #cloud-config
-burmilla:
+rancher:
   environment:
     ECS_CLUSTER: your-ecs-cluster-name
     # Note: You will need to make sure to include the colon in front of the version.

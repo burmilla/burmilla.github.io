@@ -7,7 +7,7 @@ BurmillaOS will store its state in a single partition specified by the `dev` fie
 
 ```yaml
 #cloud-config
-burmilla:
+rancher:
   state:
     fstype: auto
     dev: LABEL=BURMILLA_STATE
@@ -27,7 +27,7 @@ BurmillaOS will autoformat the partition to `ext4` (_not_ what is set in `fstype
 
 ```yaml
 #cloud-config
-burmilla:
+rancher:
   state:
     autoformat:
     - /dev/sda

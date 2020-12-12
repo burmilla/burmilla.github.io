@@ -23,7 +23,7 @@ Alternatively, you can set it up in your cloud-config so it's automatically disa
 
 ```yaml
 # cloud-config
-burmilla:
+rancher:
   disable:
   - password
   - autologin

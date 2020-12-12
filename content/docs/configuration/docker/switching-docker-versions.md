@@ -25,7 +25,7 @@ BurmillaOS supports defining which Docker engine to use through the cloud-config
 
 ```yaml
 #cloud-config
-burmilla:
+rancher:
   docker:
     engine: docker-19.03.13
 ```
@@ -98,7 +98,7 @@ All of the previously mentioned methods of switching Docker engines are now avai
 
 ```yaml
 #cloud-config
-burmilla:
+rancher:
   docker:
     engine: https://myservicefile
 ```

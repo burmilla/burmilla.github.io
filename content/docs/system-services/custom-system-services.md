@@ -9,7 +9,7 @@ If you want to boot BurmillaOS with a system service running, you can add the se
 
 ```yaml
 #cloud-config
-burmilla:
+rancher:
   services:
     nginxapp:
       image: nginx
@@ -65,7 +65,7 @@ my-service:
   image: namespace/my-service:v1.0.0
   command: my-command
   labels:
-    io.burmilla.os.scope: "system"
+    io.rancher.os.scope: "system"
     cron.schedule: "0 * * * * ?"
 ```
 
@@ -84,7 +84,7 @@ my-service:
   image: namespace/my-service:v1.0.0
   command: my-command
   labels:
-    io.burmilla.os.scope: "system"
+    io.rancher.os.scope: "system"
   volumes_from:
     - system-volumes
 ```
@@ -180,18 +180,18 @@ We use labels to determine how to handle the service containers.
 
 Key | Value |Description
 ----|-----|---
-`io.burmilla.os.detach` | Default: `true` | Equivalent of `docker run -d`. If set to `false`, equivalent of `docker run --detach=false`
-`io.burmilla.os.scope` | `system` | Use this label to have the container deployed in System Docker instead of Docker.
-`io.burmilla.os.before`/`io.burmilla.os.after` | Service Names (Comma separated list is accepted) | Used to determine order of when containers should be started.
-`io.burmilla.os.createonly` | Default: `false` | When set to `true`, only a `docker create` will be performed and not a `docker start`.
-`io.burmilla.os.reloadconfig` | Default: `false`| When set to `true`, it reloads the configuration.
+`io.rancher.os.detach` | Default: `true` | Equivalent of `docker run -d`. If set to `false`, equivalent of `docker run --detach=false`
+`io.rancher.os.scope` | `system` | Use this label to have the container deployed in System Docker instead of Docker.
+`io.rancher.os.before`/`io.rancher.os.after` | Service Names (Comma separated list is accepted) | Used to determine order of when containers should be started.
+`io.rancher.os.createonly` | Default: `false` | When set to `true`, only a `docker create` will be performed and not a `docker start`.
+`io.rancher.os.reloadconfig` | Default: `false`| When set to `true`, it reloads the configuration.
 
 
 BurmillaOS uses labels to determine if the container should be deployed in System Docker. By default without the label, the container will be deployed in User Docker.
 
 ```yaml
 labels:
-  - io.burmilla.os.scope=system
+  - io.rancher.os.scope=system
 ```
 
 
@@ -201,7 +201,7 @@ labels:
 foo:
   labels:
     # Start foo before bar is launched
-    io.burmilla.os.before: bar
+    io.rancher.os.before: bar
     # Start foo after baz has been launched
-    io.burmilla.os.after: baz
+    io.rancher.os.after: baz
 ```

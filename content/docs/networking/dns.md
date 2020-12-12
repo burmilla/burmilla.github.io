@@ -10,7 +10,7 @@ If you wanted to configure the DNS through the cloud config file, you'll need to
 #cloud-config
 
 #Remember, any changes for burmilla will be within the burmilla key
-burmilla:
+rancher:
   network:
     dns:
       search:

@@ -10,7 +10,7 @@ For example, to add authentication for DockerHub:
 
 ```yaml
 #cloud-config
-burmilla:
+rancher:
   registry_auths:
     https://index.docker.io/v1/:
       auth: dXNlcm5hbWU6cGFzc3dvcmQ=
@@ -32,7 +32,7 @@ Alternatively, a username and password can be specified directly.
 
 ```yaml
 #cloud-config
-burmilla:
+rancher:
   registry_auths:
     https://index.docker.io/v1/:
       username: username

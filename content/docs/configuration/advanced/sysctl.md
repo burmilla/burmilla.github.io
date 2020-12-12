@@ -9,7 +9,7 @@ The `burmilla.sysctl` cloud-config key can be used to control sysctl parameters.
 
 ```yaml
 #cloud-config
-burmilla:
+rancher:
   sysctl:
     net.ipv4.conf.default.rp_filter: 1
 ```

@@ -21,7 +21,7 @@ Or
 
 ```yaml
 #cloud-config
-burmilla:
+rancher:
   modules: [nbd nbds_max=1024, nfs]
 ```
 

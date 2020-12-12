@@ -61,7 +61,7 @@ Make sure you can access all the files in `os-services` and `releases.yml` by UR
 In your cloud-config, set `burmilla.repositories.core.url` and `burmilla.upgrade.url` to your own `os-services` and `releases` URLs:
 ```yaml
 #cloud-config
-burmilla:
+rancher:
   repositories:
     core:
       url: https://foo.bar.com/os-services
@@ -109,7 +109,7 @@ write_files:
       n/1ZWdSeZPAgjkha5MTUw3o1hjo/0H0ekI4erZFrZnG2N3lDaqDPR8djR+x7Gv6E
       vloANkUoc1pvzvxKoz2HIHUKf+xFT50xppx6wsQZ01pNMSNF0qgc1vvH
       -----END CERTIFICATE-----
-burmilla:
+rancher:
   environment:
     REGISTRY_DOMAIN: xxxx.yyy
   repositories:

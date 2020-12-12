@@ -16,7 +16,7 @@ Here is an example cloud-config file that can be used to enable the debian conso
 
 ```yaml
 #cloud-config
-burmilla:
+rancher:
   console: debian
 ```
 

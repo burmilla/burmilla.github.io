@@ -22,7 +22,7 @@ _Available as of RancherOS v1.4_
 cloud-config file, e.g.:
 ```yaml
 #cloud-config
-burmilla:
+rancher:
   preload_wait: true
 ```
 

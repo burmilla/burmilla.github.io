@@ -8,7 +8,7 @@ HTTP proxy settings can be set directly under the `network` key. This will autom
 
 ```yaml
 #cloud-config
-burmilla:
+rancher:
   network:
     http_proxy: https://myproxy.example.com
     https_proxy: https://myproxy.example.com
@@ -23,7 +23,7 @@ To add the `HTTP_PROXY`, `HTTPS_PROXY`, and `NO_PROXY` environment variables to 
 
 ```yaml
 #cloud-config
-burmilla:
+rancher:
   services:
     myservice:
       ...
