@@ -58,7 +58,7 @@ Make sure you can access all the files in `os-services` and `releases.yml` by UR
 
 ### 4. Set the URLs
 
-In your cloud-config, set `burmilla.repositories.core.url` and `burmilla.upgrade.url` to your own `os-services` and `releases` URLs:
+In your cloud-config, set `rancher.repositories.core.url` and `rancher.upgrade.url` to your own `os-services` and `releases` URLs:
 ```yaml
 #cloud-config
 rancher:
@@ -69,11 +69,11 @@ rancher:
     url: https://foo.bar.com/os/releases.yml
 ```
 
-You can also customize `burmilla.repositories.core.url` and `burmilla.upgrade.url` after it's been started using `ros config`.
+You can also customize `rancher.repositories.core.url` and `rancher.upgrade.url` after it's been started using `ros config`.
 
 ```shell
-$ sudo ros config set burmilla.repositories.core.url https://foo.bar.com/os-services
-$ sudo ros config set burmilla.upgrade.url https://foo.bar.com/os/releases.yml
+$ sudo ros config set rancher.repositories.core.url https://foo.bar.com/os-services
+$ sudo ros config set rancher.upgrade.url https://foo.bar.com/os/releases.yml
 ```
 
 ## Example Cloud-config

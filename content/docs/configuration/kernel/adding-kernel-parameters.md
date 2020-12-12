@@ -4,7 +4,7 @@ weight: 1
 ---
 # Kernel boot parameters
 
-BurmillaOS parses the Linux kernel boot cmdline to add any keys it understands to its configuration. This allows you to modify what cloud-init sources it will use on boot, to enable `burmilla.debug` logging, or to almost any other configuration setting.
+BurmillaOS parses the Linux kernel boot cmdline to add any keys it understands to its configuration. This allows you to modify what cloud-init sources it will use on boot, to enable `rancher.debug` logging, or to almost any other configuration setting.
 
 There are two ways to set or modify persistent kernel parameters, in-place (editing the file and reboot) or during installation to disk.
 
@@ -36,29 +36,29 @@ On desktop systems the Syslinux boot menu can be switched to graphical mode by a
 
 ### User password
 
-`burmilla.password=<passwd...>` will set the password for burmilla user. If you are not willing to use SSH keys, you can consider this parameter.
+`rancher.password=<passwd...>` will set the password for burmilla user. If you are not willing to use SSH keys, you can consider this parameter.
 
 ### Recovery console
 
-`burmilla.recovery=true` will start a single user `root` bash session as easily in the boot process, with no network, or persistent filesystem mounted. This can be used to fix disk problems, or to debug your system.
+`rancher.recovery=true` will start a single user `root` bash session as easily in the boot process, with no network, or persistent filesystem mounted. This can be used to fix disk problems, or to debug your system.
 
 ### Enable/Disable sshd
 
-`burmilla.ssh.daemon=false` (its enabled in the os-config) can be used to start your BurmillaOS with no sshd daemon. This can be used to further reduce the ports that your system is listening on.
+`rancher.ssh.daemon=false` (its enabled in the os-config) can be used to start your BurmillaOS with no sshd daemon. This can be used to further reduce the ports that your system is listening on.
 
 ### Enable debug logging
 
-`burmilla.debug=true` will log everything to the console for debugging.
+`rancher.debug=true` will log everything to the console for debugging.
 
 ### Autologin console
 
-`burmilla.autologin=<tty...>` will automatically log in the specified console - common values are `tty1`, `ttyS0` and `ttyAMA0` - depending on your platform.
+`rancher.autologin=<tty...>` will automatically log in the specified console - common values are `tty1`, `ttyS0` and `ttyAMA0` - depending on your platform.
 
 ### Enable/Disable hypervisor service auto-enable
 
 _Available as of RancherOS v1.3_
 
-RancherOS v1.3 added detection of Hypervisor, and then will try to download the a service called `<hypervisor>-vm-tools`. This may cause boot speed issues, and so can be disabled by setting `burmilla.hypervisor_service=false`.
+RancherOS v1.3 added detection of Hypervisor, and then will try to download the a service called `<hypervisor>-vm-tools`. This may cause boot speed issues, and so can be disabled by setting `rancher.hypervisor_service=false`.
 
 ### Auto reboot after a kernel panic
 

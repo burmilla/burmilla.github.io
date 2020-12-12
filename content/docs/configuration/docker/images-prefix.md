@@ -14,7 +14,7 @@ BurmillaOS supports a global prefix you can add to force ROS to always use your 
 You can config a global image prefix:
 
 ```shell
-ros config set burmilla.environment.REGISTRY_DOMAIN xxxx.yyy
+ros config set rancher.environment.REGISTRY_DOMAIN xxxx.yyy
 ```
 
 Then you check the os list:
@@ -43,5 +43,5 @@ Pulling console (xxxx.yyy/burmilla/os-ubuntuconsole:v1.3.0)...
 If you want to reset this setting:
 
 ```shell
-ros config set burmilla.environment.REGISTRY_DOMAIN docker.io
+ros config set rancher.environment.REGISTRY_DOMAIN docker.io
 ```

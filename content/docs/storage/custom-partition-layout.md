@@ -42,7 +42,7 @@ After rebooting, you can use `/dev/sda2`. For example, changing the data root of
 
 ```shell
 $ ros config set mounts '[["/dev/sda2","/mnt/s","ext4",""]]’
-$ ros config set burmilla.docker.graph /mnt/s
+$ ros config set rancher.docker.graph /mnt/s
 $ reboot
 ```
 

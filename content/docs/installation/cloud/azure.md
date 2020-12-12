@@ -3,7 +3,7 @@ bookToc: false
 ---
 # Azure
 
-BurmillaOS has been published in Azure Marketplace, you can get it from [here](https://azuremarketplace.microsoft.com/en-us/marketplace/apps/burmilla.burmillaos).
+BurmillaOS has been published in Azure Marketplace, you can get it from [here](https://azuremarketplace.microsoft.com/en-us/marketplace/apps/rancher.burmillaos).
 
 ## Launching BurmillaOS through the Azure Portal
 

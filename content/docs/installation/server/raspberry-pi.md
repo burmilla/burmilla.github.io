@@ -21,7 +21,7 @@ BurmillaOS does not currently expand the root partition to fill the remainder of
 4. Then `w`rite the table and exit
 5. `sudo reboot` to reboot and reload the new partition table
 6. `sudo mkdir /mnt/docker` to create the directory to be used as the new Docker root
-7. `sudo ros config set burmilla.docker.extra_args [-g,/mnt/docker]` to configure Docker to use the new root
+7. `sudo ros config set rancher.docker.extra_args [-g,/mnt/docker]` to configure Docker to use the new root
 8. `sudo mkfs.ext4 /dev/mmcblk0p3` to format the disk
 9. `sudo ros config set mounts "[['/dev/mmcblk0p3','/mnt/docker','ext4','']]"` to preserve this mount after reboots
 10. `sudo mount /dev/mmcblk0p3 /mnt/docker` to mount the Docker root

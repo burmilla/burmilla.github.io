@@ -7,10 +7,10 @@ bookCollapseSection: true
 Using `ros config`, you can configure specific interfaces. Wildcard globbing is supported so `eth*` will match `eth1` and `eth2`.  The available options you can configure are `address`, `gateway`, `mtu`, and `dhcp`.
 
 ```bash
-$ sudo ros config set burmilla.network.interfaces.eth1.address 172.68.1.100/24
-$ sudo ros config set burmilla.network.interfaces.eth1.gateway 172.68.1.1
-$ sudo ros config set burmilla.network.interfaces.eth1.mtu 1500
-$ sudo ros config set burmilla.network.interfaces.eth1.dhcp false
+$ sudo ros config set rancher.network.interfaces.eth1.address 172.68.1.100/24
+$ sudo ros config set rancher.network.interfaces.eth1.gateway 172.68.1.1
+$ sudo ros config set rancher.network.interfaces.eth1.mtu 1500
+$ sudo ros config set rancher.network.interfaces.eth1.dhcp false
 ```
 
 If you wanted to configure the interfaces through the cloud config file, you'll need to place interface configurations within the `burmilla` key.
@@ -36,7 +36,7 @@ If you want to configure one of multiple network interfaces, you can specify the
 Using `ros config`, you can specify the MAC address of the NIC you want to configure as follows:
 
 ```
-$ sudo ros config set burmilla.network.interfaces.”mac=ea:34:71:66:90:12:01”.dhcp true
+$ sudo ros config set rancher.network.interfaces.”mac=ea:34:71:66:90:12:01”.dhcp true
 ```
 
 Alternatively, you can place the MAC address selection in your cloud config file as follows:
@@ -81,7 +81,7 @@ rancher:
 
 In this example two physical NICs (with MACs `0c:c4:d7:b2:14:d2` and `0c:c4:d7:b2:14:d3`) are aggregated into a virtual one `bond0`.
 
-During the bootup process, BurmillaOS runs cloud-init. It automatically detects the data sources of cloud-init, but sometimes a data source requires a network connection. By default, in cloud-init, we open `burmilla.network.interfaces.eth*.dhcp=true`, which may affect the bonding NIC. If you do not require the network connection for your data-source, use `burmilla.network.interfaces.eth*.dhcp=false` in the kernel cmdline to disable DHCP for all NICs.
+During the bootup process, BurmillaOS runs cloud-init. It automatically detects the data sources of cloud-init, but sometimes a data source requires a network connection. By default, in cloud-init, we open `rancher.network.interfaces.eth*.dhcp=true`, which may affect the bonding NIC. If you do not require the network connection for your data-source, use `rancher.network.interfaces.eth*.dhcp=false` in the kernel cmdline to disable DHCP for all NICs.
 
 ## VLANS
 
@@ -116,7 +116,7 @@ rancher:
 
 _Available as of RancherOS v1.1_
 
-You can configure `pre` and `post` network configuration commands to run in the `network` service container by adding `pre_cmds` and `post_cmds` array keys to `burmilla.network`, or `pre_up` and`post_up` keys for specific `burmilla.network.interfaces`.
+You can configure `pre` and `post` network configuration commands to run in the `network` service container by adding `pre_cmds` and `post_cmds` array keys to `rancher.network`, or `pre_up` and`post_up` keys for specific `rancher.network.interfaces`.
 
 For example:
 

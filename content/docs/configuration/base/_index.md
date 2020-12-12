@@ -42,7 +42,7 @@ For more complicated settings, like the [sysctl settings](/docs/configuration/ad
 You can easily get any value that's been set in the `/var/lib/burmilla/conf/cloud-config.yml` file. Let's see how easy it is to get the DNS configuration of the system.
 
 ```shell
-$ sudo ros config get burmilla.network.dns.nameservers
+$ sudo ros config get rancher.network.dns.nameservers
 - 8.8.8.8
 - 8.8.4.4
 ```
@@ -54,13 +54,13 @@ You can set values in the `/var/lib/burmilla/conf/cloud-config.yml` file.
 Setting a simple value in the `/var/lib/burmilla/conf/cloud-config.yml`
 
 ```shell
-$ sudo ros config set burmilla.docker.tls true
+$ sudo ros config set rancher.ocker.tls true
 ```
 
 Setting a list in the `/var/lib/burmilla/conf/cloud-config.yml`
 
 ```shell
-$ sudo ros config set burmilla.network.dns.nameservers "['8.8.8.8','8.8.4.4']"
+$ sudo ros config set rancher.etwork.dns.nameservers "['8.8.8.8','8.8.4.4']"
 ```
 
 ### Exporting the Current Configuration

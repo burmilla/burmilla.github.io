@@ -45,7 +45,7 @@ At this point you cannot reboot in the OS,  but you can reboot via Virtualbox:
 ```shell
 $ shutdown -h now
 Failed to write to log, write /var/log/boot/shutdown.log: no space left on device
-[            ] shutdown:info: Setting shutdown timeout to 60 (burmilla.shutdown_timeout set to 60)
+[            ] shutdown:info: Setting shutdown timeout to 60 (rancher.shutdown_timeout set to 60)
 Failed to write to log, write /var/log/boot/shutdown.log: no space left on device
 Failed to write to log, write /var/log/boot/shutdown.log: no space left on device
 .[            ] shutdown:fatal: Error response from daemon: {"message":"mkdir /var/lib/system-docker/overlay2/7c7dffbed40e7b0ed4c68d5630b17a179751643ca7b7a4ac183e48a767071684-init: no space left on device"}
@@ -60,7 +60,7 @@ After rebooting, you will not be able to enter the OS and there will be a kernel
 
 When you can access the bootloader, you should select the `Recovery console` and  press `<Tab>` to edit.
 
-You need add `burmilla.autologin=tty1` to the end, then press `<Enter>`. If all goes well, you will automatically login to the recovery console.
+You need add `rancher.autologin=tty1` to the end, then press `<Enter>`. If all goes well, you will automatically login to the recovery console.
 
 ### How to recover
 

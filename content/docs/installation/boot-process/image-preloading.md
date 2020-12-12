@@ -28,7 +28,7 @@ rancher:
 
 `ros config set` command, e.g.:
 ```bash
-$ ros config set burmilla.preload_wait true
+$ ros config set rancher.preload_wait true
 ```
 
 Pre-packing docker images is handy when you're customizing your BurmillaOS distribution (perhaps, building cloud VM images for your infrastructure).

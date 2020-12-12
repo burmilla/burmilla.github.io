@@ -3,7 +3,7 @@ bookToc: false
 ---
 # Environment
 
-The [environment key](https://docs.docker.com/compose/compose-file/#environment) can be used to customize system services. When a value is not assigned, BurmillaOS looks up the value from the `burmilla.environment` key.
+The [environment key](https://docs.docker.com/compose/compose-file/#environment) can be used to customize system services. When a value is not assigned, BurmillaOS looks up the value from the `rancher.ironment` key.
 
 In the example below, `ETCD_DISCOVERY` will be set to `https://discovery.etcd.io/d1cd18f5ee1c1e2223aed6a1734719f7` for the `etcd` service.
 

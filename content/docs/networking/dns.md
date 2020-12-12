@@ -21,8 +21,8 @@ rancher:
 Using `ros config`, you can set the `nameservers`, and `search`, which directly map to the fields of the same name in `/etc/resolv.conf`.
 
 ```bash
-$ sudo ros config set burmilla.network.dns.search "['mydomain.com','example.com']"
-$ sudo ros config get burmilla.network.dns.search
+$ sudo ros config set rancher.network.dns.search "['mydomain.com','example.com']"
+$ sudo ros config get rancher.network.dns.search
 - mydomain.com
 - example.com
 ```
