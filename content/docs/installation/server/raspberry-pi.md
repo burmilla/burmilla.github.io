@@ -48,7 +48,7 @@ You can also use cloud-config to enable Wi-Fi:
 
 ```
 #cloud-config
-burmilla:
+rancher:
   network:
     interfaces:
       wlan0:

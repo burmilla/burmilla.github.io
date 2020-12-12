@@ -17,7 +17,7 @@ If you wanted to configure the interfaces through the cloud config file, you'll 
 
 ```yaml
 #cloud-config
-burmilla:
+rancher:
   network:
     interfaces:
       eth1:
@@ -43,7 +43,7 @@ Alternatively, you can place the MAC address selection in your cloud config file
 
 ```yaml
 #cloud-config
-burmilla:
+rancher:
   network:
     interfaces:
       "mac=ea:34:71:66:90:12:01":
@@ -56,7 +56,7 @@ You can aggregate several network links into one virtual link for redundancy and
 
 ```yaml
 #cloud-config
-burmilla:
+rancher:
   network:
     interfaces:
       bond0:
@@ -89,7 +89,7 @@ In this example, you can create an interface `eth0.100` which is tied to VLAN 10
 
 ```yaml
 #cloud-config
-burmilla:
+rancher:
   network:
     interfaces:
       eth0:
@@ -102,7 +102,7 @@ In this example, you can create a bridge interface.
 
 ```yaml
 #cloud-config
-burmilla:
+rancher:
   network:
     interfaces:
       br0:
@@ -132,7 +132,7 @@ write_files:
       set -ex
       echo $@ >> /var/log/net.log
       # the last line of the file needs to be a blank line or a comment
-burmilla:
+rancher:
   network:
     dns:
       nameservers:
@@ -178,7 +178,7 @@ In order to enable WiFi access, update the `cloud-config` with the WiFi network 
 
 ```yaml
 #cloud-config
-burmilla:
+rancher:
   network:
     interfaces:
       wlan0:
@@ -194,7 +194,7 @@ burmilla:
 
 This Adapter uses a specified network to connect to and sets the IP statically:
 ```yaml
-burmilla:
+rancher:
   network:
     dns:
       nameservers:
@@ -216,7 +216,7 @@ burmilla:
 
 This configuration connects to multiple wireless networks and uses DHCP on each of them:
 ```yaml
-burmilla:
+rancher:
   network:
     interfaces:
       wlan0:
@@ -253,7 +253,7 @@ In order to use BurmillaOS, you will need to use the ISO built for 4G-LTE suppor
 After booting the ISO, there will be a 4G NIC, such as `wwan0`. Use the following `cloud-config` to set the APN parameter.
 
 ```yaml
-burmilla:
+rancher:
   network:
     modem_networks:
       wwan0:

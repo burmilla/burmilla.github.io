@@ -125,7 +125,7 @@ In the `upgrade` key, the `url` is used to find the list of available and curren
 
 ```yaml
 #cloud-config
-burmilla:
+rancher:
   upgrade:
     url: https://raw.githubusercontent.com/burmilla/releases/master/releases.yml
     image: burmilla/os

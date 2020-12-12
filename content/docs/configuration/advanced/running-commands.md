@@ -22,7 +22,7 @@ When using `runcmd`, BurmillaOS will wait for all commands to complete before st
 
 ```yaml
 #cloud-config
-burmilla:
+rancher:
 write_files:
   - path: /etc/rc.local
     permissions: "0755"

@@ -13,7 +13,7 @@ In your cloud-config, Docker configuration is located under the `burmilla.docker
 
 ```yaml
 #cloud-config
-burmilla:
+rancher:
   docker:
     tls: true
     tls_args:
@@ -76,7 +76,7 @@ The following example can be used to set MTU on the Docker daemon:
 
 ```yaml
 #cloud-config
-burmilla:
+rancher:
   docker:
     extra_args: [--mtu, 1460]
 ```
@@ -95,7 +95,7 @@ In your cloud-config, System Docker configuration is located under the `burmilla
 
 ```yaml
 #cloud-config
-burmilla:
+rancher:
   system_docker:
     storage_driver: overlay
 ```
@@ -121,7 +121,7 @@ e.g. [BURMILLA_OEM partition](/docs/storage/custom-partition-layout#BURMILLA_OEM
 
 ```
 #cloud-config
-burmilla:
+rancher:
   defaults:
     system_docker_logs: /usr/share/ros/oem/system-docker.log
 ```
@@ -132,7 +132,7 @@ There are 3 Docker engines that can be configured to use the pull-through Docker
 
 ```
 #cloud-config
-burmilla:
+rancher:
   bootstrap_docker:
     registry_mirror: "http://10.10.10.23:5555"
   docker:

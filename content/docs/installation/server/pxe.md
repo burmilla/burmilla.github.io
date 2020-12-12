@@ -42,7 +42,7 @@ test:
   image: alpine
   command: echo "tell me a secret ${EXTRA_CMDLINE}"
   labels:
-    io.burmilla.os.scope: system
+    io.rancher.os.scope: system
   environment:
   - EXTRA_CMDLINE
 ```
