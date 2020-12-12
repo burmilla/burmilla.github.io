@@ -1,0 +1,30 @@
+name: website
+
+on: push
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install extended version of Hugo
+        run: |
+          wget -O - -o /dev/null https://github.com/gohugoio/hugo/releases/download/v0.79.0/hugo_extended_0.79.0_Linux-64bit.deb | tee /tmp/hugo.deb
+          sudo dpkg -i /tmp/hugo.deb
+
+      - name: Generate Hugo pages
+        run: |
+          git submodule init
+          git submodule update --recursive
+          hugo --minify
+
+      - name: Deploy to GitHub Pages
+        if: success()
+        uses: crazy-max/ghaction-github-pages@v2
+        with:
+          target_branch: gh-pages
+          build_dir: public
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
