@@ -47,7 +47,7 @@ $ sudo ros service up service1 service2 service3
 
 The https://github.com/burmilla/os-services repository is used for the built-in services, but you can create your own, and configure BurmillaOS to use it in addition (or to replace) it.
 
-The config settings to set the url in which `ros` should look for an `index.yml` file is: `rancher.positories.<name>.url`. The `core` repository url is set when a release is made, and any other `<name>` url you add will be listed together when running `ros console list`, `ros service list` or `ros engine list`
+The config settings to set the url in which `ros` should look for an `index.yml` file is: `rancher.repositories.<name>.url`. The `core` repository url is set when a release is made, and any other `<name>` url you add will be listed together when running `ros console list`, `ros service list` or `ros engine list`
 
 For example, in BurmillaOS v0.7.0, the `core` repository is set to `https://raw.githubusercontent.com/burmilla/os-services/v0.7.0`.
 
@@ -117,7 +117,7 @@ If you're building your own services in a branch on GitHub, you can push to it, 
 For example, when developing the zfs service:
 
 ```bash
-burmilla@zfs:~$ sudo ros config set rancher.positories.zfs.url https://raw.githubusercontent.com/SvenDowideit/os-services/zfs-service
+burmilla@zfs:~$ sudo ros config set rancher.repositories.zfs.url https://raw.githubusercontent.com/SvenDowideit/os-services/zfs-service
 burmilla@zfs:~$ sudo ros service list
 disabled amazon-ecs-agent
 disabled kernel-extras
