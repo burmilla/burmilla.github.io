@@ -12,6 +12,16 @@ Before upgrading to any version, please review the release notes on our [release
 > **Note:** If you are using [`docker-machine`](/docs/installation/workstation/docker-machine) then you will not be able to upgrade your BurmillaOS version. You need to delete and re-create the machine.
 
 
+## Upgrade RancherOS to BurmillaOS
+
+Permanently upgrade your existing RancherOS installation to BurmillaOS and begin tracking BurmillaOS releases:
+
+```bash
+sudo ros console switch debian
+sudo ros config set rancher.upgrade.url https://raw.githubusercontent.com/burmilla/releases/v1.9.x/releases.yml
+sudo ros os upgrade
+```
+
 ## Version Control
 
 First, let's check what version you have running on your system.
