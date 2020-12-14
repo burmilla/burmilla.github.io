@@ -117,7 +117,7 @@ If you're building your own services in a branch on GitHub, you can push to it, 
 For example, when developing the zfs service:
 
 ```bash
-burmilla@zfs:~$ sudo ros config set rancher.positories.zfs.url https://raw.githubusercontent.com/SvenDowideit/os-services/zfs-service
+burmilla@zfs:~$ sudo ros config set rancher.repositories.zfs.url https://raw.githubusercontent.com/SvenDowideit/os-services/zfs-service
 burmilla@zfs:~$ sudo ros service list
 disabled amazon-ecs-agent
 disabled kernel-extras
