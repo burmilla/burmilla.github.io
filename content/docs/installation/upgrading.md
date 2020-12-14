@@ -17,9 +17,10 @@ Before upgrading to any version, please review the release notes on our [release
 Permanently upgrade your existing RancherOS installation to BurmillaOS and begin tracking BurmillaOS releases:
 
 ```bash
-sudo ros console switch debian
-sudo ros config set rancher.upgrade.url https://raw.githubusercontent.com/burmilla/releases/v1.9.x/releases.yml
-sudo ros os upgrade
+$ sudo ros console switch default
+$ sudo ros config set rancher.upgrade.url \
+https://raw.githubusercontent.com/burmilla/releases/v1.9.x/releases.yml
+$ sudo ros os upgrade
 ```
 
 ## Version Control
