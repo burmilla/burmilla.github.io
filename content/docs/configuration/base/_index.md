@@ -54,13 +54,13 @@ You can set values in the `/var/lib/burmilla/conf/cloud-config.yml` file.
 Setting a simple value in the `/var/lib/burmilla/conf/cloud-config.yml`
 
 ```shell
-$ sudo ros config set rancher.ocker.tls true
+$ sudo ros config set rancher.docker.tls true
 ```
 
 Setting a list in the `/var/lib/burmilla/conf/cloud-config.yml`
 
 ```shell
-$ sudo ros config set rancher.etwork.dns.nameservers "['8.8.8.8','8.8.4.4']"
+$ sudo ros config set rancher.network.dns.nameservers "['8.8.8.8','8.8.4.4']"
 ```
 
 ### Exporting the Current Configuration
