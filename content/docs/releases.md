@@ -9,6 +9,7 @@ The following is a list of the versions of the operating system in their differe
 
 #### Stable
 
+- [v1.9.3](https://github.com/burmilla/os/releases/tag/v1.9.3) | 2021.10.12
 - [v1.9.2](https://github.com/burmilla/os/releases/tag/v1.9.2) | 2021.08.04
 - [v1.9.1](https://github.com/burmilla/os/releases/tag/v1.9.1) | 2021.02.02
 - [v1.9.0](https://github.com/burmilla/os/releases/tag/v1.9.0) | 2020.12.14
