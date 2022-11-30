@@ -2,7 +2,7 @@
 
 When [booting from the ISO](/docs/installation/workstation/boot-from-iso), BurmillaOS starts with the `default` console, which is based on [`debian:buster-slim`](https://github.com/burmilla/os/blob/v1.9.x/images/02-console/Dockerfile).
 
-No other console is not officially supported.
+No other console is officially supported.
 
 ### Using the unofficial custom console images
 
