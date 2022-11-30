@@ -1,16 +1,40 @@
 # Custom Console
 
-When [booting from the ISO](/docs/installation/workstation/boot-from-iso), BurmillaOS starts with the default console, which is based on busybox.
+When [booting from the ISO](/docs/installation/workstation/boot-from-iso), BurmillaOS starts with the `default` console, which is based on [`debian:buster-slim`](https://github.com/burmilla/os/blob/v1.9.x/images/02-console/Dockerfile).
 
-You can select which console you want BurmillaOS to start with using the [cloud-config](/docs/configuration/#cloud-config).
+No other console is not officially supported.
+
+### Using the unofficial custom console images
+
+If you want to use other console, the most easy way is use the [unofficial custom console images](https://github.com/benok/burmilla-os-console).
+
+To use this, you need to add the following settings to your cloud-init.yml.
+
+```
+rancher:
+  repositories:
+     console:
+       url: https://raw.githubusercontent.com/benok/burmilla-os-console/master
+```
+
+With the settings above, you can select which console you want BurmillaOS to start with using the [cloud-config](/docs/configuration/#cloud-config).
+
+If you want to create your own custom console, please check [this page](https://github.com/benok/burmilla-os-console#how-to-build-your-own-console-and-use).
 
 ### Enabling Consoles using Cloud-Config
 
 When launching BurmillaOS with a [cloud-config](/docs/configuration/#cloud-config) file, you can select which console you want to use.
 
-Currently, the list of available consoles are:
+Currently, the list of available consoles (with above setting using the unofficial console images) are:
 
-* default
+* official image
+  * default (debian:buster-slim)
+* unofficial images
+  * debian (debian:buster)
+  * debian_testing (debian:testing)
+  * ubuntu (ubuntu:latest)
+  * alpine (alpine:latest)
+  * fedora (fedora:latest)
 
 Here is an example cloud-config file that can be used to enable the debian console.
 
@@ -26,10 +50,17 @@ You can easily list the available consoles in BurmillaOS and what their status i
 
 ```
 $ sudo ros console list
-current  default
+disabled alpine
+disabled debian
+disabled debian_testing
+enabled default
+disabled fedora
+disabled ubuntu
 ```
 
-### Changing Consoles after BurmillaOS has started
+### Changing Consoles after BurmillaOS has started (not recomemded)
+
+**`ros console switch` has several bugs since RancherOS era, please use "[Enabling consoles](#enabling-consoles)" below**.
 
 You can view which console is being used by BurmillaOS by checking which console container is running in System Docker. If you wanted to switch consoles, you just need to run a simple command and select your new console.
 
