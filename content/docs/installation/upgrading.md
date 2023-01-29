@@ -63,6 +63,10 @@ Continue with reboot [y/N]: y
 INFO[0037] Rebooting
 ```
 
+> **Note:** The default console container is persistent and will NOT be updated by default.  Use `ros console switch default` to update the `os-console` container.  This is a destructive operation - see [console persistence](/docs/installation/custom-builds/custom-console/#console-persistence) for info about what will be retained.
+
+> **Note:** To make the default container non-persistent, set `io.docker.compose.rebuild: "always"` on the console container [os-config.tpl](https://github.com/burmilla/os/blob/v1.9.6/os-config.tpl.yml#L246)
+
 After rebooting, you can check that your version has been updated.
 
 ```bash
