@@ -9,6 +9,8 @@ The following is a list of the versions of the operating system in their differe
 
 #### Stable
 
+- [v1.9.6](https://github.com/burmilla/os/releases/tag/v1.9.6) | 2023.01.02
+- [v1.9.5](https://github.com/burmilla/os/releases/tag/v1.9.5) | 2022.09.15
 - [v1.9.3](https://github.com/burmilla/os/releases/tag/v1.9.3) | 2021.10.12
 - [v1.9.2](https://github.com/burmilla/os/releases/tag/v1.9.2) | 2021.08.04
 - [v1.9.1](https://github.com/burmilla/os/releases/tag/v1.9.1) | 2021.02.02
@@ -16,6 +18,8 @@ The following is a list of the versions of the operating system in their differe
 
 #### Testing
 
+- [v2.0.0-beta6](https://github.com/burmilla/os/releases/tag/v2.0.0-beta6) | 2023.01.26
+- [v2.0.0-beta5](https://github.com/burmilla/os/releases/tag/v2.0.0-beta5) | 2022.07.25
 - [v2.0.0-beta4](https://github.com/burmilla/os/releases/tag/v2.0.0-beta4) | 2021.04.12
 
 #### Archived
