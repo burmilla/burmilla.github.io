@@ -39,3 +39,8 @@ To get started with BurmillaOS, head over to our [Quick Start Guide](/docs/quick
 ## Latest Release
 
 Please check our [repository](https://github.com/burmilla/os/releases) for the latest [release](https://github.com/burmilla/os/releases).
+
+## Community
+
+* [Github Discussions](https://github.com/burmilla/os/discussions)
+* [Discord Server](https://discord.com/invite/AR6daurAAk)
