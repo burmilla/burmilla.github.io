@@ -1,5 +1,9 @@
-BurmillaoS Docs
+BurmillaOS Docs
 ------------
+
+Issues
+======
+Please file issues with the documentation at: https://github.com/burmilla/os/issues
 
 License
 =======
