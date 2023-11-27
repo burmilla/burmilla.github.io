@@ -16,6 +16,7 @@ Refer to the below resources for more information on installing BurmillaOS on yo
 
 - [Docker Machine](/docs/installation/workstation/docker-machine)
 - [Boot from ISO](/docs/installation/workstation/boot-from-iso)
+- [Apple Silicon](/docs/installation/workstation/apple-silicon)
 
 ### Cloud
 
