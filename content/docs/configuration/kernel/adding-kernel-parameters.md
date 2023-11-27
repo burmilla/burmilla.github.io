@@ -21,7 +21,7 @@ To edit the kernel boot parameters of an already installed BurmillaOS system, us
 If you want to set the extra kernel parameters when you are [Installing BurmillaOS to Disk](/docs/installation/server/install-to-disk) please use the `--append` parameter.
 
 ```bash
-$ sudo ros install -d /dev/sda --append "burmillaos.autologin=tty1"
+$ sudo ros install -d /dev/sda --append "rancher.autologin=tty1"
 ```
 
 ## Graphical boot screen
@@ -36,7 +36,7 @@ On desktop systems the Syslinux boot menu can be switched to graphical mode by a
 
 ### User password
 
-`rancher.password=<passwd...>` will set the password for burmilla user. If you are not willing to use SSH keys, you can consider this parameter.
+`rancher.password=<passwd...>` will set the password for the `rancher` user. If you are not willing to use SSH keys, you can consider this parameter.
 
 ### Recovery console
 
