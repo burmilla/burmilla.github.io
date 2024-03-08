@@ -20,8 +20,12 @@ Permanently upgrade your existing RancherOS installation to BurmillaOS and begin
 $ sudo ros config set rancher.upgrade.url \
 https://raw.githubusercontent.com/burmilla/releases/v2.0.x/releases.yml
 $ sudo ros os upgrade
+```
+After reboot run also:
+```bash
 $ sudo ros console switch default
 ```
+other why you are still using console from RancherOS (visible in `sudo system-docker ps` output)
 
 ## Version Control
 
@@ -71,7 +75,7 @@ After rebooting, you can check that your version has been updated.
 
 ```bash
 $ sudo ros -v
-ros version v0.5.0
+version v2.0.0 from os image burmilla/os:v2.0.0
 ```
 
 > **Note:** If you are booting from ISO and have not installed to disk, your upgrade will not be saved. You can view our guide to [installing to disk](/docs/installation/server/install-to-disk).
@@ -81,8 +85,8 @@ ros version v0.5.0
 If you are a couple of versions behind the current version, use the `-i` option to pick the version that you want to upgrade to.
 
 ```bash
-$ sudo ros os upgrade -i burmilla/os:v0.5.0
-Upgrading to burmilla/os:v0.5.0
+$ sudo ros os upgrade -i burmilla/os:v2.0.0
+Upgrading to burmilla/os:v2.0.0
 Continue [y/N]: y
 ...
 ...
@@ -105,9 +109,9 @@ The `ros os upgrade` command works for rolling back. We'll use the `-i` option t
 
 ```bash
 $ sudo ros -v
-ros version v0.4.5
-$ sudo ros os upgrade -i burmilla/os:v0.4.4
-Upgrading to burmilla/os:v0.4.4
+ros version v1.9.0
+$ sudo ros os upgrade -i burmilla/os:v2.0.0
+Upgrading to burmilla/os:v2.0.0
 Continue [y/N]: y
 ...
 ...
@@ -119,7 +123,7 @@ After rebooting, the rollback will be complete.
 
 ```bash
 $ sudo ros -v
-ros version 0.4.4
+version v2.0.0 from os image burmilla/os:v2.0.0
 ```
 
 <br>
