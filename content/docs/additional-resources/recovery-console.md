@@ -6,7 +6,7 @@ In order to demonstrate how to use the recovery console, we choose a scene that 
 
 | Term                  | Definition                                       |
 |-----------------------|--------------------------------------------------|
-| BurmillaOS             |  v1.9.0  |
+| BurmillaOS             |  v2.0.0  |
 | Platform              |  Virtualbox |
 | Root Disk             |  2GB  |
 | CPU                   |  1C   |

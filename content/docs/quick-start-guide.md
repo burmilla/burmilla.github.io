@@ -38,13 +38,13 @@ When you first launch BurmillaOS, there are no containers running in the Docker 
 $ sudo system-docker ps
 CONTAINER ID        IMAGE                       COMMAND                  CREATED             STATUS              PORTS               NAMES
 07135915b03a        burmilla/os-docker:19.03.13         "ros user-docker"        15 hours ago        Up 15 hours                             docker
-896c6169c2d5        burmilla/os-console:v1.9.0          "/usr/bin/ros entr..."   41 hours ago        Up 24 hours                             console
-74e57e5940de        burmilla/os-base:v1.9.0             "/usr/bin/ros entr..."   41 hours ago        Up 24 hours                             ntp
-989e8f137fb7        burmilla/os-base:v1.9.0             "/usr/bin/ros entr..."   41 hours ago        Up 24 hours                             network
-79b750fa577a        burmilla/os-base:v1.9.0             "/usr/bin/ros entr..."   41 hours ago        Up 24 hours                             udev
+896c6169c2d5        burmilla/os-console:v2.0.0          "/usr/bin/ros entr..."   41 hours ago        Up 24 hours                             console
+74e57e5940de        burmilla/os-base:v2.0.0             "/usr/bin/ros entr..."   41 hours ago        Up 24 hours                             ntp
+989e8f137fb7        burmilla/os-base:v2.0.0             "/usr/bin/ros entr..."   41 hours ago        Up 24 hours                             network
+79b750fa577a        burmilla/os-base:v2.0.0             "/usr/bin/ros entr..."   41 hours ago        Up 24 hours                             udev
 29c582619c67        burmilla/container-crontab:v0.5.0   "container-crontab"      41 hours ago        Up 24 hours                             system-cron
-cdd49fa26ecb        burmilla/os-syslog:v1.9.0           "/usr/bin/entrypoi..."   41 hours ago        Up 24 hours                             syslog
-e490108ce8da        burmilla/os-acpid:v1.9.0            "/usr/bin/ros entr..."   41 hours ago        Up 24 hours                             acpid
+cdd49fa26ecb        burmilla/os-syslog:v2.0.0           "/usr/bin/entrypoi..."   41 hours ago        Up 24 hours                             syslog
+e490108ce8da        burmilla/os-acpid:v2.0.0            "/usr/bin/ros entr..."   41 hours ago        Up 24 hours                             acpid
 ```
 
 Some containers are run at boot time, and others, such as the `console`, `docker`, etc. containers are always running.
@@ -110,7 +110,7 @@ Another useful command that can be used with BurmillaOS is `ros` which can be us
 
 ```bash
 $ sudo ros -v
-version v1.9.0 from os image burmilla/os:v1.9.0
+version v2.0.0 from os image burmilla/os:v2.0.0
 ```
 
 BurmillaOS state is controlled by a cloud config file. `ros` is used to edit the configuration of the system, to see for example the dns configuration of the system:

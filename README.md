@@ -7,7 +7,7 @@ Please file issues with the documentation at: https://github.com/burmilla/os/iss
 
 License
 =======
-Copyright (c) 2020 Project Burmilla
+Copyright (c) 2020-2024 [BurmillaOS community](https://burmillaos.org)
 
 Copyright (c) 2014-2020 [Rancher Labs, Inc.](http://rancher.com)
 

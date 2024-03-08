@@ -18,7 +18,7 @@ Permanently upgrade your existing RancherOS installation to BurmillaOS and begin
 
 ```bash
 $ sudo ros config set rancher.upgrade.url \
-https://raw.githubusercontent.com/burmilla/releases/v1.9.x/releases.yml
+https://raw.githubusercontent.com/burmilla/releases/v2.0.x/releases.yml
 $ sudo ros os upgrade
 $ sudo ros console switch default
 ```
@@ -29,7 +29,7 @@ First, let's check what version you have running on your system.
 
 ```bash
 $ sudo ros os version
-v1.9.0
+v2.0.0
 ```
 
 If you just want to find out the available releases from the command line, it's a simple command.
@@ -37,8 +37,8 @@ If you just want to find out the available releases from the command line, it's 
 ```bash
 # List all available releases
 $ sudo ros os list
-burmilla/os:v1.9.0 local latest running
-burmilla/os:v1.9.0-rc1 remote available
+burmilla/os:v2.0.0 local latest running
+burmilla/os:v2.0.0 remote available
 ```
 
 The `local`/`remote` label shows which images are available to System Docker locally versus which need to be pulled from Docker Hub. If you choose to upgrade to a version that is remote, we will automatically pull that image during the upgrade.
@@ -49,7 +49,7 @@ Let's walk through upgrading! The `ros os upgrade` command will automatically up
 
 ```bash
 $ sudo ros os upgrade
-Upgrading to burmilla/os:v1.9.0
+Upgrading to burmilla/os:v2.0.0
 ```
 
 Confirm that you want to continue and the final step will be to confirm that you want to reboot.
@@ -65,7 +65,7 @@ INFO[0037] Rebooting
 
 > **Note:** The default console container is persistent and will NOT be updated by default.  Use `ros console switch default` to update the `os-console` container.  This is a destructive operation - see [console persistence](/docs/installation/custom-builds/custom-console/#console-persistence) for info about what will be retained.
 
-> **Note:** To make the default container non-persistent, set `io.docker.compose.rebuild: "always"` on the console container [os-config.tpl](https://github.com/burmilla/os/blob/v1.9.6/os-config.tpl.yml#L246)
+> **Note:** To make the default container non-persistent, set `io.docker.compose.rebuild: "always"` on the console container [os-config.tpl](https://github.com/burmilla/os/blob/v2.0.0/os-config.tpl.yml#L246)
 
 After rebooting, you can check that your version has been updated.
 
@@ -131,7 +131,7 @@ ros version 0.4.4
 During an upgrade, the template of the upgrade is downloaded from the burmilla/os repository. You can download this template ahead of time so that it's saved locally. This will decrease the time it takes to upgrade. We'll use the `-s` option to stage the specific template. You will need to specify the image name with the `-i` option, otherwise it will automatically stage the current version.
 
 ```bash
-$ sudo ros os upgrade -s -i burmilla/os:v1.9.0
+$ sudo ros os upgrade -s -i burmilla/os:v2.0.0
 ```
 
 ### Custom Upgrade Sources

@@ -47,7 +47,7 @@ rancher:
   environment:
     ECS_CLUSTER: your-ecs-cluster-name
     # Note: You will need to make sure to include the colon in front of the version.
-    ECS_AGENT_VERSION: :v1.9.0
+    ECS_AGENT_VERSION: :v2.0.0
     # If you have selected a BurmillaOS AMI that does not have ECS enabled by default,
     # you'll need to enable the system service for the ECS agent.
   services_include:
