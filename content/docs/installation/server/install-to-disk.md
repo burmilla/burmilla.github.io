@@ -31,7 +31,7 @@ Now that our `cloud-config.yml` contains our public SSH key, we can move on to i
 ```bash
 $ sudo ros install -c cloud-config.yml -d /dev/sda
 INFO[0000] No install type specified...defaulting to generic
-Installing from burmilla/os:v1.9.0
+Installing from burmilla/os:v2.0.0
 Continue [y/N]:
 ```
 
@@ -44,12 +44,12 @@ $ sudo ros install -c https://link/to/cloud-config.yml
 You will be prompted to see if you want to continue. Type **y**.
 
 ```bash
-Unable to find image 'burmilla/os:v1.9.0' locally
-v1.9.0: Pulling from burmilla/os
+Unable to find image 'burmilla/os:v2.0.0' locally
+v2.0.0: Pulling from burmilla/os
 ...
 ...
 ...
-Status: Downloaded newer image for burmilla/os:v1.9.0
+Status: Downloaded newer image for burmilla/os:v2.0.0
 + DEVICE=/dev/sda
 ...
 ...
@@ -62,13 +62,13 @@ After installing BurmillaOS to disk, you will no longer be automatically logged 
 
 ### Installing a Different Version
 
-By default, `ros install` uses the same installer image version as the ISO it is run from. The `-i` option specifies the particular image to install from. To keep the ISO as small as possible, the installer image is downloaded from DockerHub and used in System Docker. For example for BurmillaOS v1.9.0 the default installer image would be `burmilla/os:v1.9.0`.
+By default, `ros install` uses the same installer image version as the ISO it is run from. The `-i` option specifies the particular image to install from. To keep the ISO as small as possible, the installer image is downloaded from DockerHub and used in System Docker. For example for BurmillaOS v2.0.0 the default installer image would be `burmilla/os:v2.0.0`.
 
 You can use `ros os list` command to find the list of available BurmillaOS images/versions.
 
 ```bash
 $ sudo ros os list
-burmilla/os:v1.9.0 local
+burmilla/os:v2.0.0 local
 ```
 
 Alternatively, you can set the installer image to any image in System Docker to install BurmillaOS. This is particularly useful for machines that will not have direct access to the internet.

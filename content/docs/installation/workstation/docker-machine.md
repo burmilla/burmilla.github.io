@@ -11,11 +11,11 @@ Get the latest ISO artifact from the BurmillaOS [releases](https://github.com/bu
 
 Machine Driver | Recommended BurmillaOS version | ISO File
 -------------- | ----------------------------- | -------------------------------------------------------------
-VirtualBox     | >=v1.9.0 | burmillaos.iso
-VMWare VSphere | >=v1.9.0 | burmillaos-autoformat.iso
-VMWare Fusion  | >=v1.9.0 | burmillaos-autoformat.iso
-Hyper-V        | >=v1.9.0 | burmillaos.iso
-Proxmox VE     | >=v1.9.0 | burmillaos-autoformat.iso
+VirtualBox     | >=v2.0.0 | burmillaos.iso
+VMWare VSphere | >=v2.0.0 | burmillaos-autoformat.iso
+VMWare Fusion  | >=v2.0.0 | burmillaos-autoformat.iso
+Hyper-V        | >=v2.0.0 | burmillaos.iso
+Proxmox VE     | >=v2.0.0 | burmillaos-autoformat.iso
 
 ## Docker Machine
 
