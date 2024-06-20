@@ -8,17 +8,19 @@ Unlike the big players, BurmillaOS boots very quick and is nearly instantly read
 
 To read more about Docker, please head over to [Docker user guide](https://docs.docker.com/config/daemon/).
 
+**If you want to know the latest project news, we invite you to join [Discord](https://bit.ly/DiscordBurmillaOS)**
+
 ## Hardware Requirements
 
 ### Memory Requirements
 
-Platform   | RAM requirements
---------   | ------------------------
-Baremetal  | 1GB
-VirtualBox | 1GB
-VMWare     | 1GB
-GCE        | 1GB
-AWS        | 1GB
+| Platform   | RAM requirements |
+| ---------- | ---------------- |
+| Baremetal  | 1GB              |
+| VirtualBox | 1GB              |
+| VMWare     | 1GB              |
+| GCE        | 1GB              |
+| AWS        | 1GB              |
 
 You can adjust memory requirements by custom building BurmillaOS, please refer to [reduce-memory-requirements](/docs/installation/custom-builds/custom-burmillaos-iso#reduce-memory-requirements)
 
@@ -28,7 +30,7 @@ Everything in BurmillaOS is a Docker container. We accomplish this by launching 
 
 System Docker runs a special container called **Docker**, which is another Docker daemon responsible for managing all of the user’s containers. Any containers that you launch as a user from the console will run inside this Docker. This creates isolation from the System Docker containers and ensures that normal user commands don’t impact system services.
 
- We created this separation not only for the security benefits, but also to make sure that commands like `docker rm -f $(docker ps -qa)` don't delete the entire OS.
+We created this separation not only for the security benefits, but also to make sure that commands like `docker rm -f $(docker ps -qa)` don't delete the entire OS.
 
 ![How it works](https://raw.githubusercontent.com/burmilla/burmilla.github.io/master/static/images/howitworks.png)
 
