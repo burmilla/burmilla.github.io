@@ -31,7 +31,7 @@ You also need client cert and key to access Docker via a TCP socket now:
 
 ```
 $ sudo ros tls gen
-  INFO[0000] Out directory (-d, --dir) not specified, using default: /home/burmilla/.docker
+  INFO[0000] Out directory (-d, --dir) not specified, using default: /home/rancher/.docker
 ```
 
 All the docker client TLS files are in `~/.docker` dir now.
@@ -46,7 +46,7 @@ $ docker --tlsverify version
 
 Because all the necessary files are in the `~/.docker` dir, you don't need to specify them using `--tlscacert` `--tlscert` and `--tlskey` options. You also don't need `-H` to access Docker on localhost.
 
-Copy the files from `/home/burmilla/.docker` to `$HOME/.docker` on your client machine if you need to access Docker on your BurmillaOS host from there.
+Copy the files from `/home/rancher/.docker` to `$HOME/.docker` on your client machine if you need to access Docker on your BurmillaOS host from there.
 
 On your client machine, set the Docker host and test out if Docker commands work.
 

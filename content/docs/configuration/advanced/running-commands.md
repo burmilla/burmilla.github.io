@@ -10,8 +10,8 @@ You can automate running commands on boot using the `runcmd` cloud-config direct
 ```yaml
 #cloud-config
 runcmd:
-- [ touch, /home/burmilla/test1 ]
-- echo "test" > /home/burmilla/test2
+- [ touch, /home/rancher/test1 ]
+- echo "test" > /home/rancher/test2
 ```
 
 Commands specified using `runcmd` will be executed within the context of the `console` container.
