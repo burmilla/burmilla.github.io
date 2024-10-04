@@ -25,7 +25,7 @@ If you don't add `rancher.state.autoformat`, BurmillaOS will run completely in m
 _Available as of RancherOS v0.9_
 
 Secrets can be put on the `kernel` parameters line afer a `--` double dash, and they will be not be shown in any `/proc/cmdline`. These parameters
-will be passed to the BurmillaOS init process and stored in the `root` accessible `/var/lib/burmilla/conf/cloud-init.d/init.yml` file, and are available to the root user from the `ros config` commands.
+will be passed to the BurmillaOS init process and stored in the `root` accessible `/var/lib/rancher/conf/cloud-init.d/init.yml` file, and are available to the root user from the `ros config` commands.
 
 For example, the `kernel` line above could be written as:
 

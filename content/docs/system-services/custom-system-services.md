@@ -18,7 +18,7 @@ rancher:
 
 ### Using Local Files
 
-If you already have BurmillaOS running, you can start a system service by saving a `docker-compose.yml` file at `/var/lib/burmilla/conf/`.
+If you already have BurmillaOS running, you can start a system service by saving a `docker-compose.yml` file at `/var/lib/rancher/conf/`.
 
 ```yaml
 nginxapp:
@@ -29,8 +29,8 @@ nginxapp:
 To enable a custom system service from the file location, the command must indicate the file location if saved in BurmillaOS. If the file is saved at a http(s) url, just use the http(s) url when enabling/disabling.
 
 ```bash
-# Enable the system service saved in /var/lib/burmilla/conf
-$ sudo ros service enable /var/lib/burmilla/conf/example.yml
+# Enable the system service saved in /var/lib/rancher/conf
+$ sudo ros service enable /var/lib/rancher/conf/example.yml
 # Enable a system service saved at a http(s) url
 $ sudo ros service enable https://mydomain.com/example.yml
 ```
@@ -153,7 +153,7 @@ INFO[0000] Project [os]: Project started
 ```
 
 Beware that there is an overly aggressive caching of yml files - so when you push a new yml file to your repo, you need to
-delete the files in `/var/lib/burmilla/cache`.
+delete the files in `/var/lib/rancher/cache`.
 
 The image that you specify in the service yml file needs to be pullable - either from a private registry, or on the Docker Hub.
 

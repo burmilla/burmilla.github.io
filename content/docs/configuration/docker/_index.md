@@ -238,7 +238,7 @@ OPTIONS:
 When using `--authorized-keys`, you will need to put the key file in one of the following directories:
 
 ```
-/var/lib/burmilla/
+/var/lib/rancher/
 /opt/
 /home/
 ```
