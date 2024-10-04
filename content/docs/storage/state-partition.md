@@ -13,7 +13,7 @@ rancher:
     dev: LABEL=RANCHER_STATE
 ```
 
-For other labels such as `BURMILLA_BOOT` and `BURMILLA_OEM` and `BURMILLA_SWAP`, please refer to [Custom partition layout](/docs/storage/custom-partition-layout).
+For other labels such as `RANCHER_BOOT` and `BURMILLA_OEM` and `BURMILLA_SWAP`, please refer to [Custom partition layout](/docs/storage/custom-partition-layout).
 
 ## Autoformat
 

@@ -48,7 +48,7 @@ $ reboot
 
 > In this mode, the RANCHER_STATE partition capacity cannot exceed 3.8GiB, otherwise the bootloader may not recognize the boot disk. This is the test result on VirtualBox.
 
-### BURMILLA_BOOT
+### RANCHER_BOOT
 
 When you only use the RANCHER_STATE partition, the bootloader will be installed in the `/boot` directory.
 
@@ -74,12 +74,12 @@ Device     Boot   Start      End Sectors  Size Id Type
 /dev/sda2       2504704  7503167 4998464  2.4G 83 Linux
 /dev/sda3       7503872 10503167 2999296  1.4G 83 Linux
 
-[root@burmilla burmilla]# mkfs.ext4 -L BURMILLA_BOOT /dev/sda1
+[root@burmilla burmilla]# mkfs.ext4 -L RANCHER_BOOT /dev/sda1
 [root@burmilla burmilla]# mkfs.ext4 -L RANCHER_STATE /dev/sda2
 [root@burmilla burmilla]# mkfs.ext4 /dev/sda3
 
 [root@burmilla burmilla]# blkid
-/dev/sda1: LABEL="BURMILLA_BOOT" UUID="43baeac3-11f3-4eed-acfa-64daf66b26c8" TYPE="ext4" PARTUUID="e32b3025-01"
+/dev/sda1: LABEL="RANCHER_BOOT" UUID="43baeac3-11f3-4eed-acfa-64daf66b26c8" TYPE="ext4" PARTUUID="e32b3025-01"
 /dev/sda2: LABEL="RANCHER_STATE" UUID="16f1ecef-dbe4-42a2-87a1-611939684e0b" TYPE="ext4" PARTUUID="e32b3025-02"
 /dev/sda3: UUID="9f34e161-0eee-48f9-93de-3b7c54dea437" TYPE="ext4" PARTUUID="c9b8f181-03"
 ```
@@ -102,7 +102,7 @@ drwxr-xr-x    1 root     root        4.0K Sep 27 03:38 ..
 
 If you are not using the first partition as a BOOT partition, you need to set BOOT flag via the fdisk tool.
 
-> In this mode, the BURMILLA_BOOT partition capacity cannot exceed 3.8GiB, otherwise the bootloader may not recognize the boot disk. This is the test result on VirtualBox.
+> In this mode, the RANCHER_BOOT partition capacity cannot exceed 3.8GiB, otherwise the bootloader may not recognize the boot disk. This is the test result on VirtualBox.
 
 ### BURMILLA_OEM
 
