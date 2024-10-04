@@ -33,7 +33,7 @@ This service provides the BurmillaOS user interface by running `sshd` and `getty
    * Mount devices specified in the `mounts` in the [cloud-config](/docs/storage/additional-mounts).
    * Set sysctl parameters specified in  the`rancher.sysctl` [cloud-config](/docs/configuration/advanced/sysctl).
 4. If user-data contained a file that started with `#!`, then a file would be saved at `/var/lib/rancher/conf/cloud-config-script` during cloud-init and then executed. Any errors are ignored.
-5. Runs `/opt/burmilla/bin/start.sh` if it exists and is executable. Any errors are ignored.
+5. Runs `/opt/rancher/bin/start.sh` if it exists and is executable. Any errors are ignored.
 6. Runs `/etc/rc.local` if it exists and is executable. Any errors are ignored.
 
 ## Docker

@@ -49,5 +49,5 @@ write_files:
         done
       done
 
-      docker run -d --restart=unless-stopped -p 80:80 -p 443:443 -v /opt/burmilla:/var/lib/rancher burmilla/burmilla:${burmilla_version}
+      docker run -d --restart=unless-stopped -p 80:80 -p 443:443 -v /opt/rancher:/var/lib/rancher burmilla/burmilla:${burmilla_version}
 ```
