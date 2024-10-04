@@ -11,7 +11,7 @@ You should use a private Docker registry so that `user-docker` and `system-docke
 2. Set the private registry certificates for `user-docker`. For details, refer to [Certificates for Private Registries](/docs/configuration/docker/private-registries#certificates-for-private-registries)
 3. Set the private registry certificates for `system-docker`. There are two ways to set the certificates:
   - To set the private registry certificates before BurmillaOS starts, you can run a script included with BurmillaOS. For details, refer to [Set Custom Certs in ISO](/docs/configuration/advanced/airgap-configuration#set-custom-certs-in-iso).
-  - To set the private registry certificates after BurmillaOS starts, append your private registry certs to the `/etc/ssl/certs/ca-certificates.crt.burmilla` file. Then reboot to make the certs fully take effect.
+  - To set the private registry certificates after BurmillaOS starts, append your private registry certs to the `/etc/ssl/certs/ca-certificates.crt.rancher` file. Then reboot to make the certs fully take effect.
 4. The images used by BurmillaOS should be pushed to your private registry.
 
 ## Set Custom Certs in ISO
