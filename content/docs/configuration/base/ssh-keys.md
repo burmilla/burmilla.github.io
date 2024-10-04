@@ -14,7 +14,7 @@ ssh_authorized_keys:
   - ssh-rsa BBB...ZZZ example2@burmilla
 ```
 
-When we pass the cloud-config file during the `ros install` command, it will allow these ssh keys to be associated with the **burmilla** user. You can ssh into BurmillaOS using the key.
+When we pass the cloud-config file during the `ros install` command, it will allow these ssh keys to be associated with the **rancher** user. You can ssh into BurmillaOS using the key.
 
 ```shell
 $ ssh -i /path/to/private/key rancher@<ip-address>

@@ -16,7 +16,7 @@ BurmillaOS is available as an image in GCE, and can be easily run in Google Comp
 
 ## Launching BurmillaOS using `gcloud compute`
 
-After the image is uploaded, we can use the `gcloud compute` [command-line tool](https://cloud.google.com/compute/docs/gcloud-compute/) to start a new instance. It automatically merges the SSH keys from the project and adds the keys to the **burmilla** user. If you don't have any project level SSH keys, go to the _Adding SSH Keys_ section to learn more about adding SSH keys.
+After the image is uploaded, we can use the `gcloud compute` [command-line tool](https://cloud.google.com/compute/docs/gcloud-compute/) to start a new instance. It automatically merges the SSH keys from the project and adds the keys to the **rancher** user. If you don't have any project level SSH keys, go to the _Adding SSH Keys_ section to learn more about adding SSH keys.
 
 Since the image is private, we need to follow Google's [instructions](https://cloud.google.com/compute/docs/creating-custom-image#start_an_instance_from_a_custom_image).
 
@@ -26,7 +26,7 @@ $ gcloud compute instances create --project <PROJECT_ID> --zone <ZONE_TO_CREATE_
 
 ## Using a Cloud Config File with GCE
 
-If you want to pass in your own cloud config file that will be processed by [cloud init](/docs/configuration/#cloud-config), you can pass it as metadata upon creation of the instance during the `gcloud compute` command. The file will need to be stored locally before running the command. The key of the metadata will be `user-data` and the value is the location of the file. If any SSH keys are added in the cloud config file, it will also be added to the **burmilla** user.
+If you want to pass in your own cloud config file that will be processed by [cloud init](/docs/configuration/#cloud-config), you can pass it as metadata upon creation of the instance during the `gcloud compute` command. The file will need to be stored locally before running the command. The key of the metadata will be `user-data` and the value is the location of the file. If any SSH keys are added in the cloud config file, it will also be added to the **rancher** user.
 
 ```bash
 $ gcloud compute instances create --project <PROJECT_ID> --zone <ZONE_TO_CREATE_INSTANCE> <INSTANCE_NAME> --image <PRIVATE_IMAGE_NAME> --metadata-from-file user-data=/Directory/of/Cloud_Config.yml
@@ -93,7 +93,7 @@ In your project, click on **Metadata**, which is located within Compute -> Compu
 
 Add the SSH keys that you want to have access to any instances within your project.
 
-Note: If you do this after any BurmillaOS instance is created, you will need to reset the instance so that the SSH keys are added to the **burmilla** user.
+Note: If you do this after any BurmillaOS instance is created, you will need to reset the instance so that the SSH keys are added to the **rancher** user.
 
 **Option 2: Instance Level SSH Keys**
 
@@ -105,7 +105,7 @@ After the SSH keys have been added, you'll need to reset the machine, by clickin
 
 ![BurmillaOS on GCE 9](https://raw.githubusercontent.com/burmilla/rancher.github.io/master/img/BurmillaOS_gce9.png)
 
-After a little bit, you will be able to SSH into the box using the **burmilla** user.
+After a little bit, you will be able to SSH into the box using the **rancher** user.
 
 **Option 3: Using the Cloud Config file**
 
@@ -123,7 +123,7 @@ ssh_authorized_keys:
 ## Logging into BurmillaOS
 ----
 
-Remember, the SSH keys are passed to the **burmilla** user. The SSH keys can be passed from the project level, the instance level or through the cloud config file. If you add any of these SSH keys after the instance has been created, the instance will need to be reset before the SSH keys are passed through.
+Remember, the SSH keys are passed to the **rancher** user. The SSH keys can be passed from the project level, the instance level or through the cloud config file. If you add any of these SSH keys after the instance has been created, the instance will need to be reset before the SSH keys are passed through.
 
 ```
 $ gcloud compute ssh rancher@<INSTANCE_NAME> --project <PROJECT_ID> --zone <ZONE_OF_INSTANCE>
