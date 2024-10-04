@@ -94,7 +94,7 @@ $ ros install -d <disk> -c <cloud-config.yaml> -s
 After installing BurmillaOS, you can ssh into BurmillaOS using your private key and the **burmilla** user.
 
 ```bash
-$ ssh -i /path/to/private/key burmilla@<ip-address>
+$ ssh -i /path/to/private/key rancher@<ip-address>
 ```
 
 ## Installing with no Internet Access

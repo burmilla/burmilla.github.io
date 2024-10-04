@@ -17,7 +17,7 @@ ssh_authorized_keys:
 When we pass the cloud-config file during the `ros install` command, it will allow these ssh keys to be associated with the **burmilla** user. You can ssh into BurmillaOS using the key.
 
 ```shell
-$ ssh -i /path/to/private/key burmilla@<ip-address>
+$ ssh -i /path/to/private/key rancher@<ip-address>
 ```
 
 Please note that OpenSSH 7.0 and greater similarly disable the ssh-dss (DSA) public key algorithm. It too is weak and we recommend against its use.

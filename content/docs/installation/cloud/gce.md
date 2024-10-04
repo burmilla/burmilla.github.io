@@ -126,7 +126,7 @@ ssh_authorized_keys:
 Remember, the SSH keys are passed to the **burmilla** user. The SSH keys can be passed from the project level, the instance level or through the cloud config file. If you add any of these SSH keys after the instance has been created, the instance will need to be reset before the SSH keys are passed through.
 
 ```
-$ gcloud compute ssh burmilla@<INSTANCE_NAME> --project <PROJECT_ID> --zone <ZONE_OF_INSTANCE>
+$ gcloud compute ssh rancher@<INSTANCE_NAME> --project <PROJECT_ID> --zone <ZONE_OF_INSTANCE>
 ```
 
 If you have issues logging into BurmillaOS, try using this command to help debug the instance.

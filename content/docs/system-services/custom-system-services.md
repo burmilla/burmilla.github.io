@@ -117,8 +117,8 @@ If you're building your own services in a branch on GitHub, you can push to it, 
 For example, when developing the zfs service:
 
 ```bash
-burmilla@zfs:~$ sudo ros config set rancher.repositories.zfs.url https://raw.githubusercontent.com/SvenDowideit/os-services/zfs-service
-burmilla@zfs:~$ sudo ros service list
+rancher@zfs:~$ sudo ros config set rancher.repositories.zfs.url https://raw.githubusercontent.com/SvenDowideit/os-services/zfs-service
+rancher@zfs:~$ sudo ros service list
 disabled amazon-ecs-agent
 disabled kernel-extras
 enabled  kernel-headers
@@ -130,7 +130,7 @@ disabled kernel-headers
 disabled kernel-headers-system-docker
 disabled open-vm-tools
 disabled zfs
-[burmilla@zfs ~]$ sudo ros service enable zfs
+[rancher@zfs ~]$ sudo ros service enable zfs
 Pulling zfs (zombie/zfs)...
 latest: Pulling from zombie/zfs
 b3e1c725a85f: Pull complete
@@ -143,7 +143,7 @@ d1a8c0826fbb: Pull complete
 66c2263f2388: Pull complete
 Digest: sha256:eab7b8c21fbefb55f7ee311dd236acee215cb6a5d22942844178b8c6d4e02cd9
 Status: Downloaded newer image for zombie/zfs:latest
-[burmilla@zfs ~]$ sudo ros service up zfs
+[rancher@zfs ~]$ sudo ros service up zfs
 WARN[0000] The KERNEL_VERSION variable is not set. Substituting a blank string.
 INFO[0000] Project [os]: Starting project
 INFO[0000] [0/21] [zfs]: Starting
