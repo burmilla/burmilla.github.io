@@ -24,7 +24,7 @@ Runs `ntpd` in a System Docker container.
 
 This service provides the BurmillaOS user interface by running `sshd` and `getty`. It completes the BurmillaOS configuration on start up:
 
-1. If the `rancher.password=<password>` kernel parameter exists, it sets `<password>` as the password for the `burmilla` user.
+1. If the `rancher.password=<password>` kernel parameter exists, it sets `<password>` as the password for the `rancher` user.
 2. If there are no host SSH keys, it generates host SSH keys and saves them under `rancher.ssh.keys` in [cloud-config](/docs/configuration/base/#cloud-config).
 3. Runs `cloud-init -execute`, which does the following:
    * Updates `.ssh/authorized_keys` in `/home/burmilla` and `/home/docker` in the [cloud-config](/docs/configuration/base/ssh-keys) and metadata.

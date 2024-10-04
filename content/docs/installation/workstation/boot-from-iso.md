@@ -13,7 +13,7 @@ VMware     | burmillaos-vmware.iso
 Hyper-V    | burmillaos-hyperv.iso
 Proxmox VE | burmillaos-proxmoxve.iso
 
-You must boot with enough memory which you can refer to [here](/#hardware-requirements). If you boot with the ISO, you will automatically be logged in as the `burmilla` user. Only the ISO is set to use autologin by default. If you run from a cloud or install to disk, SSH keys or a password of your choice is expected to be used.
+You must boot with enough memory which you can refer to [here](/#hardware-requirements). If you boot with the ISO, you will automatically be logged in as the `rancher` user. Only the ISO is set to use autologin by default. If you run from a cloud or install to disk, SSH keys or a password of your choice is expected to be used.
 
 ## Install to Disk
 

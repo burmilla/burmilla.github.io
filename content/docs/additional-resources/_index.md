@@ -42,7 +42,7 @@ On OS X, `brew` is recommended to install those. On Linux, use your distro packa
 
 To launch BurmillaOS in QEMU from your dev version, you can either use `make run`, or customise the vm using `./scripts/run` and its options. You can use `--append your.kernel=params here` and `--cloud-config your-cloud-config.yml` to configure the BurmillaOS instance you're launching.
 
-You can SSH in using `./scripts/ssh`.  Your SSH keys should have been populated (if you didn't provide your own cloud-config) so you won't need a password.  If you don't have SSH keys, or something is wrong with your cloud-config, then the password is "`burmilla`".
+You can SSH in using `./scripts/ssh`.  Your SSH keys should have been populated (if you didn't provide your own cloud-config) so you won't need a password.  If you don't have SSH keys, or something is wrong with your cloud-config, then the password is "`rancher`".
 
 If you're on OS X, you can run BurmillaOS using [_xhyve_](https://github.com/mist64/xhyve) instead of QEMU: just pass `--xhyve` to `./scripts/run` and `./scripts/ssh`.
 

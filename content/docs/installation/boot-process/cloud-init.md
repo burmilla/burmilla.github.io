@@ -21,5 +21,5 @@ Although the specifics vary based on provider, a metadata file will typically co
 2. `/usr/share/ros/oem/oem-config.yml` - This will typically exist by OEM, which should **not** be modified by users.
 3. Files in `/var/lib/burmilla/conf/cloud-config.d/` ordered by filename. If a file is passed in through user-data, it is written by cloud-init and saved as `/var/lib/burmilla/conf/cloud-config.d/boot.yml`.
 4. `/var/lib/burmilla/conf/cloud-config.yml` - If you set anything with `ros config set`, the changes are saved in this file.
-5. Kernel parameters with names starting with `burmilla`.
+5. Kernel parameters with names starting with `rancher`.
 6. `/var/lib/burmilla/conf/metadata` - Metadata added by cloud-init.

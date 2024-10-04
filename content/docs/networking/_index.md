@@ -13,7 +13,7 @@ $ sudo ros config set rancher.network.interfaces.eth1.mtu 1500
 $ sudo ros config set rancher.network.interfaces.eth1.dhcp false
 ```
 
-If you wanted to configure the interfaces through the cloud config file, you'll need to place interface configurations within the `burmilla` key.
+If you wanted to configure the interfaces through the cloud config file, you'll need to place interface configurations within the `rancher` key.
 
 ```yaml
 #cloud-config

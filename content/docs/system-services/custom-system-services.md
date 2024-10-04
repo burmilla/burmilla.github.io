@@ -164,7 +164,7 @@ Once you have your own Services repository, you can add a new service to its ind
 To create your own console images, you need to:
 
 1. install some basic tools, including an ssh daemon, sudo, and kernel module tools
-2. create `burmilla` and `docker` users and groups with UID and GID's of `1100` and `1101` respectively
+2. create `rancher` and `docker` users and groups with UID and GID's of `1100` and `1101` respectively
 3. add both users to the `docker` and `sudo` groups
 4. add both groups into the `/etc/sudoers` file to allow password-less sudo
 5. configure sshd to accept logins from users in the `docker` group, and deny `root`.

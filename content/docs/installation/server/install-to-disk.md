@@ -58,7 +58,7 @@ Status: Downloaded newer image for burmilla/os:v2.0.0
 Continue with reboot [y/N]:
 ```
 
-After installing BurmillaOS to disk, you will no longer be automatically logged in as the `burmilla` user. You'll need to have added in SSH keys within your [cloud-config file](/docs/configuration/base/#cloud-config).
+After installing BurmillaOS to disk, you will no longer be automatically logged in as the `rancher` user. You'll need to have added in SSH keys within your [cloud-config file](/docs/configuration/base/#cloud-config).
 
 ### Installing a Different Version
 
