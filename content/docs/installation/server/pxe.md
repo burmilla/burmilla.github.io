@@ -11,7 +11,7 @@ bookToc: false
 # Location of Kernel/Initrd images
 set base-url <url>
 
-kernel ${base-url}/vmlinuz rancher.state.dev=LABEL=BURMILLA_STATE rancher.state.autoformat=[/dev/sda] rancher.state.wait rancher.cloud_init.datasources=[url:http://example.com/cloud-config]
+kernel ${base-url}/vmlinuz rancher.state.dev=LABEL=RANCHER_STATE rancher.state.autoformat=[/dev/sda] rancher.state.wait rancher.cloud_init.datasources=[url:http://example.com/cloud-config]
 initrd ${base-url}/initrd
 boot
 ```
@@ -30,7 +30,7 @@ will be passed to the BurmillaOS init process and stored in the `root` accessibl
 For example, the `kernel` line above could be written as:
 
 ```bash
-kernel ${base-url}/vmlinuz rancher.state.dev=LABEL=BURMILLA_STATE rancher.state.autoformat=[/dev/sda] -- rancher.cloud_init.datasources=[url:http://example.com/cloud-config]
+kernel ${base-url}/vmlinuz rancher.state.dev=LABEL=RANCHER_STATE rancher.state.autoformat=[/dev/sda] -- rancher.cloud_init.datasources=[url:http://example.com/cloud-config]
 ```
 
 The hidden part of the command line can be accessed with either `sudo ros config get rancher.environment.EXTRA_CMDLINE`, or by using a service file's environment array.

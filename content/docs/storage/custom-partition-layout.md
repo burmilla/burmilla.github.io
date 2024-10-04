@@ -5,16 +5,16 @@ weight: 1
 # How to custom partition layout
 
 When users use the default `ros install`, ROS will automatically create one partition on the root disk.
-It will be the only partition with the label BURMILLA_STATE.
+It will be the only partition with the label RANCHER_STATE.
 But sometimes users want to be able to customize the root disk partition to isolate the data.
 
 > The following defaults to MBR mode, GPT mode has not been tested.
 ## Partions
-### BURMILLA_STATE
+### RANCHER_STATE
 
-As mentioned above, the default mode is that ROS will automatically create one partition with the label BURMILLA_STATE.
+As mentioned above, the default mode is that ROS will automatically create one partition with the label RANCHER_STATE.
 
-In addition, we can have other partitions, e.g.: two partitions, one is BURMILLA_STATE and the other is a normal partition.
+In addition, we can have other partitions, e.g.: two partitions, one is RANCHER_STATE and the other is a normal partition.
 
 First boot a ROS instance from ISO, then manually format and partition `/dev/sda` , the reference configuration is as follows:
 
@@ -32,7 +32,7 @@ Device     Boot   Start      End Sectors  Size Id Type
 /dev/sda2       7503872 10503167 2999296  1.4G 83 Linux
 
 [root@burmilla oem]# blkid
-/dev/sda1: LABEL="BURMILLA_STATE" UUID="512f212b-3130-458e-a2d1-1d601c34d4e4" TYPE="ext4" PARTUUID="9fff87e9-01"
+/dev/sda1: LABEL="RANCHER_STATE" UUID="512f212b-3130-458e-a2d1-1d601c34d4e4" TYPE="ext4" PARTUUID="9fff87e9-01"
 /dev/sda2: UUID="3828e3ac-b825-4898-9072-45da9d37c2a6" TYPE="ext4" PARTUUID="9fff87e9-02"
 ```
 
@@ -46,11 +46,11 @@ $ ros config set rancher.docker.graph /mnt/s
 $ reboot
 ```
 
-> In this mode, the BURMILLA_STATE partition capacity cannot exceed 3.8GiB, otherwise the bootloader may not recognize the boot disk. This is the test result on VirtualBox.
+> In this mode, the RANCHER_STATE partition capacity cannot exceed 3.8GiB, otherwise the bootloader may not recognize the boot disk. This is the test result on VirtualBox.
 
 ### BURMILLA_BOOT
 
-When you only use the BURMILLA_STATE partition, the bootloader will be installed in the `/boot` directory.
+When you only use the RANCHER_STATE partition, the bootloader will be installed in the `/boot` directory.
 
 ```shell
 $ system-docker run -it --rm -v /:/host alpine
@@ -75,12 +75,12 @@ Device     Boot   Start      End Sectors  Size Id Type
 /dev/sda3       7503872 10503167 2999296  1.4G 83 Linux
 
 [root@burmilla burmilla]# mkfs.ext4 -L BURMILLA_BOOT /dev/sda1
-[root@burmilla burmilla]# mkfs.ext4 -L BURMILLA_STATE /dev/sda2
+[root@burmilla burmilla]# mkfs.ext4 -L RANCHER_STATE /dev/sda2
 [root@burmilla burmilla]# mkfs.ext4 /dev/sda3
 
 [root@burmilla burmilla]# blkid
 /dev/sda1: LABEL="BURMILLA_BOOT" UUID="43baeac3-11f3-4eed-acfa-64daf66b26c8" TYPE="ext4" PARTUUID="e32b3025-01"
-/dev/sda2: LABEL="BURMILLA_STATE" UUID="16f1ecef-dbe4-42a2-87a1-611939684e0b" TYPE="ext4" PARTUUID="e32b3025-02"
+/dev/sda2: LABEL="RANCHER_STATE" UUID="16f1ecef-dbe4-42a2-87a1-611939684e0b" TYPE="ext4" PARTUUID="e32b3025-02"
 /dev/sda3: UUID="9f34e161-0eee-48f9-93de-3b7c54dea437" TYPE="ext4" PARTUUID="c9b8f181-03"
 ```
 
@@ -126,7 +126,7 @@ Suppose you have a partition(`/dev/sda2`) and you want to use it as a SWAP parti
 $ mkswap -L BURMILLA_SWAP /dev/sda2
 
 $ blkid
-/dev/sda1: LABEL="BURMILLA_STATE" UUID="512f212b-3130-458e-a2d1-1d601c34d4e4" TYPE="ext4" PARTUUID="9fff87e9-01"
+/dev/sda1: LABEL="RANCHER_STATE" UUID="512f212b-3130-458e-a2d1-1d601c34d4e4" TYPE="ext4" PARTUUID="9fff87e9-01"
 /dev/sda2: LABEL="BURMILLA_SWAP" UUID="772b6e76-f89c-458e-931e-10902d78d3e4" TYPE="swap" PARTUUID="9fff87e9-02"
 ```
 
