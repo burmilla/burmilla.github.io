@@ -12,7 +12,7 @@ The easiest way to log in is to pass a `cloud-config.yml` file containing your p
 
 The `ros install` command will process your `cloud-config.yml` file specified with the `-c` flag. This file will also be placed onto the disk and installed to `/var/lib/rancher/conf/`. It will be evaluated on every boot.
 
-Create a cloud-config file with a SSH key, this allows you to SSH into the box as the burmilla user. The yml file would look like this:
+Create a cloud-config file with a SSH key, this allows you to SSH into the box as the `rancher` user. The yml file would look like this:
 
 ```yaml
 #cloud-config
