@@ -9,7 +9,7 @@ If you wanted to configure the DNS through the cloud config file, you'll need to
 ```yaml
 #cloud-config
 
-#Remember, any changes for burmilla will be within the burmilla key
+#Remember, any changes for rancher will be within the rancher key
 rancher:
   network:
     dns:
