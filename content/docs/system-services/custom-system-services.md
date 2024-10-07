@@ -18,7 +18,7 @@ rancher:
 
 ### Using Local Files
 
-If you already have BurmillaOS running, you can start a system service by saving a `docker-compose.yml` file at `/var/lib/burmilla/conf/`.
+If you already have BurmillaOS running, you can start a system service by saving a `docker-compose.yml` file at `/var/lib/rancher/conf/`.
 
 ```yaml
 nginxapp:
@@ -29,8 +29,8 @@ nginxapp:
 To enable a custom system service from the file location, the command must indicate the file location if saved in BurmillaOS. If the file is saved at a http(s) url, just use the http(s) url when enabling/disabling.
 
 ```bash
-# Enable the system service saved in /var/lib/burmilla/conf
-$ sudo ros service enable /var/lib/burmilla/conf/example.yml
+# Enable the system service saved in /var/lib/rancher/conf
+$ sudo ros service enable /var/lib/rancher/conf/example.yml
 # Enable a system service saved at a http(s) url
 $ sudo ros service enable https://mydomain.com/example.yml
 ```
@@ -117,8 +117,8 @@ If you're building your own services in a branch on GitHub, you can push to it, 
 For example, when developing the zfs service:
 
 ```bash
-burmilla@zfs:~$ sudo ros config set rancher.repositories.zfs.url https://raw.githubusercontent.com/SvenDowideit/os-services/zfs-service
-burmilla@zfs:~$ sudo ros service list
+rancher@zfs:~$ sudo ros config set rancher.repositories.zfs.url https://raw.githubusercontent.com/SvenDowideit/os-services/zfs-service
+rancher@zfs:~$ sudo ros service list
 disabled amazon-ecs-agent
 disabled kernel-extras
 enabled  kernel-headers
@@ -130,7 +130,7 @@ disabled kernel-headers
 disabled kernel-headers-system-docker
 disabled open-vm-tools
 disabled zfs
-[burmilla@zfs ~]$ sudo ros service enable zfs
+[rancher@zfs ~]$ sudo ros service enable zfs
 Pulling zfs (zombie/zfs)...
 latest: Pulling from zombie/zfs
 b3e1c725a85f: Pull complete
@@ -143,7 +143,7 @@ d1a8c0826fbb: Pull complete
 66c2263f2388: Pull complete
 Digest: sha256:eab7b8c21fbefb55f7ee311dd236acee215cb6a5d22942844178b8c6d4e02cd9
 Status: Downloaded newer image for zombie/zfs:latest
-[burmilla@zfs ~]$ sudo ros service up zfs
+[rancher@zfs ~]$ sudo ros service up zfs
 WARN[0000] The KERNEL_VERSION variable is not set. Substituting a blank string.
 INFO[0000] Project [os]: Starting project
 INFO[0000] [0/21] [zfs]: Starting
@@ -153,7 +153,7 @@ INFO[0000] Project [os]: Project started
 ```
 
 Beware that there is an overly aggressive caching of yml files - so when you push a new yml file to your repo, you need to
-delete the files in `/var/lib/burmilla/cache`.
+delete the files in `/var/lib/rancher/cache`.
 
 The image that you specify in the service yml file needs to be pullable - either from a private registry, or on the Docker Hub.
 
@@ -164,7 +164,7 @@ Once you have your own Services repository, you can add a new service to its ind
 To create your own console images, you need to:
 
 1. install some basic tools, including an ssh daemon, sudo, and kernel module tools
-2. create `burmilla` and `docker` users and groups with UID and GID's of `1100` and `1101` respectively
+2. create `rancher` and `docker` users and groups with UID and GID's of `1100` and `1101` respectively
 3. add both users to the `docker` and `sudo` groups
 4. add both groups into the `/etc/sudoers` file to allow password-less sudo
 5. configure sshd to accept logins from users in the `docker` group, and deny `root`.

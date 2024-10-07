@@ -115,7 +115,7 @@ All consoles except the default (busybox) console are persistent. Persistent con
 /home
 /opt
 /var/lib/docker
-/var/lib/burmilla
+/var/lib/rancher
 ```
 
 <br>

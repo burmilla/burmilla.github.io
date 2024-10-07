@@ -23,7 +23,7 @@ To start a BurmillaOS Droplet on Digital Ocean:
 1. Click **Create.**
 
 
-You can access the host via SSH after the Droplet is booted. The default user is `burmilla`.
+You can access the host via SSH after the Droplet is booted. The default user is `rancher`.
 
 Below is an example `cloud-config` file that you can use to initialize the Droplet with user data, such as deploying Rancher:
 
@@ -49,5 +49,5 @@ write_files:
         done
       done
 
-      docker run -d --restart=unless-stopped -p 80:80 -p 443:443 -v /opt/burmilla:/var/lib/burmilla burmilla/burmilla:${burmilla_version}
+      docker run -d --restart=unless-stopped -p 80:80 -p 443:443 -v /opt/rancher:/var/lib/rancher burmilla/burmilla:${burmilla_version}
 ```

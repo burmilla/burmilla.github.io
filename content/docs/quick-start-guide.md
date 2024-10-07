@@ -96,12 +96,12 @@ In the command, we used `--net=host` to tell System Docker not to containerize t
 ![System Docker Container](/images/busydash.png)
 
 
-To make the container survive during the reboots, you can create the `/opt/burmilla/bin/start.sh` script, and add the Docker start line to launch the Docker at each startup.
+To make the container survive during the reboots, you can create the `/opt/rancher/bin/start.sh` script, and add the Docker start line to launch the Docker at each startup.
 
 ```bash
-$ sudo mkdir -p /opt/burmilla/bin
-$ echo "sudo system-docker start busydash" | sudo tee -a /opt/burmilla/bin/start.sh
-$ sudo chmod 755 /opt/burmilla/bin/start.sh
+$ sudo mkdir -p /opt/rancher/bin
+$ echo "sudo system-docker start busydash" | sudo tee -a /opt/rancher/bin/start.sh
+$ sudo chmod 755 /opt/rancher/bin/start.sh
 ```
 
 ### Using ROS

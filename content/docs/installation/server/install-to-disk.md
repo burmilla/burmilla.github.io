@@ -10,9 +10,9 @@ The `ros install` command orchestrates the installation from the `burmilla/os` c
 
 The easiest way to log in is to pass a `cloud-config.yml` file containing your public SSH keys. To learn more about what's supported in our cloud-config, please read our [documentation](/docs/configuration/base/#cloud-config).
 
-The `ros install` command will process your `cloud-config.yml` file specified with the `-c` flag. This file will also be placed onto the disk and installed to `/var/lib/burmilla/conf/`. It will be evaluated on every boot.
+The `ros install` command will process your `cloud-config.yml` file specified with the `-c` flag. This file will also be placed onto the disk and installed to `/var/lib/rancher/conf/`. It will be evaluated on every boot.
 
-Create a cloud-config file with a SSH key, this allows you to SSH into the box as the burmilla user. The yml file would look like this:
+Create a cloud-config file with a SSH key, this allows you to SSH into the box as the `rancher` user. The yml file would look like this:
 
 ```yaml
 #cloud-config
@@ -58,7 +58,7 @@ Status: Downloaded newer image for burmilla/os:v2.0.0
 Continue with reboot [y/N]:
 ```
 
-After installing BurmillaOS to disk, you will no longer be automatically logged in as the `burmilla` user. You'll need to have added in SSH keys within your [cloud-config file](/docs/configuration/base/#cloud-config).
+After installing BurmillaOS to disk, you will no longer be automatically logged in as the `rancher` user. You'll need to have added in SSH keys within your [cloud-config file](/docs/configuration/base/#cloud-config).
 
 ### Installing a Different Version
 
@@ -91,10 +91,10 @@ $ ros install -d <disk> -c <cloud-config.yaml> -s
 
 ## SSH into BurmillaOS
 
-After installing BurmillaOS, you can ssh into BurmillaOS using your private key and the **burmilla** user.
+After installing BurmillaOS, you can ssh into BurmillaOS using your private key and the **rancher** user.
 
 ```bash
-$ ssh -i /path/to/private/key burmilla@<ip-address>
+$ ssh -i /path/to/private/key rancher@<ip-address>
 ```
 
 ## Installing with no Internet Access

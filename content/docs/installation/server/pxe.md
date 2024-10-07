@@ -11,7 +11,7 @@ bookToc: false
 # Location of Kernel/Initrd images
 set base-url <url>
 
-kernel ${base-url}/vmlinuz rancher.state.dev=LABEL=BURMILLA_STATE rancher.state.autoformat=[/dev/sda] rancher.state.wait rancher.cloud_init.datasources=[url:http://example.com/cloud-config]
+kernel ${base-url}/vmlinuz rancher.state.dev=LABEL=RANCHER_STATE rancher.state.autoformat=[/dev/sda] rancher.state.wait rancher.cloud_init.datasources=[url:http://example.com/cloud-config]
 initrd ${base-url}/initrd
 boot
 ```
@@ -25,12 +25,12 @@ If you don't add `rancher.state.autoformat`, BurmillaOS will run completely in m
 _Available as of RancherOS v0.9_
 
 Secrets can be put on the `kernel` parameters line afer a `--` double dash, and they will be not be shown in any `/proc/cmdline`. These parameters
-will be passed to the BurmillaOS init process and stored in the `root` accessible `/var/lib/burmilla/conf/cloud-init.d/init.yml` file, and are available to the root user from the `ros config` commands.
+will be passed to the BurmillaOS init process and stored in the `root` accessible `/var/lib/rancher/conf/cloud-init.d/init.yml` file, and are available to the root user from the `ros config` commands.
 
 For example, the `kernel` line above could be written as:
 
 ```bash
-kernel ${base-url}/vmlinuz rancher.state.dev=LABEL=BURMILLA_STATE rancher.state.autoformat=[/dev/sda] -- rancher.cloud_init.datasources=[url:http://example.com/cloud-config]
+kernel ${base-url}/vmlinuz rancher.state.dev=LABEL=RANCHER_STATE rancher.state.autoformat=[/dev/sda] -- rancher.cloud_init.datasources=[url:http://example.com/cloud-config]
 ```
 
 The hidden part of the command line can be accessed with either `sudo ros config get rancher.environment.EXTRA_CMDLINE`, or by using a service file's environment array.

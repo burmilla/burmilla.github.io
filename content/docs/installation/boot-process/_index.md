@@ -24,16 +24,16 @@ Runs `ntpd` in a System Docker container.
 
 This service provides the BurmillaOS user interface by running `sshd` and `getty`. It completes the BurmillaOS configuration on start up:
 
-1. If the `rancher.password=<password>` kernel parameter exists, it sets `<password>` as the password for the `burmilla` user.
+1. If the `rancher.password=<password>` kernel parameter exists, it sets `<password>` as the password for the `rancher` user.
 2. If there are no host SSH keys, it generates host SSH keys and saves them under `rancher.ssh.keys` in [cloud-config](/docs/configuration/base/#cloud-config).
 3. Runs `cloud-init -execute`, which does the following:
-   * Updates `.ssh/authorized_keys` in `/home/burmilla` and `/home/docker` in the [cloud-config](/docs/configuration/base/ssh-keys) and metadata.
+   * Updates `.ssh/authorized_keys` in `/home/rancher` and `/home/docker` in the [cloud-config](/docs/configuration/base/ssh-keys) and metadata.
    * Writes files specified by setting `write_files` in the [cloud-config](/docs/configuration/advanced/write-files).
    * Resizes the device specified by setting `rancher.resize_device` in the [cloud-config](/docs/configuration/advanced/resizing-device-partition).
    * Mount devices specified in the `mounts` in the [cloud-config](/docs/storage/additional-mounts).
    * Set sysctl parameters specified in  the`rancher.sysctl` [cloud-config](/docs/configuration/advanced/sysctl).
-4. If user-data contained a file that started with `#!`, then a file would be saved at `/var/lib/burmilla/conf/cloud-config-script` during cloud-init and then executed. Any errors are ignored.
-5. Runs `/opt/burmilla/bin/start.sh` if it exists and is executable. Any errors are ignored.
+4. If user-data contained a file that started with `#!`, then a file would be saved at `/var/lib/rancher/conf/cloud-config-script` during cloud-init and then executed. Any errors are ignored.
+5. Runs `/opt/rancher/bin/start.sh` if it exists and is executable. Any errors are ignored.
 6. Runs `/etc/rc.local` if it exists and is executable. Any errors are ignored.
 
 ## Docker

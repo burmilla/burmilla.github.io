@@ -36,5 +36,5 @@ There is also a way to extend PATH environment variable, `PATH` or `path` can be
 ```yaml
 rancher:
   environment:
-    path: /opt/bin,/home/burmilla/bin
+    path: /opt/bin,/home/rancher/bin
 ```

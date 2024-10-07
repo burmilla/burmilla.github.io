@@ -45,13 +45,13 @@ From a command line, log into the EC2 Instance. If you added ssh keys using a cl
 both those keys, and the one you selected in the AWS UI will be installed.
 
 ```
-$ ssh -i /Directory/of/MySSHKeyName.pem burmilla@<ip-of-ec2-instance>
+$ ssh -i /Directory/of/MySSHKeyName.pem rancher@<ip-of-ec2-instance>
 ```
 
 If you have issues logging into BurmillaOS, try using this command to help debug the issue.
 
 ```
-$ ssh -v -i /Directory/of/MySSHKeyName.pem burmilla@<ip-of-ec2-instance>
+$ ssh -v -i /Directory/of/MySSHKeyName.pem rancher@<ip-of-ec2-instance>
 ```
 
 ## Latest AMI Releases

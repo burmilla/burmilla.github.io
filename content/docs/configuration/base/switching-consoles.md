@@ -42,7 +42,7 @@ The default console is persistent. Persistent console means that the console con
 /home
 /opt
 /var/lib/docker
-/var/lib/burmilla
+/var/lib/rancher
 ```
 
 <br>

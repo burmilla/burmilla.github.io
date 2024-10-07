@@ -46,7 +46,7 @@ Configuring authentication for the Docker client is not handled by the `registry
 ```yaml
 #cloud-config
 write_files:
-  - path: /home/burmilla/.docker/config.json
+  - path: /home/rancher/.docker/config.json
     permissions: "0755"
     owner: burmilla
     content: |

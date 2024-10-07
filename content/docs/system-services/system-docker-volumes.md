@@ -67,9 +67,9 @@ Provides necessary persistent directories, used by system services:
 /lib/modules
 /run
 /usr/share/ros
-/var/lib/burmilla/cache
-/var/lib/burmilla/conf
-/var/lib/burmilla
+/var/lib/rancher/cache
+/var/lib/rancher/conf
+/var/lib/rancher
 /var/log
 /var/run
 ```
