@@ -24,6 +24,11 @@ jobs:
           hugo --minify
           echo -n "burmillaos.org" > public/CNAME
 
+      - name: Add redirection to poll
+        run: |
+          mkdir public/poll
+          cp poll.html public/poll/index.html
+
       - name: Deploy to GitHub Pages
         if: success()
         uses: crazy-max/ghaction-github-pages@v2
