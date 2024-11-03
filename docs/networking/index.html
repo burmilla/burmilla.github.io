@@ -1,0 +1,169 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Configuring Network Interfaces #  Using ros config, you can configure specific interfaces. Wildcard globbing is supported so eth* will match eth1 and eth2. The available options you can configure are address, gateway, mtu, and dhcp.
+$ sudo ros config set rancher.network.interfaces.eth1.address 172.68.1.100/24 $ sudo ros config set rancher.network.interfaces.eth1.gateway 172.68.1.1 $ sudo ros config set rancher.network.interfaces.eth1.mtu 1500 $ sudo ros config set rancher.network.interfaces.eth1.dhcp false If you wanted to configure the interfaces through the cloud config file, you&rsquo;ll need to place interface configurations within the rancher key."><meta name=theme-color content="#FFFFFF"><meta property="og:title" content><meta property="og:description" content><meta property="og:type" content="website"><meta property="og:url" content="https://burmillaos.org/docs/networking/"><title>Networking | BurmillaOS</title><link rel=manifest href=/manifest.json><link rel=icon href=/favicon.png type=image/x-icon><link rel=stylesheet href=/book.min.6cd8553a6854f4812343f0f0c8baca31271e686434f381fbe3c7226f66639176.css integrity="sha256-bNhVOmhU9IEjQ/DwyLrKMSceaGQ084H748cib2ZjkXY="><script defer src=/en.search.min.5b67b5953e3b2a171b6b51a22a8ef1216b6eae9a8f77e6e93869f90463a51473.js integrity="sha256-W2e1lT47Khcba1GiKo7xIWturpqPd+bpOGn5BGOlFHM="></script><script defer src=/sw.min.74a8bb07f0bee86d6bb9a2750f073f14d93c7e4512f28860370cfd879e9719b4.js integrity="sha256-dKi7B/C+6G1ruaJ1Dwc/FNk8fkUS8ohgNwz9h56XGbQ="></script><link rel=alternate type=application/rss+xml href=https://burmillaos.org/docs/networking/index.xml title=BurmillaOS></head><body><input type=checkbox class="hidden toggle" id=menu-control>
+<input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><nav><h2 class=book-brand><a href=/><span>BurmillaOS</span></a></h2><div class=book-search><input type=text id=book-search-input placeholder=Search aria-label=Search maxlength=64 data-hotkeys=s/><div class="book-search-spinner hidden"></div><ul id=book-search-results></ul></div><ul><li><a href=/docs/quick-start-guide/>Quick Start Guide</a></li><li><a href=/docs/installation/ class=collapsed>Installation</a></li><li><a href=/docs/configuration/ class=collapsed>Configuration</a></li><li><a href=/docs/networking/ class="collapsed active">Networking</a><ul><li><a href=/docs/networking/dns/>DNS</a></li><li><a href=/docs/networking/proxy-settings/>Proxy Settings</a></li></ul></li><li><a href=/docs/storage/ class=collapsed>Storage</a></li><li><a href=/docs/system-services/ class=collapsed>System Services</a></li><li><a href=/docs/additional-resources/ class=collapsed>Aditional Resources</a></li><li><a href=/docs/faqs/>FAQs</a></li><li><a href=/docs/releases/>Releases</a></li><li><a href=/docs/reference/>Reference</a></li></ul></nav><script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script></aside><div class=book-page><header class=book-header><div class="flex align-center justify-between"><label for=menu-control><img src=/svg/menu.svg class=book-icon alt=Menu></label>
+<strong>Networking</strong>
+<label for=toc-control><img src=/svg/toc.svg class=book-icon alt="Table of Contents"></label></div><aside class="hidden clearfix"><nav id=TableOfContents><ul><li><a href=#multiple-nics>Multiple NICs</a></li><li><a href=#nic-bonding>NIC bonding</a></li><li><a href=#vlans>VLANS</a></li><li><a href=#bridging>Bridging</a></li><li><a href=#run-custom-network-configuration-commands>Run custom network configuration commands</a></li><li><a href=#wifi>WiFi</a><ul><li></li><li><a href=#example-single-adapter>Example single adapter</a></li><li><a href=#example-multiple-adapters>Example multiple adapters</a></li></ul></li><li><a href=#4g-lte>4G-LTE</a></li></ul></nav></aside></header><article class=markdown><h1 id=configuring-network-interfaces>Configuring Network Interfaces
+<a class=anchor href=#configuring-network-interfaces>#</a></h1><p>Using <code>ros config</code>, you can configure specific interfaces. Wildcard globbing is supported so <code>eth*</code> will match <code>eth1</code> and <code>eth2</code>. The available options you can configure are <code>address</code>, <code>gateway</code>, <code>mtu</code>, and <code>dhcp</code>.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ sudo ros config set rancher.network.interfaces.eth1.address 172.68.1.100/24
+$ sudo ros config set rancher.network.interfaces.eth1.gateway 172.68.1.1
+$ sudo ros config set rancher.network.interfaces.eth1.mtu <span style=color:#ae81ff>1500</span>
+$ sudo ros config set rancher.network.interfaces.eth1.dhcp false
+</code></pre></div><p>If you wanted to configure the interfaces through the cloud config file, you&rsquo;ll need to place interface configurations within the <code>rancher</code> key.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#75715e>#cloud-config</span>
+<span style=color:#f92672>rancher</span>:
+  <span style=color:#f92672>network</span>:
+    <span style=color:#f92672>interfaces</span>:
+      <span style=color:#f92672>eth1</span>:
+        <span style=color:#f92672>address</span>: <span style=color:#ae81ff>172.68.1.100</span><span style=color:#ae81ff>/24</span>
+        <span style=color:#f92672>gateway</span>: <span style=color:#ae81ff>172.68.1.1</span>
+        <span style=color:#f92672>mtu</span>: <span style=color:#ae81ff>1500</span>
+        <span style=color:#f92672>dhcp</span>: <span style=color:#66d9ef>false</span>
+</code></pre></div><blockquote><p><strong>Note:</strong> The <code>address</code> item should be the CIDR format.</p></blockquote><h2 id=multiple-nics>Multiple NICs
+<a class=anchor href=#multiple-nics>#</a></h2><p>If you want to configure one of multiple network interfaces, you can specify the MAC address of the interface you want to configure.</p><p>Using <code>ros config</code>, you can specify the MAC address of the NIC you want to configure as follows:</p><pre><code>$ sudo ros config set rancher.network.interfaces.”mac=ea:34:71:66:90:12:01”.dhcp true
+</code></pre><p>Alternatively, you can place the MAC address selection in your cloud config file as follows:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#75715e>#cloud-config</span>
+<span style=color:#f92672>rancher</span>:
+  <span style=color:#f92672>network</span>:
+    <span style=color:#f92672>interfaces</span>:
+      <span style=color:#e6db74>&#34;mac=ea:34:71:66:90:12:01&#34;</span>:
+         <span style=color:#f92672>dhcp</span>: <span style=color:#66d9ef>true</span>
+</code></pre></div><h2 id=nic-bonding>NIC bonding
+<a class=anchor href=#nic-bonding>#</a></h2><p>You can aggregate several network links into one virtual link for redundancy and increased throughput. For example:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#75715e>#cloud-config</span>
+<span style=color:#f92672>rancher</span>:
+  <span style=color:#f92672>network</span>:
+    <span style=color:#f92672>interfaces</span>:
+      <span style=color:#f92672>bond0</span>:
+        <span style=color:#f92672>addresses</span>:
+        - <span style=color:#ae81ff>192.168.101.33</span><span style=color:#ae81ff>/31</span>
+        - <span style=color:#ae81ff>10.88.23.129</span><span style=color:#ae81ff>/31</span>
+        <span style=color:#f92672>gateway</span>: <span style=color:#ae81ff>192.168.101.32</span>
+        <span style=color:#f92672>bond_opts</span>:
+          <span style=color:#f92672>downdelay</span>: <span style=color:#e6db74>&#34;200&#34;</span>
+          <span style=color:#f92672>lacp_rate</span>: <span style=color:#e6db74>&#34;1&#34;</span>
+          <span style=color:#f92672>miimon</span>: <span style=color:#e6db74>&#34;100&#34;</span>
+          <span style=color:#f92672>mode</span>: <span style=color:#e6db74>&#34;4&#34;</span>
+          <span style=color:#f92672>updelay</span>: <span style=color:#e6db74>&#34;200&#34;</span>
+          <span style=color:#f92672>xmit_hash_policy</span>: <span style=color:#ae81ff>layer3+4</span>
+        <span style=color:#f92672>post_up</span>:
+        - <span style=color:#ae81ff>ip route add 10.0.0.0/8 via 10.88.23.128</span>
+      <span style=color:#f92672>mac=0c:c4:d7:b2:14:d2</span>:
+        <span style=color:#f92672>bond</span>: <span style=color:#ae81ff>bond0</span>
+      <span style=color:#f92672>mac=0c:c4:d7:b2:14:d3</span>:
+        <span style=color:#f92672>bond</span>: <span style=color:#ae81ff>bond0</span>
+</code></pre></div><p>In this example two physical NICs (with MACs <code>0c:c4:d7:b2:14:d2</code> and <code>0c:c4:d7:b2:14:d3</code>) are aggregated into a virtual one <code>bond0</code>.</p><p>During the bootup process, BurmillaOS runs cloud-init. It automatically detects the data sources of cloud-init, but sometimes a data source requires a network connection. By default, in cloud-init, we open <code>rancher.network.interfaces.eth*.dhcp=true</code>, which may affect the bonding NIC. If you do not require the network connection for your data-source, use <code>rancher.network.interfaces.eth*.dhcp=false</code> in the kernel cmdline to disable DHCP for all NICs.</p><h2 id=vlans>VLANS
+<a class=anchor href=#vlans>#</a></h2><p>In this example, you can create an interface <code>eth0.100</code> which is tied to VLAN 100 and an interface <code>foobar</code> that will be tied to VLAN 200.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#75715e>#cloud-config</span>
+<span style=color:#f92672>rancher</span>:
+  <span style=color:#f92672>network</span>:
+    <span style=color:#f92672>interfaces</span>:
+      <span style=color:#f92672>eth0</span>:
+        <span style=color:#f92672>vlans</span>: <span style=color:#ae81ff>100</span>,<span style=color:#ae81ff>200</span>:<span style=color:#ae81ff>foobar</span>
+</code></pre></div><h2 id=bridging>Bridging
+<a class=anchor href=#bridging>#</a></h2><p>In this example, you can create a bridge interface.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#75715e>#cloud-config</span>
+<span style=color:#f92672>rancher</span>:
+  <span style=color:#f92672>network</span>:
+    <span style=color:#f92672>interfaces</span>:
+      <span style=color:#f92672>br0</span>:
+        <span style=color:#f92672>bridge</span>: <span style=color:#66d9ef>true</span>
+        <span style=color:#f92672>dhcp</span>: <span style=color:#66d9ef>true</span>
+      <span style=color:#f92672>eth0</span>:
+        <span style=color:#f92672>bridge</span>: <span style=color:#ae81ff>br0</span>
+</code></pre></div><h2 id=run-custom-network-configuration-commands>Run custom network configuration commands
+<a class=anchor href=#run-custom-network-configuration-commands>#</a></h2><p><em>Available as of RancherOS v1.1</em></p><p>You can configure <code>pre</code> and <code>post</code> network configuration commands to run in the <code>network</code> service container by adding <code>pre_cmds</code> and <code>post_cmds</code> array keys to <code>rancher.network</code>, or <code>pre_up</code> and<code>post_up</code> keys for specific <code>rancher.network.interfaces</code>.</p><p>For example:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#75715e>#cloud-config</span>
+<span style=color:#f92672>write_files</span>:
+  - <span style=color:#f92672>container</span>: <span style=color:#ae81ff>network</span>
+    <span style=color:#f92672>path</span>: <span style=color:#ae81ff>/var/lib/iptables/rules.sh</span>
+    <span style=color:#f92672>permissions</span>: <span style=color:#e6db74>&#34;0755&#34;</span>
+    <span style=color:#f92672>owner</span>: <span style=color:#ae81ff>root:root</span>
+    <span style=color:#f92672>content</span>: |<span style=color:#e6db74>
+</span><span style=color:#e6db74>      #!/bin/bash
+</span><span style=color:#e6db74>      set -ex
+</span><span style=color:#e6db74>      echo $@ &gt;&gt; /var/log/net.log
+</span><span style=color:#e6db74>      # the last line of the file needs to be a blank line or a comment</span>      
+<span style=color:#f92672>rancher</span>:
+  <span style=color:#f92672>network</span>:
+    <span style=color:#f92672>dns</span>:
+      <span style=color:#f92672>nameservers</span>:
+        - <span style=color:#ae81ff>8.8.4.4</span>
+        - <span style=color:#ae81ff>4.2.2.3</span>
+    <span style=color:#f92672>pre_cmds</span>:
+    - <span style=color:#ae81ff>/var/lib/iptables/rules.sh pre_cmds</span>
+    <span style=color:#f92672>post_cmds</span>:
+    - <span style=color:#ae81ff>/var/lib/iptables/rules.sh post_cmds</span>
+    <span style=color:#f92672>interfaces</span>:
+      <span style=color:#f92672>lo</span>:
+        <span style=color:#f92672>pre_up</span>:
+        - <span style=color:#ae81ff>/var/lib/iptables/rules.sh pre_up lo</span>
+        <span style=color:#f92672>post_up</span>:
+        - <span style=color:#ae81ff>/var/lib/iptables/rules.sh post_up lo</span>
+      <span style=color:#f92672>eth0</span>:
+        <span style=color:#f92672>pre_up</span>:
+        - <span style=color:#ae81ff>/var/lib/iptables/rules.sh pre_up eth0</span>
+        <span style=color:#f92672>post_up</span>:
+        - <span style=color:#ae81ff>/var/lib/iptables/rules.sh post_up eth0</span>
+      <span style=color:#f92672>eth1</span>:
+        <span style=color:#f92672>dhcp</span>: <span style=color:#66d9ef>true</span>
+        <span style=color:#f92672>pre_up</span>:
+        - <span style=color:#ae81ff>/var/lib/iptables/rules.sh pre_up eth1</span>
+        <span style=color:#f92672>post_up</span>:
+        - <span style=color:#ae81ff>/var/lib/iptables/rules.sh post_up eth1</span>
+      <span style=color:#f92672>eth2</span>:
+        <span style=color:#f92672>address</span>: <span style=color:#ae81ff>192.168.3.13</span><span style=color:#ae81ff>/16</span>
+        <span style=color:#f92672>mtu</span>: <span style=color:#ae81ff>1450</span>
+        <span style=color:#f92672>pre_up</span>:
+        - <span style=color:#ae81ff>/var/lib/iptables/rules.sh pre_up eth2</span>
+        <span style=color:#f92672>post_up</span>:
+        - <span style=color:#ae81ff>/var/lib/iptables/rules.sh post_up eth2</span>
+</code></pre></div><h2 id=wifi>WiFi
+<a class=anchor href=#wifi>#</a></h2><p><em>Available as of RancherOS v1.5</em></p><p>In order to enable WiFi access, update the <code>cloud-config</code> with the WiFi network information. You can use <code>DHCP</code> or <code>STATIC</code> mode.</p><h4 id=example-of-a-wireless-adapter-using-dhcp>Example of a wireless adapter using DHCP
+<a class=anchor href=#example-of-a-wireless-adapter-using-dhcp>#</a></h4><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#75715e>#cloud-config</span>
+<span style=color:#f92672>rancher</span>:
+  <span style=color:#f92672>network</span>:
+    <span style=color:#f92672>interfaces</span>:
+      <span style=color:#f92672>wlan0</span>:
+        <span style=color:#f92672>wifi_network</span>: <span style=color:#ae81ff>network1</span>
+    <span style=color:#f92672>wifi_networks</span>:
+      <span style=color:#f92672>network1</span>:
+        <span style=color:#f92672>ssid</span>: <span style=color:#e6db74>&#34;Your wifi ssid&#34;</span>
+        <span style=color:#f92672>psk</span>: <span style=color:#e6db74>&#34;Your wifi password&#34;</span>
+        <span style=color:#f92672>scan_ssid</span>: <span style=color:#ae81ff>1</span>
+</code></pre></div><h3 id=example-single-adapter>Example single adapter
+<a class=anchor href=#example-single-adapter>#</a></h3><p>This Adapter uses a specified network to connect to and sets the IP statically:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#f92672>rancher</span>:
+  <span style=color:#f92672>network</span>:
+    <span style=color:#f92672>dns</span>:
+      <span style=color:#f92672>nameservers</span>:
+      - <span style=color:#ae81ff>8.8.8.8</span>
+      - <span style=color:#ae81ff>8.8.4.4</span>
+    <span style=color:#f92672>interfaces</span>:
+      <span style=color:#f92672>wlan0</span>:
+        <span style=color:#f92672>wifi_network</span>: <span style=color:#ae81ff>network1</span>
+    <span style=color:#f92672>wifi_networks</span>:
+      <span style=color:#f92672>network1</span>:
+        <span style=color:#f92672>ssid</span>: <span style=color:#e6db74>&#34;Your wifi ssid&#34;</span>
+        <span style=color:#f92672>psk</span>: <span style=color:#e6db74>&#34;Your wifi password&#34;</span>
+        <span style=color:#f92672>scan_ssid</span>: <span style=color:#ae81ff>1</span>
+        <span style=color:#f92672>address</span>: <span style=color:#ae81ff>192.168.1.78</span><span style=color:#ae81ff>/24</span>
+        <span style=color:#f92672>gateway</span>: <span style=color:#ae81ff>192.168.1.1</span>
+</code></pre></div><h3 id=example-multiple-adapters>Example multiple adapters
+<a class=anchor href=#example-multiple-adapters>#</a></h3><p>This configuration connects to multiple wireless networks and uses DHCP on each of them:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#f92672>rancher</span>:
+  <span style=color:#f92672>network</span>:
+    <span style=color:#f92672>interfaces</span>:
+      <span style=color:#f92672>wlan0</span>:
+        <span style=color:#f92672>wifi_network</span>: <span style=color:#ae81ff>network1</span>
+      <span style=color:#f92672>wlan1</span>:
+        <span style=color:#f92672>wifi_network</span>: <span style=color:#ae81ff>network2</span>
+    <span style=color:#f92672>wifi_networks</span>:
+      <span style=color:#f92672>network1</span>:
+        <span style=color:#f92672>ssid</span>: <span style=color:#e6db74>&#34;Your wifi ssid&#34;</span>
+        <span style=color:#f92672>psk</span>: <span style=color:#e6db74>&#34;Your wifi password&#34;</span>
+        <span style=color:#f92672>scan_ssid</span>: <span style=color:#ae81ff>1</span>
+      <span style=color:#f92672>network2</span>:
+        <span style=color:#f92672>ssid</span>: <span style=color:#e6db74>&#34;Your wifi ssid&#34;</span>
+        <span style=color:#f92672>psk</span>: <span style=color:#e6db74>&#34;Your wifi password&#34;</span>
+        <span style=color:#f92672>scan_ssid</span>: <span style=color:#ae81ff>1</span>
+</code></pre></div><p>When adding in WiFi access, you do not need a system reboot, you only need to restart the <code>network</code> service in System Docker.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ sudo system-docker restart network
+</code></pre></div><blockquote><p><strong>Note:</strong> For Intel wireless adapters, there are some built-in firmware and modules, which prevents requiring to install any new modules or firmware. For other adapters, you may need to install additional os kernel-extras.</p></blockquote><h2 id=4g-lte>4G-LTE
+<a class=anchor href=#4g-lte>#</a></h2><p><em>Available as of RancherOS v1.5</em></p><p>In order to support 4G-LTE, 4G-LTE module will need to be connected to the motherboard and to get a good signal, an external antenna will need to be added. You can assemble such a device, which supports USB interface and SIM cards slot.</p><p>In order to use BurmillaOS, you will need to use the ISO built for 4G-LTE support. This ISO has a built-in <code>modem-manager</code> service and is available with each release.</p><p>After booting the ISO, there will be a 4G NIC, such as <code>wwan0</code>. Use the following <code>cloud-config</code> to set the APN parameter.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#f92672>rancher</span>:
+  <span style=color:#f92672>network</span>:
+    <span style=color:#f92672>modem_networks</span>:
+      <span style=color:#f92672>wwan0</span>:
+        <span style=color:#f92672>apn</span>: <span style=color:#ae81ff>xxx</span>
+</code></pre></div><p>After any configuration changes, restart the <code>modem-manager</code> service to apply these changes.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ sudo system-docker restart modem-manager
+</code></pre></div><blockquote><p><strong>Note:</strong> Currently, BurmillaOS has some built-in rules in <code>udev</code> rules to allow BurmillaOS to recognize specific 4G devices, but there are additional vendors that may be missing. If you need to add these in, please file an issue.</p></blockquote></article><footer class=book-footer><div class="flex flex-wrap justify-between"><div><a class="flex align-center" href=https://github.com/burmilla/burmilla.github.io/commit/d1f8103458f8d8797699dad433c52d714e54f731 title="Last modified by Basil Peace | November 2, 2024" target=_blank rel=noopener><img src=/svg/calendar.svg class=book-icon alt=Calendar>
+<span>November 2, 2024</span></a></div></div></footer><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><nav id=TableOfContents><ul><li><a href=#multiple-nics>Multiple NICs</a></li><li><a href=#nic-bonding>NIC bonding</a></li><li><a href=#vlans>VLANS</a></li><li><a href=#bridging>Bridging</a></li><li><a href=#run-custom-network-configuration-commands>Run custom network configuration commands</a></li><li><a href=#wifi>WiFi</a><ul><li></li><li><a href=#example-single-adapter>Example single adapter</a></li><li><a href=#example-multiple-adapters>Example multiple adapters</a></li></ul></li><li><a href=#4g-lte>4G-LTE</a></li></ul></nav></aside></main></body></html>

@@ -1,0 +1,54 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="System Docker Volumes #  A few services are containers in created state. Their purpose is to provide volumes for other services.
+user-volumes #  Provides user accessible persistent storage directories, used by console service:
+/home /opt /var/lib/kubelet If you want to change user-volumes, for example, add /etc/kubernetes directory:
+$ sudo ros config set rancher.services.user-volumes.volumes [/home:/home,/opt:/opt,/var/lib/kubelet:/var/lib/kubelet,/etc/kubernetes:/etc/kubernetes] $ sudo reboot Please note that after the restart, the new persistence directory can take effect."><meta name=theme-color content="#FFFFFF"><meta property="og:title" content><meta property="og:description" content="System Docker Volumes #  A few services are containers in created state. Their purpose is to provide volumes for other services.
+user-volumes #  Provides user accessible persistent storage directories, used by console service:
+/home /opt /var/lib/kubelet If you want to change user-volumes, for example, add /etc/kubernetes directory:
+$ sudo ros config set rancher.services.user-volumes.volumes [/home:/home,/opt:/opt,/var/lib/kubelet:/var/lib/kubelet,/etc/kubernetes:/etc/kubernetes] $ sudo reboot Please note that after the restart, the new persistence directory can take effect."><meta property="og:type" content="article"><meta property="og:url" content="https://burmillaos.org/docs/system-services/system-docker-volumes/"><meta property="article:modified_time" content="2024-11-03T00:21:50+03:00"><title>System Docker Volumes | BurmillaOS</title><link rel=manifest href=/manifest.json><link rel=icon href=/favicon.png type=image/x-icon><link rel=stylesheet href=/book.min.6cd8553a6854f4812343f0f0c8baca31271e686434f381fbe3c7226f66639176.css integrity="sha256-bNhVOmhU9IEjQ/DwyLrKMSceaGQ084H748cib2ZjkXY="><script defer src=/en.search.min.5b67b5953e3b2a171b6b51a22a8ef1216b6eae9a8f77e6e93869f90463a51473.js integrity="sha256-W2e1lT47Khcba1GiKo7xIWturpqPd+bpOGn5BGOlFHM="></script><script defer src=/sw.min.74a8bb07f0bee86d6bb9a2750f073f14d93c7e4512f28860370cfd879e9719b4.js integrity="sha256-dKi7B/C+6G1ruaJ1Dwc/FNk8fkUS8ohgNwz9h56XGbQ="></script></head><body><input type=checkbox class="hidden toggle" id=menu-control>
+<input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><nav><h2 class=book-brand><a href=/><span>BurmillaOS</span></a></h2><div class=book-search><input type=text id=book-search-input placeholder=Search aria-label=Search maxlength=64 data-hotkeys=s/><div class="book-search-spinner hidden"></div><ul id=book-search-results></ul></div><ul><li><a href=/docs/quick-start-guide/>Quick Start Guide</a></li><li><a href=/docs/installation/ class=collapsed>Installation</a></li><li><a href=/docs/configuration/ class=collapsed>Configuration</a></li><li><a href=/docs/networking/ class=collapsed>Networking</a></li><li><a href=/docs/storage/ class=collapsed>Storage</a></li><li><a href=/docs/system-services/ class=collapsed>System Services</a><ul><li><a href=/docs/system-services/custom-system-services/>Custom System Services</a></li><li><a href=/docs/system-services/environment/>Environment</a></li><li><a href=/docs/system-services/system-docker-volumes/ class=active>System Docker Volumes</a></li></ul></li><li><a href=/docs/additional-resources/ class=collapsed>Aditional Resources</a></li><li><a href=/docs/faqs/>FAQs</a></li><li><a href=/docs/releases/>Releases</a></li><li><a href=/docs/reference/>Reference</a></li></ul></nav><script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script></aside><div class=book-page><header class=book-header><div class="flex align-center justify-between"><label for=menu-control><img src=/svg/menu.svg class=book-icon alt=Menu></label>
+<strong>System Docker Volumes</strong>
+<label for=toc-control><img src=/svg/toc.svg class=book-icon alt="Table of Contents"></label></div><aside class="hidden clearfix"><nav id=TableOfContents><ul><li><a href=#user-volumes>user-volumes</a></li><li><a href=#container-data-volumes>container-data-volumes</a></li><li><a href=#command-volumes>command-volumes</a></li><li><a href=#system-volumes>system-volumes</a></li><li><a href=#all-volumes>all-volumes</a></li></ul></nav></aside></header><article class=markdown><h1 id=system-docker-volumes>System Docker Volumes
+<a class=anchor href=#system-docker-volumes>#</a></h1><p>A few services are containers in <code>created</code> state. Their purpose is to provide volumes for other services.</p><h2 id=user-volumes>user-volumes
+<a class=anchor href=#user-volumes>#</a></h2><p>Provides user accessible persistent storage directories, used by console service:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>/home
+/opt
+/var/lib/kubelet
+</code></pre></div><p>If you want to change user-volumes, for example, add <code>/etc/kubernetes</code> directory:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>$ sudo ros config set rancher.services.user-volumes.volumes  <span style=color:#f92672>[</span>/home:/home,/opt:/opt,/var/lib/kubelet:/var/lib/kubelet,/etc/kubernetes:/etc/kubernetes<span style=color:#f92672>]</span>
+$ sudo reboot
+</code></pre></div><p>Please note that after the restart, the new persistence directory can take effect.</p><h2 id=container-data-volumes>container-data-volumes
+<a class=anchor href=#container-data-volumes>#</a></h2><p>Provides docker storage directory, used by console service (and, indirectly, by docker)</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>/var/lib/docker
+</code></pre></div><h2 id=command-volumes>command-volumes
+<a class=anchor href=#command-volumes>#</a></h2><p>Provides necessary command binaries (read-only), used by system services:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>/usr/bin/docker-containerd.dist
+/usr/bin/docker-containerd-shim.dist
+/usr/bin/docker-runc.dist
+/usr/bin/docker.dist
+/usr/bin/dockerlaunch
+/usr/bin/system-docker
+/sbin/poweroff
+/sbin/reboot
+/sbin/halt
+/sbin/shutdown
+/usr/bin/respawn
+/usr/bin/ros
+/usr/bin/cloud-init
+/usr/sbin/netconf
+/usr/sbin/wait-for-docker
+/usr/bin/switch-console
+</code></pre></div><h2 id=system-volumes>system-volumes
+<a class=anchor href=#system-volumes>#</a></h2><p>Provides necessary persistent directories, used by system services:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>/host/dev
+/etc/docker
+/etc/hosts
+/etc/resolv.conf
+/etc/ssl/certs/ca-certificates.crt.burmilla
+/etc/selinux
+/lib/firmware
+/lib/modules
+/run
+/usr/share/ros
+/var/lib/rancher/cache
+/var/lib/rancher/conf
+/var/lib/rancher
+/var/log
+/var/run
+</code></pre></div><h2 id=all-volumes>all-volumes
+<a class=anchor href=#all-volumes>#</a></h2><p>Combines all of the above, used by the console service.</p></article><footer class=book-footer><div class="flex flex-wrap justify-between"><div><a class="flex align-center" href=https://github.com/burmilla/burmilla.github.io/commit/d1f8103458f8d8797699dad433c52d714e54f731 title="Last modified by Basil Peace | November 2, 2024" target=_blank rel=noopener><img src=/svg/calendar.svg class=book-icon alt=Calendar>
+<span>November 2, 2024</span></a></div></div></footer><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><nav id=TableOfContents><ul><li><a href=#user-volumes>user-volumes</a></li><li><a href=#container-data-volumes>container-data-volumes</a></li><li><a href=#command-volumes>command-volumes</a></li><li><a href=#system-volumes>system-volumes</a></li><li><a href=#all-volumes>all-volumes</a></li></ul></nav></aside></main></body></html>

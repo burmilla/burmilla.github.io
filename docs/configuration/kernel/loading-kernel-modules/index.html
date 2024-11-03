@@ -1,0 +1,60 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Loading Kernel Modules #  Since BurmillaOS v0.8, we build our own kernels using an unmodified kernel.org LTS kernel. We provide both loading kernel modules with parameters and loading extra kernel modules for you.
+Loading Kernel Modules with parameters #  The rancher.modules can help you to set kernel modules or module parameters.
+As an example, I&rsquo;m going to set a parameter for kernel module ndb
+$ sudo ros config set rancher."><meta name=theme-color content="#FFFFFF"><meta property="og:title" content="Loading Kernel Modules"><meta property="og:description" content="Loading Kernel Modules #  Since BurmillaOS v0.8, we build our own kernels using an unmodified kernel.org LTS kernel. We provide both loading kernel modules with parameters and loading extra kernel modules for you.
+Loading Kernel Modules with parameters #  The rancher.modules can help you to set kernel modules or module parameters.
+As an example, I&rsquo;m going to set a parameter for kernel module ndb
+$ sudo ros config set rancher."><meta property="og:type" content="article"><meta property="og:url" content="https://burmillaos.org/docs/configuration/kernel/loading-kernel-modules/"><meta property="article:modified_time" content="2024-11-03T00:21:50+03:00"><title>Loading Kernel Modules | BurmillaOS</title><link rel=manifest href=/manifest.json><link rel=icon href=/favicon.png type=image/x-icon><link rel=stylesheet href=/book.min.6cd8553a6854f4812343f0f0c8baca31271e686434f381fbe3c7226f66639176.css integrity="sha256-bNhVOmhU9IEjQ/DwyLrKMSceaGQ084H748cib2ZjkXY="><script defer src=/en.search.min.5b67b5953e3b2a171b6b51a22a8ef1216b6eae9a8f77e6e93869f90463a51473.js integrity="sha256-W2e1lT47Khcba1GiKo7xIWturpqPd+bpOGn5BGOlFHM="></script><script defer src=/sw.min.74a8bb07f0bee86d6bb9a2750f073f14d93c7e4512f28860370cfd879e9719b4.js integrity="sha256-dKi7B/C+6G1ruaJ1Dwc/FNk8fkUS8ohgNwz9h56XGbQ="></script></head><body><input type=checkbox class="hidden toggle" id=menu-control>
+<input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><nav><h2 class=book-brand><a href=/><span>BurmillaOS</span></a></h2><div class=book-search><input type=text id=book-search-input placeholder=Search aria-label=Search maxlength=64 data-hotkeys=s/><div class="book-search-spinner hidden"></div><ul id=book-search-results></ul></div><ul><li><a href=/docs/quick-start-guide/>Quick Start Guide</a></li><li><a href=/docs/installation/ class=collapsed>Installation</a></li><li><a href=/docs/configuration/ class=collapsed>Configuration</a><ul><li><a href=/docs/configuration/advanced/ class=collapsed>Advanced</a></li><li><a href=/docs/configuration/base/ class=collapsed>Base</a></li><li><a href=/docs/configuration/docker/ class=collapsed>Docker and System Docker</a></li><li><a href=/docs/configuration/kernel/ class=collapsed>Kernel</a><ul><li><a href=/docs/configuration/kernel/adding-kernel-parameters/>Kernel boot parameters</a></li><li><a href=/docs/configuration/kernel/loading-kernel-modules/ class=active>Loading Kernel Modules</a></li><li><a href=/docs/configuration/kernel/kernel-modules-kernel-headers/>Kernel Modules Kernel Headers</a></li></ul></li></ul></li><li><a href=/docs/networking/ class=collapsed>Networking</a></li><li><a href=/docs/storage/ class=collapsed>Storage</a></li><li><a href=/docs/system-services/ class=collapsed>System Services</a></li><li><a href=/docs/additional-resources/ class=collapsed>Aditional Resources</a></li><li><a href=/docs/faqs/>FAQs</a></li><li><a href=/docs/releases/>Releases</a></li><li><a href=/docs/reference/>Reference</a></li></ul></nav><script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script></aside><div class=book-page><header class=book-header><div class="flex align-center justify-between"><label for=menu-control><img src=/svg/menu.svg class=book-icon alt=Menu></label>
+<strong>Loading Kernel Modules</strong>
+<label for=toc-control><img src=/svg/toc.svg class=book-icon alt="Table of Contents"></label></div><aside class="hidden clearfix"><nav id=TableOfContents><ul><li><a href=#loading-kernel-modules-with-parameters>Loading Kernel Modules with parameters</a></li><li><a href=#loading-extra-kernel-modules>Loading Extra Kernel Modules</a><ul><li><a href=#try-the-kernel-extras-service>Try the kernel-extras service</a></li><li><a href=#ask-us-to-do-it>Ask us to do it</a></li><li><a href=#copy-the-out-of-tree-build-method>Copy the out of tree build method</a></li><li><a href=#build-your-own>Build your own.</a></li></ul></li></ul></nav></aside></header><article class=markdown><h1 id=loading-kernel-modules>Loading Kernel Modules
+<a class=anchor href=#loading-kernel-modules>#</a></h1><p>Since BurmillaOS v0.8, we build our own kernels using an unmodified kernel.org LTS kernel.
+We provide both loading kernel modules with parameters and loading extra kernel modules for you.</p><h2 id=loading-kernel-modules-with-parameters>Loading Kernel Modules with parameters
+<a class=anchor href=#loading-kernel-modules-with-parameters>#</a></h2><p>The <code>rancher.modules</code> can help you to set kernel modules or module parameters.</p><p>As an example, I&rsquo;m going to set a parameter for kernel module <code>ndb</code></p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>$ sudo ros config set rancher.modules <span style=color:#e6db74>&#34;[&#39;nbd nbds_max=1024&#39;, &#39;nfs&#39;]&#34;</span>
+</code></pre></div><p>Or</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#75715e>#cloud-config</span>
+<span style=color:#f92672>rancher</span>:
+  <span style=color:#f92672>modules</span>: [<span style=color:#ae81ff>nbd nbds_max=1024, nfs]</span>
+</code></pre></div><p>After rebooting, you can check that <code>ndbs_max</code> parameter has been updated.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>$ sudo cat /sys/module/nbd/parameters/nbds_max
+<span style=color:#ae81ff>1024</span>
+</code></pre></div><h2 id=loading-extra-kernel-modules>Loading Extra Kernel Modules
+<a class=anchor href=#loading-extra-kernel-modules>#</a></h2><p>We also build almost all optional extras as modules - so most in-tree modules are available
+in the <code>kernel-extras</code> service.</p><p>If you do need to build kernel modules for BurmillaOS, there are 4 options:</p><ul><li>Try the <code>kernel-extras</code> service</li><li>Ask us to add it into the next release</li><li>If its out of tree, copy the methods used for the zfs and open-iscsi services</li><li>Build it yourself.</li></ul><h3 id=try-the-kernel-extras-service>Try the kernel-extras service
+<a class=anchor href=#try-the-kernel-extras-service>#</a></h3><p>We build the BurmillaOS kernel with most of the optional drivers as kernel modules, packaged
+into an optional BurmillaOS service.</p><p>To install these, run:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>$ sudo ros service enable kernel-extras
+$ sudo ros service up kernel-extras
+</code></pre></div><p>The modules should now be available for you to <code>modprobe</code></p><h3 id=ask-us-to-do-it>Ask us to do it
+<a class=anchor href=#ask-us-to-do-it>#</a></h3><p>Open a GitHub issue in the <a href=https://github.com/burmilla/os>https://github.com/burmilla/os</a> repository - we&rsquo;ll probably add
+it to the kernel-extras next time we build a kernel. Tell us if you need the module at initial
+configuration or boot, and we can add it to the default kernel modules.</p><h3 id=copy-the-out-of-tree-build-method>Copy the out of tree build method
+<a class=anchor href=#copy-the-out-of-tree-build-method>#</a></h3><p>See <a href=https://github.com/burmilla/os-services/blob/master/z/zfs.yml>https://github.com/burmilla/os-services/blob/master/z/zfs.yml</a> and
+<a href=https://github.com/burmilla/os-services/tree/master/images/20-zfs>https://github.com/burmilla/os-services/tree/master/images/20-zfs</a></p><p>The build container and build.sh script build the source, and then create a tools image, which is used to
+&ldquo;wonka.sh&rdquo; import those tools into the console container using <code>docker run</code></p><h3 id=build-your-own>Build your own.
+<a class=anchor href=#build-your-own>#</a></h3><p>As an example I&rsquo;m going build the <code>intel-ishtp</code> hid driver using the <code>burmilla/os-zfs:&lt;version></code> images to build in, as they should contain the right tools versions for that kernel.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>sudo docker run --rm -it --entrypoint bash --privileged -v /lib:/host/lib -v <span style=color:#66d9ef>$(</span>pwd<span style=color:#66d9ef>)</span>:/data -w /data burmilla/os-zfs:<span style=color:#66d9ef>$(</span>ros -v | cut -d <span style=color:#e6db74>&#39; &#39;</span> -f 2<span style=color:#66d9ef>)</span>
+
+apt-get update
+apt-get install -qy libncurses5-dev bc libssh-dev
+curl -SsL -o src.tgz https://github.com/burmilla/os-kernel/releases/download/v<span style=color:#66d9ef>$(</span>uname -r<span style=color:#66d9ef>)</span>/linux-<span style=color:#66d9ef>$(</span>uname -r<span style=color:#66d9ef>)</span>-src.tgz
+tar zxvf src.tgz
+zcat /proc/config.gz &gt;.config
+<span style=color:#75715e># Yes, ignore the name of the directory :/</span>
+cd v*
+<span style=color:#75715e># enable whatever modules you want to add.</span>
+make menuconfig
+<span style=color:#75715e># I finally found an Intel sound hub that wasn&#39;t enabled yet</span>
+<span style=color:#75715e># CONFIG_INTEL_ISH_HID=m</span>
+make modules SUBDIRS<span style=color:#f92672>=</span>drivers/hid/intel-ish-hid
+
+<span style=color:#75715e># test it</span>
+insmod drivers/hid/intel-ish-hid/intel-ishtp.ko
+rmmod intel-ishtp
+
+<span style=color:#75715e># install it</span>
+ln -s /host/lib/modules/ /lib/
+cp drivers/hid/intel-ish-hid/*.ko /host/lib/modules/<span style=color:#66d9ef>$(</span>uname -r<span style=color:#66d9ef>)</span>/kernel/drivers/hid/
+depmod
+
+<span style=color:#75715e># done</span>
+exit
+</code></pre></div><p>Then in your console, you should be able to run</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>modprobe intel-ishtp
+</code></pre></div></article><footer class=book-footer><div class="flex flex-wrap justify-between"><div><a class="flex align-center" href=https://github.com/burmilla/burmilla.github.io/commit/d1f8103458f8d8797699dad433c52d714e54f731 title="Last modified by Basil Peace | November 2, 2024" target=_blank rel=noopener><img src=/svg/calendar.svg class=book-icon alt=Calendar>
+<span>November 2, 2024</span></a></div></div></footer><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><nav id=TableOfContents><ul><li><a href=#loading-kernel-modules-with-parameters>Loading Kernel Modules with parameters</a></li><li><a href=#loading-extra-kernel-modules>Loading Extra Kernel Modules</a><ul><li><a href=#try-the-kernel-extras-service>Try the kernel-extras service</a></li><li><a href=#ask-us-to-do-it>Ask us to do it</a></li><li><a href=#copy-the-out-of-tree-build-method>Copy the out of tree build method</a></li><li><a href=#build-your-own>Build your own.</a></li></ul></li></ul></nav></aside></main></body></html>

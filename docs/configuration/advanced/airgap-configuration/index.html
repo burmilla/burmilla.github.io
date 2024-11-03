@@ -1,0 +1,79 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Air Gap Configuration #  In the air gap environment, the Docker registry, BurmillaOS repositories URL, and the BurmillaOS upgrade URL should be configured to ensure the OS can pull images, update OS services, and upgrade the OS.
+Configuring a Private Docker Registry #  You should use a private Docker registry so that user-docker and system-docker can pull images.
+ Add the private Docker registry domain to the images prefix."><meta name=theme-color content="#FFFFFF"><meta property="og:title" content><meta property="og:description" content="Air Gap Configuration #  In the air gap environment, the Docker registry, BurmillaOS repositories URL, and the BurmillaOS upgrade URL should be configured to ensure the OS can pull images, update OS services, and upgrade the OS.
+Configuring a Private Docker Registry #  You should use a private Docker registry so that user-docker and system-docker can pull images.
+ Add the private Docker registry domain to the images prefix."><meta property="og:type" content="article"><meta property="og:url" content="https://burmillaos.org/docs/configuration/advanced/airgap-configuration/"><meta property="article:modified_time" content="2024-11-03T00:21:50+03:00"><title>Airgap Configuration | BurmillaOS</title><link rel=manifest href=/manifest.json><link rel=icon href=/favicon.png type=image/x-icon><link rel=stylesheet href=/book.min.6cd8553a6854f4812343f0f0c8baca31271e686434f381fbe3c7226f66639176.css integrity="sha256-bNhVOmhU9IEjQ/DwyLrKMSceaGQ084H748cib2ZjkXY="><script defer src=/en.search.min.5b67b5953e3b2a171b6b51a22a8ef1216b6eae9a8f77e6e93869f90463a51473.js integrity="sha256-W2e1lT47Khcba1GiKo7xIWturpqPd+bpOGn5BGOlFHM="></script><script defer src=/sw.min.74a8bb07f0bee86d6bb9a2750f073f14d93c7e4512f28860370cfd879e9719b4.js integrity="sha256-dKi7B/C+6G1ruaJ1Dwc/FNk8fkUS8ohgNwz9h56XGbQ="></script></head><body><input type=checkbox class="hidden toggle" id=menu-control>
+<input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><nav><h2 class=book-brand><a href=/><span>BurmillaOS</span></a></h2><div class=book-search><input type=text id=book-search-input placeholder=Search aria-label=Search maxlength=64 data-hotkeys=s/><div class="book-search-spinner hidden"></div><ul id=book-search-results></ul></div><ul><li><a href=/docs/quick-start-guide/>Quick Start Guide</a></li><li><a href=/docs/installation/ class=collapsed>Installation</a></li><li><a href=/docs/configuration/ class=collapsed>Configuration</a><ul><li><a href=/docs/configuration/advanced/ class=collapsed>Advanced</a><ul><li><a href=/docs/configuration/advanced/disable-access-to-system/>Disabling Access to BurmillaOS</a></li><li><a href=/docs/configuration/advanced/resizing-device-partition/>Resizing a Device Partition</a></li><li><a href=/docs/configuration/advanced/running-commands/>Running Commands</a></li><li><a href=/docs/configuration/advanced/sysctl/>Sysctl Settings</a></li><li><a href=/docs/configuration/advanced/write-files/>Writing Files</a></li><li><a href=/docs/configuration/advanced/microcode-loader/>Microcode Loader</a></li><li><a href=/docs/configuration/advanced/airgap-configuration/ class=active>Airgap Configuration</a></li></ul></li><li><a href=/docs/configuration/base/ class=collapsed>Base</a></li><li><a href=/docs/configuration/docker/ class=collapsed>Docker and System Docker</a></li><li><a href=/docs/configuration/kernel/ class=collapsed>Kernel</a></li></ul></li><li><a href=/docs/networking/ class=collapsed>Networking</a></li><li><a href=/docs/storage/ class=collapsed>Storage</a></li><li><a href=/docs/system-services/ class=collapsed>System Services</a></li><li><a href=/docs/additional-resources/ class=collapsed>Aditional Resources</a></li><li><a href=/docs/faqs/>FAQs</a></li><li><a href=/docs/releases/>Releases</a></li><li><a href=/docs/reference/>Reference</a></li></ul></nav><script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script></aside><div class=book-page><header class=book-header><div class="flex align-center justify-between"><label for=menu-control><img src=/svg/menu.svg class=book-icon alt=Menu></label>
+<strong>Airgap Configuration</strong>
+<label for=toc-control><img src=/svg/toc.svg class=book-icon alt="Table of Contents"></label></div><aside class="hidden clearfix"><nav id=TableOfContents><ul><li><a href=#configuring-a-private-docker-registry>Configuring a Private Docker Registry</a></li><li><a href=#set-custom-certs-in-iso>Set Custom Certs in ISO</a></li><li><a href=#configuring-burmillaos-repositories-and-upgrade-url>Configuring BurmillaOS Repositories and Upgrade URL</a><ul><li><a href=#1-clone-os-services-files>1. Clone os-services files</a></li><li><a href=#2-download-the-os-releases-yaml>2. Download the OS releases yaml</a></li><li><a href=#3-serve-these-files-by-http>3. Serve these files by HTTP</a></li><li><a href=#4-set-the-urls>4. Set the URLs</a></li></ul></li><li><a href=#example-cloud-config>Example Cloud-config</a></li></ul></nav></aside></header><article class=markdown><h1 id=air-gap-configuration>Air Gap Configuration
+<a class=anchor href=#air-gap-configuration>#</a></h1><p>In the air gap environment, the Docker registry, BurmillaOS repositories URL, and the BurmillaOS upgrade URL should be configured to ensure the OS can pull images, update OS services, and upgrade the OS.</p><h2 id=configuring-a-private-docker-registry>Configuring a Private Docker Registry
+<a class=anchor href=#configuring-a-private-docker-registry>#</a></h2><p>You should use a private Docker registry so that <code>user-docker</code> and <code>system-docker</code> can pull images.</p><ol><li>Add the private Docker registry domain to the
+<a href=/docs/configuration/docker/images-prefix/>images prefix</a>.</li><li>Set the private registry certificates for <code>user-docker</code>. For details, refer to
+<a href=/docs/configuration/docker/private-registries/#certificates-for-private-registries>Certificates for Private Registries</a></li><li>Set the private registry certificates for <code>system-docker</code>. There are two ways to set the certificates:</li></ol><ul><li>To set the private registry certificates before BurmillaOS starts, you can run a script included with BurmillaOS. For details, refer to
+<a href=/docs/configuration/advanced/airgap-configuration/#set-custom-certs-in-iso>Set Custom Certs in ISO</a>.</li><li>To set the private registry certificates after BurmillaOS starts, append your private registry certs to the <code>/etc/ssl/certs/ca-certificates.crt.rancher</code> file. Then reboot to make the certs fully take effect.</li></ul><ol start=4><li>The images used by BurmillaOS should be pushed to your private registry.</li></ol><h2 id=set-custom-certs-in-iso>Set Custom Certs in ISO
+<a class=anchor href=#set-custom-certs-in-iso>#</a></h2><p>BurmillaOS provides a
+<a href=https://github.com/burmilla/os/blob/master/scripts/tools/flush_crt_iso.sh>script</a> to set your custom certs for an ISO. The following commands show how to use the script:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>$ git clone https://github.com/burmilla/os.git
+$ cd os
+$ make shell-bind
+$ cd scripts/tools/
+$ wget http://link/burmillaos-xx.iso
+$ wget http://link/custom.crt
+$ ./flush_crt_iso.sh --iso burmillaos-xx.iso --cert custom.crt
+$ exit
+
+$ ls ./build/
+</code></pre></div><h2 id=configuring-burmillaos-repositories-and-upgrade-url>Configuring BurmillaOS Repositories and Upgrade URL
+<a class=anchor href=#configuring-burmillaos-repositories-and-upgrade-url>#</a></h2><p>The following steps show how to configure BurmillaOS to update from private repositories.</p><p>By default, BurmillaOS will update the <code>engine</code>, <code>console</code>, and <code>service</code> list from <code>https://raw.githubusercontent.com/burmilla/os-services</code> and update the <code>os</code> list from <code>https://raw.githubusercontent.com/burmilla/os-services/master/index.yml</code>. So in the air gap environment, you need to change the repository URL and upgrade URL to your own URLs.</p><h3 id=1-clone-os-services-files>1. Clone os-services files
+<a class=anchor href=#1-clone-os-services-files>#</a></h3><p>Clone <code>github.com/burmilla/os-services</code> to local. The repo has many branches named after the BurmillaOS versions. Please check out the branch that you are using.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>$ git clone https://github.com/burmilla/os-services.git
+$ cd os-services
+$ git checkout v1.5.2
+</code></pre></div><h3 id=2-download-the-os-releases-yaml>2. Download the OS releases yaml
+<a class=anchor href=#2-download-the-os-releases-yaml>#</a></h3><p>Download the <code>releases.yml</code> from <code>https://raw.githubusercontent.com/burmilla/os-services/master/index.yml</code>.</p><h3 id=3-serve-these-files-by-http>3. Serve these files by HTTP
+<a class=anchor href=#3-serve-these-files-by-http>#</a></h3><p>Use a HTTP server to serve the cloned <code>os-services</code> directory and download <code>releases.yml</code>.
+Make sure you can access all the files in <code>os-services</code> and <code>releases.yml</code> by URL.</p><h3 id=4-set-the-urls>4. Set the URLs
+<a class=anchor href=#4-set-the-urls>#</a></h3><p>In your cloud-config, set <code>rancher.repositories.core.url</code> and <code>rancher.upgrade.url</code> to your own <code>os-services</code> and <code>releases</code> URLs:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#75715e>#cloud-config</span>
+<span style=color:#f92672>rancher</span>:
+  <span style=color:#f92672>repositories</span>:
+    <span style=color:#f92672>core</span>:
+      <span style=color:#f92672>url</span>: <span style=color:#ae81ff>https://foo.bar.com/os-services</span>
+  <span style=color:#f92672>upgrade</span>:
+    <span style=color:#f92672>url</span>: <span style=color:#ae81ff>https://foo.bar.com/os/releases.yml</span>
+</code></pre></div><p>You can also customize <code>rancher.repositories.core.url</code> and <code>rancher.upgrade.url</code> after it&rsquo;s been started using <code>ros config</code>.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>$ sudo ros config set rancher.repositories.core.url https://foo.bar.com/os-services
+$ sudo ros config set rancher.upgrade.url https://foo.bar.com/os/releases.yml
+</code></pre></div><h2 id=example-cloud-config>Example Cloud-config
+<a class=anchor href=#example-cloud-config>#</a></h2><p>Here is a total cloud-config example for using BurmillaOS in an air gap environment.</p><p>For <code>system-docker</code>, see
+<a href=/docs/configuration/advanced/airgap-configuration/#configuring-private-docker-registry>Configuring Private Docker Registry</a>.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#75715e>#cloud-config</span>
+<span style=color:#f92672>write_files</span>:
+  - <span style=color:#f92672>path</span>: <span style=color:#ae81ff>/etc/docker/certs.d/myregistrydomain.com:5000/ca.crt</span>
+    <span style=color:#f92672>permissions</span>: <span style=color:#e6db74>&#34;0644&#34;</span>
+    <span style=color:#f92672>owner</span>: <span style=color:#ae81ff>root</span>
+    <span style=color:#f92672>content</span>: |<span style=color:#e6db74>
+</span><span style=color:#e6db74>      -----BEGIN CERTIFICATE-----
+</span><span style=color:#e6db74>      MIIDJjCCAg4CCQDLCSjwGXM72TANBgkqhkiG9w0BAQUFADBVMQswCQYDVQQGEwJB
+</span><span style=color:#e6db74>      VTETMBEGA1UECBMKU29tZS1TdGF0ZTEhMB8GA1UEChMYSW50ZXJuZXQgV2lkZ2l0
+</span><span style=color:#e6db74>      cyBQdHkgTHRkMQ4wDAYDVQQDEwVhbGVuYTAeFw0xNTA3MjMwMzUzMDdaFw0xNjA3
+</span><span style=color:#e6db74>      MjIwMzUzMDdaMFUxCzAJBgNVBAYTAkFVMRMwEQYDVQQIEwpTb21lLVN0YXRlMSEw
+</span><span style=color:#e6db74>      HwYDVQQKExhJbnRlcm5ldCBXaWRnaXRzIFB0eSBMdGQxDjAMBgNVBAMTBWFsZW5h
+</span><span style=color:#e6db74>      MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxdVIDGlAySQmighbfNqb
+</span><span style=color:#e6db74>      TtqetENPXjNNq1JasIjGGZdOsmFvNciroNBgCps/HPJphICQwtHpNeKv4+ZuL0Yg
+</span><span style=color:#e6db74>      1FECgW7oo6DOET74swUywtq/2IOeik+i+7skmpu1o9uNC+Fo+twpgHnGAaGk8IFm
+</span><span style=color:#e6db74>      fP5gDgthrWBWlEPTPY1tmPjI2Hepu2hJ28SzdXi1CpjfFYOiWL8cUlvFBdyNqzqT
+</span><span style=color:#e6db74>      uo6M2QCgSX3E1kXLnipRT6jUh0HokhFK4htAQ3hTBmzcxRkgTVZ/D0hA5lAocMKX
+</span><span style=color:#e6db74>      EVP1Tlw0y1ext2ppS1NR9Sg46GP4+ATgT1m3ae7rWjQGuBEB6DyDgyxdEAvmAEH4
+</span><span style=color:#e6db74>      LQIDAQABMA0GCSqGSIb3DQEBBQUAA4IBAQA45V0bnGPhIIkb54Gzjt9jyPJxPVTW
+</span><span style=color:#e6db74>      mwTCP+0jtfLxAor5tFuCERVs8+cLw1wASfu4vH/yHJ/N/CW92yYmtqoGLuTsywJt
+</span><span style=color:#e6db74>      u1+amECJaLyq0pZ5EjHqLjeys9yW728IifDxbQDX0cj7bBjYYzzUXp0DB/dtWb/U
+</span><span style=color:#e6db74>      KdBmT1zYeKWmSxkXDFFSpL/SGKoqx3YLTdcIbgNHwKNMfTgD+wTZ/fvk0CLxye4P
+</span><span style=color:#e6db74>      n/1ZWdSeZPAgjkha5MTUw3o1hjo/0H0ekI4erZFrZnG2N3lDaqDPR8djR+x7Gv6E
+</span><span style=color:#e6db74>      vloANkUoc1pvzvxKoz2HIHUKf+xFT50xppx6wsQZ01pNMSNF0qgc1vvH
+</span><span style=color:#e6db74>      -----END CERTIFICATE-----</span>      
+<span style=color:#f92672>rancher</span>:
+  <span style=color:#f92672>environment</span>:
+    <span style=color:#f92672>REGISTRY_DOMAIN</span>: <span style=color:#ae81ff>xxxx.yyy</span>
+  <span style=color:#f92672>repositories</span>:
+    <span style=color:#f92672>core</span>:
+      <span style=color:#f92672>url</span>: <span style=color:#ae81ff>https://foo.bar.com/os-services</span>
+  <span style=color:#f92672>upgrade</span>:
+    <span style=color:#f92672>url</span>: <span style=color:#ae81ff>https://foo.bar.com/os/releases.yml</span>
+</code></pre></div></article><footer class=book-footer><div class="flex flex-wrap justify-between"><div><a class="flex align-center" href=https://github.com/burmilla/burmilla.github.io/commit/d1f8103458f8d8797699dad433c52d714e54f731 title="Last modified by Basil Peace | November 2, 2024" target=_blank rel=noopener><img src=/svg/calendar.svg class=book-icon alt=Calendar>
+<span>November 2, 2024</span></a></div></div></footer><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><nav id=TableOfContents><ul><li><a href=#configuring-a-private-docker-registry>Configuring a Private Docker Registry</a></li><li><a href=#set-custom-certs-in-iso>Set Custom Certs in ISO</a></li><li><a href=#configuring-burmillaos-repositories-and-upgrade-url>Configuring BurmillaOS Repositories and Upgrade URL</a><ul><li><a href=#1-clone-os-services-files>1. Clone os-services files</a></li><li><a href=#2-download-the-os-releases-yaml>2. Download the OS releases yaml</a></li><li><a href=#3-serve-these-files-by-http>3. Serve these files by HTTP</a></li><li><a href=#4-set-the-urls>4. Set the URLs</a></li></ul></li><li><a href=#example-cloud-config>Example Cloud-config</a></li></ul></nav></aside></main></body></html>

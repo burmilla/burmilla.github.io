@@ -1,0 +1,74 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Using ZFS #  Installing the ZFS service #  The zfs service will install the kernel-headers for your kernel (if you build your own kernel, you&rsquo;ll need to replicate this service), and then download the ZFS on Linux source, and build and install it. Then it will build a zfs-tools image that will be used to give you access to the zfs tools.
+The only restriction is that you must mount your zpool into /mnt, as this is the only shared mount directory that will be accessible throughout the system-docker managed containers (including the console)."><meta name=theme-color content="#FFFFFF"><meta property="og:title" content="Using ZFS"><meta property="og:description" content="Using ZFS #  Installing the ZFS service #  The zfs service will install the kernel-headers for your kernel (if you build your own kernel, you&rsquo;ll need to replicate this service), and then download the ZFS on Linux source, and build and install it. Then it will build a zfs-tools image that will be used to give you access to the zfs tools.
+The only restriction is that you must mount your zpool into /mnt, as this is the only shared mount directory that will be accessible throughout the system-docker managed containers (including the console)."><meta property="og:type" content="article"><meta property="og:url" content="https://burmillaos.org/docs/storage/using-zfs/"><meta property="article:modified_time" content="2024-11-03T00:21:50+03:00"><title>Using ZFS | BurmillaOS</title><link rel=manifest href=/manifest.json><link rel=icon href=/favicon.png type=image/x-icon><link rel=stylesheet href=/book.min.6cd8553a6854f4812343f0f0c8baca31271e686434f381fbe3c7226f66639176.css integrity="sha256-bNhVOmhU9IEjQ/DwyLrKMSceaGQ084H748cib2ZjkXY="><script defer src=/en.search.min.5b67b5953e3b2a171b6b51a22a8ef1216b6eae9a8f77e6e93869f90463a51473.js integrity="sha256-W2e1lT47Khcba1GiKo7xIWturpqPd+bpOGn5BGOlFHM="></script><script defer src=/sw.min.74a8bb07f0bee86d6bb9a2750f073f14d93c7e4512f28860370cfd879e9719b4.js integrity="sha256-dKi7B/C+6G1ruaJ1Dwc/FNk8fkUS8ohgNwz9h56XGbQ="></script></head><body><input type=checkbox class="hidden toggle" id=menu-control>
+<input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><nav><h2 class=book-brand><a href=/><span>BurmillaOS</span></a></h2><div class=book-search><input type=text id=book-search-input placeholder=Search aria-label=Search maxlength=64 data-hotkeys=s/><div class="book-search-spinner hidden"></div><ul id=book-search-results></ul></div><ul><li><a href=/docs/quick-start-guide/>Quick Start Guide</a></li><li><a href=/docs/installation/ class=collapsed>Installation</a></li><li><a href=/docs/configuration/ class=collapsed>Configuration</a></li><li><a href=/docs/networking/ class=collapsed>Networking</a></li><li><a href=/docs/storage/ class=collapsed>Storage</a><ul><li><a href=/docs/storage/custom-partition-layout/>Custom Partition Layout</a></li><li><a href=/docs/storage/additional-mounts/>Additional Mounts</a></li><li><a href=/docs/storage/state-partition/>State Partition</a></li><li><a href=/docs/storage/using-zfs/ class=active>Using ZFS</a></li></ul></li><li><a href=/docs/system-services/ class=collapsed>System Services</a></li><li><a href=/docs/additional-resources/ class=collapsed>Aditional Resources</a></li><li><a href=/docs/faqs/>FAQs</a></li><li><a href=/docs/releases/>Releases</a></li><li><a href=/docs/reference/>Reference</a></li></ul></nav><script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script></aside><div class=book-page><header class=book-header><div class="flex align-center justify-between"><label for=menu-control><img src=/svg/menu.svg class=book-icon alt=Menu></label>
+<strong>Using ZFS</strong>
+<label for=toc-control><img src=/svg/toc.svg class=book-icon alt="Table of Contents"></label></div><aside class="hidden clearfix"><nav id=TableOfContents><ul><li><a href=#installing-the-zfs-service>Installing the ZFS service</a></li><li><a href=#creating-zfs-pools>Creating ZFS pools</a></li><li><a href=#using-the-zfs-debugger-utility>Using the ZFS debugger utility</a></li><li><a href=#zfs-storage-for-docker-on-burmillaos>ZFS storage for Docker on BurmillaOS</a></li></ul></nav></aside></header><article class=markdown><h1 id=using-zfs>Using ZFS
+<a class=anchor href=#using-zfs>#</a></h1><h2 id=installing-the-zfs-service>Installing the ZFS service
+<a class=anchor href=#installing-the-zfs-service>#</a></h2><p>The <code>zfs</code> service will install the kernel-headers for your kernel (if you build your own kernel, you&rsquo;ll need to replicate this service), and then download the
+<a href=https://zfsonlinux.org/>ZFS on Linux</a> source, and build and install it. Then it will build a <code>zfs-tools</code> image that will be used to give you access to the zfs tools.</p><p>The only restriction is that you must mount your zpool into <code>/mnt</code>, as this is the only shared mount directory that will be accessible throughout the system-docker managed containers (including the console).</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>$ sudo ros service enable zfs
+$ sudo ros service up zfs
+<span style=color:#75715e># you can follow the progress of the build by running the following command in another ssh session:</span>
+$ sudo ros service logs --follow zfs
+<span style=color:#75715e># wait until the build is finished.</span>
+$ lsmod | grep zfs
+</code></pre></div><blockquote><p><em>Note:</em> if you switch consoles, you may need to re-run <code>sudo ros service up zfs</code>.</p></blockquote><h2 id=creating-zfs-pools>Creating ZFS pools
+<a class=anchor href=#creating-zfs-pools>#</a></h2><p>After it&rsquo;s installed, it should be ready to use. Make a zpool named <code>zpool1</code> using a device that you haven&rsquo;t yet partitioned (you can use <code>sudo fdisk -l</code> to list all the disks and their partitions).</p><blockquote><p><em>Note:</em> You need to mount the zpool in <code>/mnt</code> to make it available to your host and in containers.</p></blockquote><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>$ sudo zpool list
+$ sudo zpool create zpool1 -m /mnt/zpool1 /dev/&lt;some-disk-dev&gt;
+$ sudo zpool list
+$ sudo zfs list
+$ sudo cp /etc/* /mnt/zpool1
+$ docker run --rm -it -v /mnt/zpool1/:/data alpine ls -la /data
+</code></pre></div><p>To experiment with ZFS, you can create zpool backed by just ordinary files, not necessarily real block devices. In fact, you can mix storage devices in your ZFS pools; it&rsquo;s perfectly fine to create a zpool backed by real devices <strong>and</strong> ordinary files.</p><h2 id=using-the-zfs-debugger-utility>Using the ZFS debugger utility
+<a class=anchor href=#using-the-zfs-debugger-utility>#</a></h2><p>The <code>zdb</code> command may be used to display information about ZFS pools useful to diagnose failures and gather statistics. By default the utility tries to load pool configurations from <code>/etc/zfs/zpool.cache</code>. Since the BurmillaOS ZFS service does not make use of the ZFS cache file and instead detects pools by inspecting devices, the <code>zdb</code> utility has to be invoked with the <code>-e</code> flag.</p><p>E.g. to show the configuration for the pool <code>zpool1</code> you may run the following command:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>$ sudo zdb -e -C zpool1
+</code></pre></div><h2 id=zfs-storage-for-docker-on-burmillaos>ZFS storage for Docker on BurmillaOS
+<a class=anchor href=#zfs-storage-for-docker-on-burmillaos>#</a></h2><p>First, you need to stop the<code>docker</code> system service and wipe out <code>/var/lib/docker</code> folder:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>$ sudo system-docker stop docker
+$ sudo rm -rf /var/lib/docker/*
+</code></pre></div><p>To enable ZFS as the storage driver for Docker, you&rsquo;ll need to create a ZFS filesystem for Docker and make sure it&rsquo;s mounted.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>$ sudo zfs create zpool1/docker
+$ sudo zfs list -o name,mountpoint,mounted
+</code></pre></div><p>At this point you&rsquo;ll have a ZFS filesystem created and mounted at <code>/zpool1/docker</code>. According to
+<a href=https://docs.docker.com/engine/userguide/storagedriver/zfs-driver/>Docker ZFS storage docs</a>, if the Docker root dir is a ZFS filesystem, the Docker daemon will automatically use <code>zfs</code> as its storage driver.</p><p>Now you&rsquo;ll need to remove <code>-s overlay</code> (or any other storage driver) from the Docker daemon args to allow docker to automatically detect <code>zfs</code>.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>$ sudo ros config set rancher.docker.storage_driver <span style=color:#e6db74>&#39;zfs&#39;</span>
+$ sudo ros config set rancher.docker.graph /mnt/zpool1/docker
+<span style=color:#75715e># Now that you&#39;ve changed the Docker daemon args, you&#39;ll need to start Docker</span>
+$ sudo system-docker start docker
+</code></pre></div><p>After customizing the Docker daemon arguments and restarting <code>docker</code> system service, ZFS will be used as Docker storage driver:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>$ docker info
+Containers: <span style=color:#ae81ff>0</span>
+ Running: <span style=color:#ae81ff>0</span>
+ Paused: <span style=color:#ae81ff>0</span>
+ Stopped: <span style=color:#ae81ff>0</span>
+Images: <span style=color:#ae81ff>0</span>
+Server Version: 1.12.6
+Storage Driver: zfs
+ Zpool: error <span style=color:#66d9ef>while</span> getting pool information strconv.ParseUint: parsing <span style=color:#e6db74>&#34;&#34;</span>: invalid syntax
+ Zpool Health: not available
+ Parent Dataset: zpool1/docker
+ Space Used By Parent: <span style=color:#ae81ff>19456</span>
+ Space Available: <span style=color:#ae81ff>8256371200</span>
+ Parent Quota: no
+ Compression: off
+Logging Driver: json-file
+Cgroup Driver: cgroupfs
+Plugins:
+ Volume: local
+ Network: host bridge null overlay
+Swarm: inactive
+Runtimes: runc
+Default Runtime: runc
+Security Options: seccomp
+Kernel Version: 4.9.6-burmilla
+Operating System: BurmillaOS v0.8.0-rc8
+OSType: linux
+Architecture: x86_64
+CPUs: <span style=color:#ae81ff>1</span>
+Total Memory: 1.953 GiB
+Name: ip-172-31-24-201.us-west-1.compute.internal
+ID: IEE7:YTUL:Y3F5:L6LF:5WI7:LECX:YDB5:LGWZ:QRPN:4KDI:LD66:KYTC
+Docker Root Dir: /mnt/zpool1/docker
+Debug Mode <span style=color:#f92672>(</span>client<span style=color:#f92672>)</span>: false
+Debug Mode <span style=color:#f92672>(</span>server<span style=color:#f92672>)</span>: false
+Registry: https://index.docker.io/v1/
+Insecure Registries:
+ 127.0.0.0/8
+
+</code></pre></div></article><footer class=book-footer><div class="flex flex-wrap justify-between"><div><a class="flex align-center" href=https://github.com/burmilla/burmilla.github.io/commit/d1f8103458f8d8797699dad433c52d714e54f731 title="Last modified by Basil Peace | November 2, 2024" target=_blank rel=noopener><img src=/svg/calendar.svg class=book-icon alt=Calendar>
+<span>November 2, 2024</span></a></div></div></footer><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><nav id=TableOfContents><ul><li><a href=#installing-the-zfs-service>Installing the ZFS service</a></li><li><a href=#creating-zfs-pools>Creating ZFS pools</a></li><li><a href=#using-the-zfs-debugger-utility>Using the ZFS debugger utility</a></li><li><a href=#zfs-storage-for-docker-on-burmillaos>ZFS storage for Docker on BurmillaOS</a></li></ul></nav></aside></main></body></html>

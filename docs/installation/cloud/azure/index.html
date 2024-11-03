@@ -1,0 +1,52 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Azure #  Because BurmillaOS community is small we do not publish images in Azure. However, you can still use old RancherOS image and simply upgrade to BurmillaOS
+Launching RancherOS through the Azure Portal #  RancherOS has been published in Azure Marketplace, you can get it from here.
+Using the new Azure Resource Management portal, click on Marketplace. Search for RancherOS. Click on Create.
+Follow the steps to create a virtual machine."><meta name=theme-color content="#FFFFFF"><meta property="og:title" content><meta property="og:description" content="Azure #  Because BurmillaOS community is small we do not publish images in Azure. However, you can still use old RancherOS image and simply upgrade to BurmillaOS
+Launching RancherOS through the Azure Portal #  RancherOS has been published in Azure Marketplace, you can get it from here.
+Using the new Azure Resource Management portal, click on Marketplace. Search for RancherOS. Click on Create.
+Follow the steps to create a virtual machine."><meta property="og:type" content="article"><meta property="og:url" content="https://burmillaos.org/docs/installation/cloud/azure/"><meta property="article:modified_time" content="2024-11-03T00:21:50+03:00"><title>Azure | BurmillaOS</title><link rel=manifest href=/manifest.json><link rel=icon href=/favicon.png type=image/x-icon><link rel=stylesheet href=/book.min.6cd8553a6854f4812343f0f0c8baca31271e686434f381fbe3c7226f66639176.css integrity="sha256-bNhVOmhU9IEjQ/DwyLrKMSceaGQ084H748cib2ZjkXY="><script defer src=/en.search.min.5b67b5953e3b2a171b6b51a22a8ef1216b6eae9a8f77e6e93869f90463a51473.js integrity="sha256-W2e1lT47Khcba1GiKo7xIWturpqPd+bpOGn5BGOlFHM="></script><script defer src=/sw.min.74a8bb07f0bee86d6bb9a2750f073f14d93c7e4512f28860370cfd879e9719b4.js integrity="sha256-dKi7B/C+6G1ruaJ1Dwc/FNk8fkUS8ohgNwz9h56XGbQ="></script></head><body><input type=checkbox class="hidden toggle" id=menu-control>
+<input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><nav><h2 class=book-brand><a href=/><span>BurmillaOS</span></a></h2><div class=book-search><input type=text id=book-search-input placeholder=Search aria-label=Search maxlength=64 data-hotkeys=s/><div class="book-search-spinner hidden"></div><ul id=book-search-results></ul></div><ul><li><a href=/docs/quick-start-guide/>Quick Start Guide</a></li><li><a href=/docs/installation/ class=collapsed>Installation</a><ul><li><a href=/docs/installation/upgrading/>Upgrading</a></li><li><a href=/docs/installation/boot-process/ class=collapsed>Boot Process</a></li><li><a href=/docs/installation/cloud/ class=collapsed>Cloud</a><ul><li><a href=/docs/installation/cloud/aws-ec2/>Amazon EC2</a></li><li><a href=/docs/installation/cloud/amazon-ecs/>Amazon ECS</a></li><li><a href=/docs/installation/cloud/aliyun/>Aliyun</a></li><li><a href=/docs/installation/cloud/azure/ class=active>Azure</a></li><li><a href=/docs/installation/cloud/digital-ocean/>Digital Ocean</a></li><li><a href=/docs/installation/cloud/gce/>Google Compute Engine (GCE)</a></li><li><a href=/docs/installation/cloud/openstack/>OpenStack</a></li><li><a href=/docs/installation/cloud/vmware-esxi/>VMware ESXi</a></li></ul></li><li><a href=/docs/installation/custom-builds/ class=collapsed>Custom Builds</a></li><li><a href=/docs/installation/server/ class=collapsed>Server</a></li><li><a href=/docs/installation/workstation/ class=collapsed>Workstation</a></li></ul></li><li><a href=/docs/configuration/ class=collapsed>Configuration</a></li><li><a href=/docs/networking/ class=collapsed>Networking</a></li><li><a href=/docs/storage/ class=collapsed>Storage</a></li><li><a href=/docs/system-services/ class=collapsed>System Services</a></li><li><a href=/docs/additional-resources/ class=collapsed>Aditional Resources</a></li><li><a href=/docs/faqs/>FAQs</a></li><li><a href=/docs/releases/>Releases</a></li><li><a href=/docs/reference/>Reference</a></li></ul></nav><script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script></aside><div class=book-page><header class=book-header><div class="flex align-center justify-between"><label for=menu-control><img src=/svg/menu.svg class=book-icon alt=Menu></label>
+<strong>Azure</strong>
+<label for=toc-control></label></div></header><article class=markdown><h1 id=azure>Azure
+<a class=anchor href=#azure>#</a></h1><p>Because BurmillaOS community is small we do not publish images in Azure. However, you can still use old RancherOS image and simply
+<a href=/docs/installation/upgrading/>upgrade to BurmillaOS</a></p><h2 id=launching-rancheros-through-the-azure-portal>Launching RancherOS through the Azure Portal
+<a class=anchor href=#launching-rancheros-through-the-azure-portal>#</a></h2><p>RancherOS has been published in Azure Marketplace, you can get it from
+<a href=https://azuremarketplace.microsoft.com/en-us/marketplace/apps/rancher.rancheros>here</a>.</p><p>Using the new Azure Resource Management portal, click on <strong>Marketplace</strong>. Search for <strong>RancherOS</strong>. Click on <strong>Create</strong>.</p><p>Follow the steps to create a virtual machine.</p><p>In the <em>Basics</em> step, provide a <strong>name</strong> for the VM, use <em>rancher</em> as the <strong>user name</strong> and select the <strong>SSH public key</strong> option of authenticating. Add your ssh public key into the appropriate field. Select the <strong>Resource group</strong> that you want to add the VM to or create a new one. Select the <strong>location</strong> for your VM.</p><p>In the <em>Size</em> step, select a virtual machine that has at least <strong>1GB</strong> of memory.</p><p>In the <em>Settings</em> step, you can use all the default settings to get RancherOS running.</p><p>Review your VM and buy it so that you can <strong>Create</strong> your VM.</p><p>After the VM has been provisioned, click on the VM to find the public IP address. SSH into your VM using the <em>rancher</em> username.</p><pre><code>$ ssh rancher@&lt;public_ip_of_vm&gt; -p 22
+</code></pre><h2 id=launching-rancheros-with-custom-data>Launching RancherOS with custom data
+<a class=anchor href=#launching-rancheros-with-custom-data>#</a></h2><p><em>Available as of RancherOS v1.5.4</em></p><p>Instance Metadata Service provides the ability for the VM to have access to its custom data. The binary data must be less than 64 KB and is provided to the VM in base64 encoded form.
+You can get more details from
+<a href=https://docs.microsoft.com/en-us/azure/virtual-machines/linux/instance-metadata-service#custom-data>here</a></p><p>For example, you can add custom data through
+<a href=https://docs.microsoft.com/en-us/azure/virtual-machines/linux/cli-ps-findimage>CLI</a>:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#75715e># list images from marketplace</span>
+az vm image list --location westus --publisher Rancher --offer rancheros --sku os --all --output table
+
+Architecture    Offer      Publisher    Sku    Urn                            Version
+--------------  ---------  -----------  -----  -----------------------------  ---------
+x64             rancheros  rancher      os     rancher:rancheros:os:1.5.1     1.5.1
+x64             rancheros  rancher      os152  rancher:rancheros:os152:1.5.2  1.5.2
+x64             rancheros  rancher      os153  rancher:rancheros:os153:1.5.3  1.5.3
+x64             rancheros  rancher      os154  rancher:rancheros:os154:1.5.4  1.5.4
+...
+
+<span style=color:#75715e># accept the terms</span>
+az vm image accept-terms --urn rancher:rancheros:os154:1.5.4
+
+<span style=color:#75715e># create the vm</span>
+AZURE_ROS_SSH_PUBLIC_KEY<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;xxxxxx&#34;</span>
+az vm create --resource-group mygroup <span style=color:#ae81ff>\
+</span><span style=color:#ae81ff></span>             --name myvm <span style=color:#ae81ff>\
+</span><span style=color:#ae81ff></span>             --image rancher:rancheros:os154:1.5.4 <span style=color:#ae81ff>\
+</span><span style=color:#ae81ff></span>             --plan-name os152 <span style=color:#ae81ff>\
+</span><span style=color:#ae81ff></span>             --plan-product rancheros <span style=color:#ae81ff>\
+</span><span style=color:#ae81ff></span>             --plan-publisher rancher <span style=color:#ae81ff>\
+</span><span style=color:#ae81ff></span>             --custom-data ./custom_data.txt <span style=color:#ae81ff>\
+</span><span style=color:#ae81ff></span>             --admin-username rancher <span style=color:#ae81ff>\
+</span><span style=color:#ae81ff></span>             --size Standard_A1 <span style=color:#ae81ff>\
+</span><span style=color:#ae81ff></span>             --ssh-key-value <span style=color:#e6db74>&#34;</span>$AZURE_ROS_SSH_PUBLIC_KEY<span style=color:#e6db74>&#34;</span>
+</code></pre></div><p>The <code>custom_data.txt</code> can be the cloud-config format or a shell script, such as:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#75715e>#cloud-config</span>
+<span style=color:#f92672>runcmd</span>:
+- [ <span style=color:#ae81ff>touch, /home/rancher/test1 ]</span>
+- <span style=color:#ae81ff>echo &#34;test&#34; &gt; /home/rancher/test2</span>
+</code></pre></div><pre><code>#!/bin/sh
+echo &quot;aaa&quot; &gt; /home/rancher/aaa.txt
+</code></pre></article><footer class=book-footer><div class="flex flex-wrap justify-between"><div><a class="flex align-center" href=https://github.com/burmilla/burmilla.github.io/commit/d1f8103458f8d8797699dad433c52d714e54f731 title="Last modified by Basil Peace | November 2, 2024" target=_blank rel=noopener><img src=/svg/calendar.svg class=book-icon alt=Calendar>
+<span>November 2, 2024</span></a></div></div></footer><label for=menu-control class="hidden book-menu-overlay"></label></div></main></body></html>

@@ -1,0 +1,90 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Custom Console #  When booting from the ISO, BurmillaOS starts with the default console, which is based on debian:buster-slim.
+No other console is officially supported.
+Using the unofficial custom console images #  If you want to use other console, the most easy way is use the unofficial custom console images.
+To use this, you need to add the following settings to your cloud-init.yml.
+rancher: repositories: console: url: https://raw.githubusercontent.com/benok/burmilla-os-console/master With the settings above, you can select which console you want BurmillaOS to start with using the cloud-config."><meta name=theme-color content="#FFFFFF"><meta property="og:title" content><meta property="og:description" content="Custom Console #  When booting from the ISO, BurmillaOS starts with the default console, which is based on debian:buster-slim.
+No other console is officially supported.
+Using the unofficial custom console images #  If you want to use other console, the most easy way is use the unofficial custom console images.
+To use this, you need to add the following settings to your cloud-init.yml.
+rancher: repositories: console: url: https://raw.githubusercontent.com/benok/burmilla-os-console/master With the settings above, you can select which console you want BurmillaOS to start with using the cloud-config."><meta property="og:type" content="article"><meta property="og:url" content="https://burmillaos.org/docs/installation/custom-builds/custom-console/"><meta property="article:modified_time" content="2024-11-03T00:21:50+03:00"><title>Custom Console | BurmillaOS</title><link rel=manifest href=/manifest.json><link rel=icon href=/favicon.png type=image/x-icon><link rel=stylesheet href=/book.min.6cd8553a6854f4812343f0f0c8baca31271e686434f381fbe3c7226f66639176.css integrity="sha256-bNhVOmhU9IEjQ/DwyLrKMSceaGQ084H748cib2ZjkXY="><script defer src=/en.search.min.5b67b5953e3b2a171b6b51a22a8ef1216b6eae9a8f77e6e93869f90463a51473.js integrity="sha256-W2e1lT47Khcba1GiKo7xIWturpqPd+bpOGn5BGOlFHM="></script><script defer src=/sw.min.74a8bb07f0bee86d6bb9a2750f073f14d93c7e4512f28860370cfd879e9719b4.js integrity="sha256-dKi7B/C+6G1ruaJ1Dwc/FNk8fkUS8ohgNwz9h56XGbQ="></script></head><body><input type=checkbox class="hidden toggle" id=menu-control>
+<input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><nav><h2 class=book-brand><a href=/><span>BurmillaOS</span></a></h2><div class=book-search><input type=text id=book-search-input placeholder=Search aria-label=Search maxlength=64 data-hotkeys=s/><div class="book-search-spinner hidden"></div><ul id=book-search-results></ul></div><ul><li><a href=/docs/quick-start-guide/>Quick Start Guide</a></li><li><a href=/docs/installation/ class=collapsed>Installation</a><ul><li><a href=/docs/installation/upgrading/>Upgrading</a></li><li><a href=/docs/installation/boot-process/ class=collapsed>Boot Process</a></li><li><a href=/docs/installation/cloud/ class=collapsed>Cloud</a></li><li><a href=/docs/installation/custom-builds/ class=collapsed>Custom Builds</a><ul><li><a href=/docs/installation/custom-builds/custom-console/ class=active>Custom Console</a></li><li><a href=/docs/installation/custom-builds/custom-kernels/>Custom Kernels</a></li><li><a href=/docs/installation/custom-builds/custom-burmillaos-iso/>Custom BurmillaOS ISO</a></li></ul></li><li><a href=/docs/installation/server/ class=collapsed>Server</a></li><li><a href=/docs/installation/workstation/ class=collapsed>Workstation</a></li></ul></li><li><a href=/docs/configuration/ class=collapsed>Configuration</a></li><li><a href=/docs/networking/ class=collapsed>Networking</a></li><li><a href=/docs/storage/ class=collapsed>Storage</a></li><li><a href=/docs/system-services/ class=collapsed>System Services</a></li><li><a href=/docs/additional-resources/ class=collapsed>Aditional Resources</a></li><li><a href=/docs/faqs/>FAQs</a></li><li><a href=/docs/releases/>Releases</a></li><li><a href=/docs/reference/>Reference</a></li></ul></nav><script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script></aside><div class=book-page><header class=book-header><div class="flex align-center justify-between"><label for=menu-control><img src=/svg/menu.svg class=book-icon alt=Menu></label>
+<strong>Custom Console</strong>
+<label for=toc-control><img src=/svg/toc.svg class=book-icon alt="Table of Contents"></label></div><aside class="hidden clearfix"><nav id=TableOfContents><ul><li><ul><li><a href=#using-the-unofficial-custom-console-images>Using the unofficial custom console images</a></li><li><a href=#enabling-consoles-using-cloud-config>Enabling Consoles using Cloud-Config</a></li><li><a href=#listing-available-consoles>Listing Available Consoles</a></li><li><a href=#changing-consoles-after-burmillaos-has-started-not-recomemded>Changing Consoles after BurmillaOS has started (not recomemded)</a></li><li><a href=#console-persistence>Console persistence</a></li><li><a href=#enabling-consoles>Enabling Consoles</a></li></ul></li></ul></nav></aside></header><article class=markdown><h1 id=custom-console>Custom Console
+<a class=anchor href=#custom-console>#</a></h1><p>When
+<a href=/docs/installation/workstation/boot-from-iso/>booting from the ISO</a>, BurmillaOS starts with the <code>default</code> console, which is based on
+<a href=https://github.com/burmilla/os/blob/v1.9.x/images/02-console/Dockerfile><code>debian:buster-slim</code></a>.</p><p>No other console is officially supported.</p><h3 id=using-the-unofficial-custom-console-images>Using the unofficial custom console images
+<a class=anchor href=#using-the-unofficial-custom-console-images>#</a></h3><p>If you want to use other console, the most easy way is use the
+<a href=https://github.com/benok/burmilla-os-console>unofficial custom console images</a>.</p><p>To use this, you need to add the following settings to your cloud-init.yml.</p><pre><code>rancher:
+  repositories:
+     console:
+       url: https://raw.githubusercontent.com/benok/burmilla-os-console/master
+</code></pre><p>With the settings above, you can select which console you want BurmillaOS to start with using the
+<a href=/docs/configuration/#cloud-config>cloud-config</a>.</p><p>If you want to create your own custom console, please check
+<a href=https://github.com/benok/burmilla-os-console#how-to-build-your-own-console-and-use>this page</a>.</p><h3 id=enabling-consoles-using-cloud-config>Enabling Consoles using Cloud-Config
+<a class=anchor href=#enabling-consoles-using-cloud-config>#</a></h3><p>When launching BurmillaOS with a
+<a href=/docs/configuration/#cloud-config>cloud-config</a> file, you can select which console you want to use.</p><p>Currently, the list of available consoles (with above setting using the unofficial console images) are:</p><ul><li>official image<ul><li>default (debian:buster-slim)</li></ul></li><li>unofficial images<ul><li>debian (debian:buster)</li><li>debian_testing (debian:testing)</li><li>ubuntu (ubuntu:latest)</li><li>alpine (alpine:latest)</li><li>fedora (fedora:latest)</li></ul></li></ul><p>Here is an example cloud-config file that can be used to enable the debian console.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#75715e>#cloud-config</span>
+<span style=color:#f92672>rancher</span>:
+  <span style=color:#f92672>console</span>: <span style=color:#ae81ff>debian</span>
+</code></pre></div><h3 id=listing-available-consoles>Listing Available Consoles
+<a class=anchor href=#listing-available-consoles>#</a></h3><p>You can easily list the available consoles in BurmillaOS and what their status is with <code>sudo ros console list</code>.</p><pre><code>$ sudo ros console list
+disabled alpine
+disabled debian
+disabled debian_testing
+enabled default
+disabled fedora
+disabled ubuntu
+</code></pre><h3 id=changing-consoles-after-burmillaos-has-started-not-recomemded>Changing Consoles after BurmillaOS has started (not recomemded)
+<a class=anchor href=#changing-consoles-after-burmillaos-has-started-not-recomemded>#</a></h3><p><strong><code>ros console switch</code> has several bugs since RancherOS era, please use &ldquo;
+<a href=/#enabling-consoles>Enabling consoles</a>&rdquo; below</strong>.</p><p>You can view which console is being used by BurmillaOS by checking which console container is running in System Docker. If you wanted to switch consoles, you just need to run a simple command and select your new console.</p><p>For our example, we&rsquo;ll switch to the Ubuntu console.</p><pre><code>$ sudo ros console switch ubuntu
+Switching consoles will
+1. destroy the current console container
+2. log you out
+3. restart Docker
+Continue [y/N]:y
+Pulling console (burmilla/os-ubuntuconsole:v0.5.0-3)...
+v0.5.0-3: Pulling from burmilla/os-ubuntuconsole
+6d3a6d998241: Pull complete
+606b08bdd0f3: Pull complete
+1d99b95ffc1c: Pull complete
+a3ed95caeb02: Pull complete
+3fc2f42db623: Pull complete
+2fb84911e8d2: Pull complete
+fff5d987b31c: Pull complete
+e7849ae8f782: Pull complete
+de375d40ae05: Pull complete
+8939c16614d1: Pull complete
+Digest: sha256:37224c3964801d633ea8b9629137bc9d4a8db9d37f47901111b119d3e597d15b
+Status: Downloaded newer image for burmilla/os-ubuntuconsole:v0.5.0-3
+switch-console_1 | time=&quot;2016-07-02T01:47:14Z&quot; level=info msg=&quot;Project [os]: Starting project &quot;
+switch-console_1 | time=&quot;2016-07-02T01:47:14Z&quot; level=info msg=&quot;[0/18] [console]: Starting &quot;
+switch-console_1 | time=&quot;2016-07-02T01:47:14Z&quot; level=info msg=&quot;Recreating console&quot;
+Connection to 127.0.0.1 closed by remote host.
+</code></pre><p>After logging back, you&rsquo;ll be in the Ubuntu console.</p><pre><code>$ sudo system-docker ps
+CONTAINER ID        IMAGE                                 COMMAND                  CREATED              STATUS              PORTS               NAMES
+6bf33541b2dc        burmilla/os-ubuntuconsole:v0.5.0-rc3   &quot;/usr/sbin/entry.sh /&quot;   About a minute ago   Up About a minute
+</code></pre><blockquote><p><strong>Note:</strong> When switching between consoles, the currently running console container is destroyed, Docker is restarted and you will be logged out.</p></blockquote><h3 id=console-persistence>Console persistence
+<a class=anchor href=#console-persistence>#</a></h3><p>All consoles except the default (busybox) console are persistent. Persistent console means that the console container will remain the same and preserves changes made to its filesystem across reboots. If a container is deleted/rebuilt, state in the console will be lost except what is in the persisted directories.</p><pre><code>/home
+/opt
+/var/lib/docker
+/var/lib/rancher
+</code></pre><blockquote><p><strong>Note:</strong> When using a persistent console and in the current version&rsquo;s console,
+<a href=/docs/installation/upgrading/#rolling-back-an-upgrade>rolling back</a> is not supported. For example, rolling back to v0.4.5 when using a v0.5.0 persistent console is not supported.</p></blockquote><h3 id=enabling-consoles>Enabling Consoles
+<a class=anchor href=#enabling-consoles>#</a></h3><p>You can also enable a console that will be changed at the next reboot.</p><p>For our example, we&rsquo;ll switch to the Debian console.</p><pre><code># Check the console running in System Docker
+$ sudo system-docker ps
+CONTAINER ID        IMAGE                              COMMAND                  CREATED             STATUS              PORTS               NAMES
+95d548689e82        burmilla/os-docker:v0.5.0    &quot;/usr/sbin/entry.sh /&quot;   About an hour ago   Up About an hour                        docker
+# Enable the Debian console
+$ sudo ros console enable debian
+Pulling console (burmilla/os-debianconsole:v0.5.0-3)...
+v0.5.0-3: Pulling from burmilla/os-debianconsole
+7268d8f794c4: Pull complete
+a3ed95caeb02: Pull complete
+21cb8a645d75: Pull complete
+5ee1d288a088: Pull complete
+c09f41c2bd29: Pull complete
+02b48ce40553: Pull complete
+38a4150e7e9c: Pull complete
+Digest: sha256:5dbca5ba6c3b7ba6cd6ac75a1d054145db4b4ea140db732bfcbd06f17059c5d0
+Status: Downloaded newer image for burmilla/os-debianconsole:v0.5.0-3
+</code></pre><p>At the next reboot, BurmillaOS will be using the Debian console.</p></article><footer class=book-footer><div class="flex flex-wrap justify-between"><div><a class="flex align-center" href=https://github.com/burmilla/burmilla.github.io/commit/d1f8103458f8d8797699dad433c52d714e54f731 title="Last modified by Basil Peace | November 2, 2024" target=_blank rel=noopener><img src=/svg/calendar.svg class=book-icon alt=Calendar>
+<span>November 2, 2024</span></a></div></div></footer><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><nav id=TableOfContents><ul><li><ul><li><a href=#using-the-unofficial-custom-console-images>Using the unofficial custom console images</a></li><li><a href=#enabling-consoles-using-cloud-config>Enabling Consoles using Cloud-Config</a></li><li><a href=#listing-available-consoles>Listing Available Consoles</a></li><li><a href=#changing-consoles-after-burmillaos-has-started-not-recomemded>Changing Consoles after BurmillaOS has started (not recomemded)</a></li><li><a href=#console-persistence>Console persistence</a></li><li><a href=#enabling-consoles>Enabling Consoles</a></li></ul></li></ul></nav></aside></main></body></html>

@@ -1,0 +1,101 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Custom System Services #  You can also create your own system service in Docker Compose format. After creating your own custom service, you can launch it in BurmillaOS in a couple of methods. The service could be directly added to the cloud-config, or a docker-compose.yml file could be saved at a http(s) url location or in a specific directory of BurmillaOS.
+Launching Services #  Using Cloud-Config #  If you want to boot BurmillaOS with a system service running, you can add the service to the cloud-config that is passed to BurmillaOS."><meta name=theme-color content="#FFFFFF"><meta property="og:title" content><meta property="og:description" content="Custom System Services #  You can also create your own system service in Docker Compose format. After creating your own custom service, you can launch it in BurmillaOS in a couple of methods. The service could be directly added to the cloud-config, or a docker-compose.yml file could be saved at a http(s) url location or in a specific directory of BurmillaOS.
+Launching Services #  Using Cloud-Config #  If you want to boot BurmillaOS with a system service running, you can add the service to the cloud-config that is passed to BurmillaOS."><meta property="og:type" content="article"><meta property="og:url" content="https://burmillaos.org/docs/system-services/custom-system-services/"><meta property="article:modified_time" content="2024-11-03T00:21:50+03:00"><title>Custom System Services | BurmillaOS</title><link rel=manifest href=/manifest.json><link rel=icon href=/favicon.png type=image/x-icon><link rel=stylesheet href=/book.min.6cd8553a6854f4812343f0f0c8baca31271e686434f381fbe3c7226f66639176.css integrity="sha256-bNhVOmhU9IEjQ/DwyLrKMSceaGQ084H748cib2ZjkXY="><script defer src=/en.search.min.5b67b5953e3b2a171b6b51a22a8ef1216b6eae9a8f77e6e93869f90463a51473.js integrity="sha256-W2e1lT47Khcba1GiKo7xIWturpqPd+bpOGn5BGOlFHM="></script><script defer src=/sw.min.74a8bb07f0bee86d6bb9a2750f073f14d93c7e4512f28860370cfd879e9719b4.js integrity="sha256-dKi7B/C+6G1ruaJ1Dwc/FNk8fkUS8ohgNwz9h56XGbQ="></script></head><body><input type=checkbox class="hidden toggle" id=menu-control>
+<input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><nav><h2 class=book-brand><a href=/><span>BurmillaOS</span></a></h2><div class=book-search><input type=text id=book-search-input placeholder=Search aria-label=Search maxlength=64 data-hotkeys=s/><div class="book-search-spinner hidden"></div><ul id=book-search-results></ul></div><ul><li><a href=/docs/quick-start-guide/>Quick Start Guide</a></li><li><a href=/docs/installation/ class=collapsed>Installation</a></li><li><a href=/docs/configuration/ class=collapsed>Configuration</a></li><li><a href=/docs/networking/ class=collapsed>Networking</a></li><li><a href=/docs/storage/ class=collapsed>Storage</a></li><li><a href=/docs/system-services/ class=collapsed>System Services</a><ul><li><a href=/docs/system-services/custom-system-services/ class=active>Custom System Services</a></li><li><a href=/docs/system-services/environment/>Environment</a></li><li><a href=/docs/system-services/system-docker-volumes/>System Docker Volumes</a></li></ul></li><li><a href=/docs/additional-resources/ class=collapsed>Aditional Resources</a></li><li><a href=/docs/faqs/>FAQs</a></li><li><a href=/docs/releases/>Releases</a></li><li><a href=/docs/reference/>Reference</a></li></ul></nav><script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script></aside><div class=book-page><header class=book-header><div class="flex align-center justify-between"><label for=menu-control><img src=/svg/menu.svg class=book-icon alt=Menu></label>
+<strong>Custom System Services</strong>
+<label for=toc-control><img src=/svg/toc.svg class=book-icon alt="Table of Contents"></label></div><aside class="hidden clearfix"><nav id=TableOfContents><ul><li><a href=#launching-services>Launching Services</a><ul><li><a href=#using-cloud-config>Using Cloud-Config</a></li><li><a href=#using-local-files>Using Local Files</a></li><li><a href=#using-a-web-repository>Using a Web Repository</a></li></ul></li><li><a href=#existing-services>Existing Services</a><ul><li><a href=#cron>Cron</a></li><li><a href=#log-rotation>Log rotation</a></li></ul></li><li><a href=#development-and-testing>Development and Testing</a><ul><li><a href=#creating-your-own-console>Creating your own Console</a></li></ul></li><li><a href=#labels>Labels</a><ul><li></li></ul></li></ul></nav></aside></header><article class=markdown><h1 id=custom-system-services>Custom System Services
+<a class=anchor href=#custom-system-services>#</a></h1><p>You can also create your own system service in
+<a href=https://docs.docker.com/compose/>Docker Compose</a> format. After creating your own custom service, you can launch it in BurmillaOS in a couple of methods. The service could be directly added to the
+<a href=/docs/configuration/#cloud-config>cloud-config</a>, or a <code>docker-compose.yml</code> file could be saved at a http(s) url location or in a specific directory of BurmillaOS.</p><h2 id=launching-services>Launching Services
+<a class=anchor href=#launching-services>#</a></h2><h3 id=using-cloud-config>Using Cloud-Config
+<a class=anchor href=#using-cloud-config>#</a></h3><p>If you want to boot BurmillaOS with a system service running, you can add the service to the cloud-config that is passed to BurmillaOS. When BurmillaOS starts, this service will automatically be started.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#75715e>#cloud-config</span>
+<span style=color:#f92672>rancher</span>:
+  <span style=color:#f92672>services</span>:
+    <span style=color:#f92672>nginxapp</span>:
+      <span style=color:#f92672>image</span>: <span style=color:#ae81ff>nginx</span>
+      <span style=color:#f92672>restart</span>: <span style=color:#ae81ff>always</span>
+</code></pre></div><h3 id=using-local-files>Using Local Files
+<a class=anchor href=#using-local-files>#</a></h3><p>If you already have BurmillaOS running, you can start a system service by saving a <code>docker-compose.yml</code> file at <code>/var/lib/rancher/conf/</code>.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#f92672>nginxapp</span>:
+  <span style=color:#f92672>image</span>: <span style=color:#ae81ff>nginx</span>
+  <span style=color:#f92672>restart</span>: <span style=color:#ae81ff>always</span>
+</code></pre></div><p>To enable a custom system service from the file location, the command must indicate the file location if saved in BurmillaOS. If the file is saved at a http(s) url, just use the http(s) url when enabling/disabling.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#75715e># Enable the system service saved in /var/lib/rancher/conf</span>
+$ sudo ros service enable /var/lib/rancher/conf/example.yml
+<span style=color:#75715e># Enable a system service saved at a http(s) url</span>
+$ sudo ros service enable https://mydomain.com/example.yml
+</code></pre></div><p>After the custom system service is enabled, you can start the service using <code>sudo ros service up &lt;serviceName></code>. The <code>&lt;serviceName></code> will be the names of the services inside the <code>docker-compose.yml</code>.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ sudo ros service up nginxapp
+<span style=color:#75715e># If you have more than 1 service in your docker-compose.yml, add all service names to the command</span>
+$ sudo ros service up service1 service2 service3
+</code></pre></div><h3 id=using-a-web-repository>Using a Web Repository
+<a class=anchor href=#using-a-web-repository>#</a></h3><p>The <a href=https://github.com/burmilla/os-services>https://github.com/burmilla/os-services</a> repository is used for the built-in services, but you can create your own, and configure BurmillaOS to use it in addition (or to replace) it.</p><p>The config settings to set the url in which <code>ros</code> should look for an <code>index.yml</code> file is: <code>rancher.repositories.&lt;name>.url</code>. The <code>core</code> repository url is set when a release is made, and any other <code>&lt;name></code> url you add will be listed together when running <code>ros console list</code>, <code>ros service list</code> or <code>ros engine list</code></p><p>For example, in BurmillaOS v0.7.0, the <code>core</code> repository is set to <code>https://raw.githubusercontent.com/burmilla/os-services/v0.7.0</code>.</p><h2 id=existing-services>Existing Services
+<a class=anchor href=#existing-services>#</a></h2><h3 id=cron>Cron
+<a class=anchor href=#cron>#</a></h3><p><em>Available as of RancherOS v1.1</em></p><p>BurmillaOS has a system cron service based on
+<a href=https://github.com/burmilla/container-crontab>Container Crontab</a>. This can be used to start, restart or stop system containers.</p><p>To use this on your service, add a <code>cron.schedule</code> label to your service&rsquo;s description:</p><pre><code>my-service:
+  image: namespace/my-service:v1.0.0
+  command: my-command
+  labels:
+    io.rancher.os.scope: &quot;system&quot;
+    cron.schedule: &quot;0 * * * * ?&quot;
+</code></pre><p>For a cron service that can be used with user Docker containers, see the <code>crontab</code> system service.</p><h3 id=log-rotation>Log rotation
+<a class=anchor href=#log-rotation>#</a></h3><p>BurmillaOS provides a built in <code>logrotate</code> container that makes use of logrotate(8) to rotate system logs. This is called on an hourly basis by the <code>system-cron</code> container.</p><p>If you would like to make use of system log rotation for your system service, do the following.</p><p>Add <code>system-volumes</code> to your service description&rsquo;s <code>volumes_from</code> section. You could also use a volume group containing <code>system-volumes</code> e.g. <code>all-volumes</code>.</p><pre><code>my-service:
+  image: namespace/my-service:v1.0.0
+  command: my-command
+  labels:
+    io.rancher.os.scope: &quot;system&quot;
+  volumes_from:
+    - system-volumes
+</code></pre><p>Next, add an entry point script to your image and copy your logrotate configs to <code>/etc/logrotate.d/</code> on startup.</p><p>Example Dockerfile:</p><pre><code>FROM alpine:latest
+COPY logrotate-myservice.conf entrypoint.sh /
+ENTRYPOINT [&quot;/entrypoint.sh&quot;]
+</code></pre><p>Example entrypoint.sh (Ensure that this script has the execute bit set).</p><pre><code>#!/bin/sh
+
+cp logrotate-myservice.conf /etc/logrotate.d/myservice
+
+exec &quot;$@&quot;
+</code></pre><p>Your service&rsquo;s log rotation config will now be included when the system logrotate runs. You can view logrotate output with <code>system-docker logs logrotate</code>.</p><h2 id=development-and-testing>Development and Testing
+<a class=anchor href=#development-and-testing>#</a></h2><p>If you&rsquo;re building your own services in a branch on GitHub, you can push to it, and then load your service from there.</p><p>For example, when developing the zfs service:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>rancher@zfs:~$ sudo ros config set rancher.repositories.zfs.url https://raw.githubusercontent.com/SvenDowideit/os-services/zfs-service
+rancher@zfs:~$ sudo ros service list
+disabled amazon-ecs-agent
+disabled kernel-extras
+enabled  kernel-headers
+disabled kernel-headers-system-docker
+disabled open-vm-tools
+disabled amazon-ecs-agent
+disabled kernel-extras
+disabled kernel-headers
+disabled kernel-headers-system-docker
+disabled open-vm-tools
+disabled zfs
+<span style=color:#f92672>[</span>rancher@zfs ~<span style=color:#f92672>]</span>$ sudo ros service enable zfs
+Pulling zfs <span style=color:#f92672>(</span>zombie/zfs<span style=color:#f92672>)</span>...
+latest: Pulling from zombie/zfs
+b3e1c725a85f: Pull complete
+4daad8bdde31: Pull complete
+63fe8c0068a8: Pull complete
+4a70713c436f: Pull complete
+bd842a2105a8: Pull complete
+d1a8c0826fbb: Pull complete
+5f1c5ffdf34c: Pull complete
+66c2263f2388: Pull complete
+Digest: sha256:eab7b8c21fbefb55f7ee311dd236acee215cb6a5d22942844178b8c6d4e02cd9
+Status: Downloaded newer image <span style=color:#66d9ef>for</span> zombie/zfs:latest
+<span style=color:#f92672>[</span>rancher@zfs ~<span style=color:#f92672>]</span>$ sudo ros service up zfs
+WARN<span style=color:#f92672>[</span>0000<span style=color:#f92672>]</span> The KERNEL_VERSION variable is not set. Substituting a blank string.
+INFO<span style=color:#f92672>[</span>0000<span style=color:#f92672>]</span> Project <span style=color:#f92672>[</span>os<span style=color:#f92672>]</span>: Starting project
+INFO<span style=color:#f92672>[</span>0000<span style=color:#f92672>]</span> <span style=color:#f92672>[</span>0/21<span style=color:#f92672>]</span> <span style=color:#f92672>[</span>zfs<span style=color:#f92672>]</span>: Starting
+INFO<span style=color:#f92672>[</span>0000<span style=color:#f92672>]</span> <span style=color:#f92672>[</span>1/21<span style=color:#f92672>]</span> <span style=color:#f92672>[</span>zfs<span style=color:#f92672>]</span>: Started
+INFO<span style=color:#f92672>[</span>0000<span style=color:#f92672>]</span> Project <span style=color:#f92672>[</span>os<span style=color:#f92672>]</span>: Project started
+
+</code></pre></div><p>Beware that there is an overly aggressive caching of yml files - so when you push a new yml file to your repo, you need to
+delete the files in <code>/var/lib/rancher/cache</code>.</p><p>The image that you specify in the service yml file needs to be pullable - either from a private registry, or on the Docker Hub.</p><h3 id=creating-your-own-console>Creating your own Console
+<a class=anchor href=#creating-your-own-console>#</a></h3><p>Once you have your own Services repository, you can add a new service to its index.yml, and then add a <code>&lt;service-name>.yml</code> file to the directory starting with the first letter.</p><p>To create your own console images, you need to:</p><ol><li>install some basic tools, including an ssh daemon, sudo, and kernel module tools</li><li>create <code>rancher</code> and <code>docker</code> users and groups with UID and GID&rsquo;s of <code>1100</code> and <code>1101</code> respectively</li><li>add both users to the <code>docker</code> and <code>sudo</code> groups</li><li>add both groups into the <code>/etc/sudoers</code> file to allow password-less sudo</li><li>configure sshd to accept logins from users in the <code>docker</code> group, and deny <code>root</code>.</li><li>set <code>ENTRYPOINT ["/usr/bin/ros", "entrypoint"]</code></li></ol><p>the <code>ros</code> binary, and other host specific configuration files will be bind mounted into the running console container when its launched.</p><p>For examples of existing images, see <a href=https://github.com/burmilla/os-images>https://github.com/burmilla/os-images</a>.</p><h2 id=labels>Labels
+<a class=anchor href=#labels>#</a></h2><p>We use labels to determine how to handle the service containers.</p><table><thead><tr><th>Key</th><th>Value</th><th>Description</th></tr></thead><tbody><tr><td><code>io.rancher.os.detach</code></td><td>Default: <code>true</code></td><td>Equivalent of <code>docker run -d</code>. If set to <code>false</code>, equivalent of <code>docker run --detach=false</code></td></tr><tr><td><code>io.rancher.os.scope</code></td><td><code>system</code></td><td>Use this label to have the container deployed in System Docker instead of Docker.</td></tr><tr><td><code>io.rancher.os.before</code>/<code>io.rancher.os.after</code></td><td>Service Names (Comma separated list is accepted)</td><td>Used to determine order of when containers should be started.</td></tr><tr><td><code>io.rancher.os.createonly</code></td><td>Default: <code>false</code></td><td>When set to <code>true</code>, only a <code>docker create</code> will be performed and not a <code>docker start</code>.</td></tr><tr><td><code>io.rancher.os.reloadconfig</code></td><td>Default: <code>false</code></td><td>When set to <code>true</code>, it reloads the configuration.</td></tr></tbody></table><p>BurmillaOS uses labels to determine if the container should be deployed in System Docker. By default without the label, the container will be deployed in User Docker.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#f92672>labels</span>:
+  - <span style=color:#ae81ff>io.rancher.os.scope=system</span>
+</code></pre></div><h4 id=example-of-how-to-order-container-deployment>Example of how to order container deployment
+<a class=anchor href=#example-of-how-to-order-container-deployment>#</a></h4><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#f92672>foo</span>:
+  <span style=color:#f92672>labels</span>:
+    <span style=color:#75715e># Start foo before bar is launched</span>
+    <span style=color:#f92672>io.rancher.os.before</span>: <span style=color:#ae81ff>bar</span>
+    <span style=color:#75715e># Start foo after baz has been launched</span>
+    <span style=color:#f92672>io.rancher.os.after</span>: <span style=color:#ae81ff>baz</span>
+</code></pre></div></article><footer class=book-footer><div class="flex flex-wrap justify-between"><div><a class="flex align-center" href=https://github.com/burmilla/burmilla.github.io/commit/d1f8103458f8d8797699dad433c52d714e54f731 title="Last modified by Basil Peace | November 2, 2024" target=_blank rel=noopener><img src=/svg/calendar.svg class=book-icon alt=Calendar>
+<span>November 2, 2024</span></a></div></div></footer><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><nav id=TableOfContents><ul><li><a href=#launching-services>Launching Services</a><ul><li><a href=#using-cloud-config>Using Cloud-Config</a></li><li><a href=#using-local-files>Using Local Files</a></li><li><a href=#using-a-web-repository>Using a Web Repository</a></li></ul></li><li><a href=#existing-services>Existing Services</a><ul><li><a href=#cron>Cron</a></li><li><a href=#log-rotation>Log rotation</a></li></ul></li><li><a href=#development-and-testing>Development and Testing</a><ul><li><a href=#creating-your-own-console>Creating your own Console</a></li></ul></li><li><a href=#labels>Labels</a><ul><li></li></ul></li></ul></nav></aside></main></body></html>

@@ -1,0 +1,70 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Switching Docker Versions #  The version of User Docker used in BurmillaOS can be configured using a cloud-config file or by using the ros engine command.
+ Note: There are known issues in Docker when switching between versions. For production systems, we recommend setting the Docker engine only once using a cloud-config.
+ Available Docker engines #  The ros engine list command can be used to show which Docker engines are available to switch to."><meta name=theme-color content="#FFFFFF"><meta property="og:title" content="Switching Docker Versions"><meta property="og:description" content="Switching Docker Versions #  The version of User Docker used in BurmillaOS can be configured using a cloud-config file or by using the ros engine command.
+ Note: There are known issues in Docker when switching between versions. For production systems, we recommend setting the Docker engine only once using a cloud-config.
+ Available Docker engines #  The ros engine list command can be used to show which Docker engines are available to switch to."><meta property="og:type" content="article"><meta property="og:url" content="https://burmillaos.org/docs/configuration/docker/switching-docker-versions/"><meta property="article:modified_time" content="2024-11-03T00:21:50+03:00"><title>Switching Docker Versions | BurmillaOS</title><link rel=manifest href=/manifest.json><link rel=icon href=/favicon.png type=image/x-icon><link rel=stylesheet href=/book.min.6cd8553a6854f4812343f0f0c8baca31271e686434f381fbe3c7226f66639176.css integrity="sha256-bNhVOmhU9IEjQ/DwyLrKMSceaGQ084H748cib2ZjkXY="><script defer src=/en.search.min.5b67b5953e3b2a171b6b51a22a8ef1216b6eae9a8f77e6e93869f90463a51473.js integrity="sha256-W2e1lT47Khcba1GiKo7xIWturpqPd+bpOGn5BGOlFHM="></script><script defer src=/sw.min.74a8bb07f0bee86d6bb9a2750f073f14d93c7e4512f28860370cfd879e9719b4.js integrity="sha256-dKi7B/C+6G1ruaJ1Dwc/FNk8fkUS8ohgNwz9h56XGbQ="></script></head><body><input type=checkbox class="hidden toggle" id=menu-control>
+<input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><nav><h2 class=book-brand><a href=/><span>BurmillaOS</span></a></h2><div class=book-search><input type=text id=book-search-input placeholder=Search aria-label=Search maxlength=64 data-hotkeys=s/><div class="book-search-spinner hidden"></div><ul id=book-search-results></ul></div><ul><li><a href=/docs/quick-start-guide/>Quick Start Guide</a></li><li><a href=/docs/installation/ class=collapsed>Installation</a></li><li><a href=/docs/configuration/ class=collapsed>Configuration</a><ul><li><a href=/docs/configuration/advanced/ class=collapsed>Advanced</a></li><li><a href=/docs/configuration/base/ class=collapsed>Base</a></li><li><a href=/docs/configuration/docker/ class=collapsed>Docker and System Docker</a><ul><li><a href=/docs/configuration/docker/images-prefix/>Images prefix</a></li><li><a href=/docs/configuration/docker/private-registries/>Private Registries</a></li><li><a href=/docs/configuration/docker/setting-up-docker-tls/>Setting up Docker TLS</a></li><li><a href=/docs/configuration/docker/switching-docker-versions/ class=active>Switching Docker Versions</a></li></ul></li><li><a href=/docs/configuration/kernel/ class=collapsed>Kernel</a></li></ul></li><li><a href=/docs/networking/ class=collapsed>Networking</a></li><li><a href=/docs/storage/ class=collapsed>Storage</a></li><li><a href=/docs/system-services/ class=collapsed>System Services</a></li><li><a href=/docs/additional-resources/ class=collapsed>Aditional Resources</a></li><li><a href=/docs/faqs/>FAQs</a></li><li><a href=/docs/releases/>Releases</a></li><li><a href=/docs/reference/>Reference</a></li></ul></nav><script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script></aside><div class=book-page><header class=book-header><div class="flex align-center justify-between"><label for=menu-control><img src=/svg/menu.svg class=book-icon alt=Menu></label>
+<strong>Switching Docker Versions</strong>
+<label for=toc-control><img src=/svg/toc.svg class=book-icon alt="Table of Contents"></label></div><aside class="hidden clearfix"><nav id=TableOfContents><ul><li><a href=#available-docker-engines>Available Docker engines</a></li><li><a href=#setting-the-docker-engine-using-cloud-config>Setting the Docker engine using cloud-config</a></li><li><a href=#changing-docker-engines-after-burmillaos-has-started>Changing Docker engines after BurmillaOS has started</a><ul><li><a href=#enabling-docker-engines>Enabling Docker engines</a></li></ul></li><li><a href=#using-a-custom-version-of-docker>Using a Custom Version of Docker</a></li></ul></nav></aside></header><article class=markdown><h1 id=switching-docker-versions>Switching Docker Versions
+<a class=anchor href=#switching-docker-versions>#</a></h1><p>The version of User Docker used in BurmillaOS can be configured using a
+<a href=/docs/configuration/#cloud-config>cloud-config</a> file or by using the <code>ros engine</code> command.</p><blockquote><p><strong>Note:</strong> There are known issues in Docker when switching between versions. For production systems, we recommend setting the Docker engine only once
+<a href=/#setting-the-docker-engine-using-cloud-config>using a cloud-config</a>.</p></blockquote><h2 id=available-docker-engines>Available Docker engines
+<a class=anchor href=#available-docker-engines>#</a></h2><p>The <code>ros engine list</code> command can be used to show which Docker engines are available to switch to. This command will also provide details of which Docker engine is currently being used.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>$ sudo ros engine list --update
+current  docker-19.03.13
+disabled docker-19.03.14
+disabled docker-20.10.0
+</code></pre></div><h2 id=setting-the-docker-engine-using-cloud-config>Setting the Docker engine using cloud-config
+<a class=anchor href=#setting-the-docker-engine-using-cloud-config>#</a></h2><p>BurmillaOS supports defining which Docker engine to use through the cloud-config file. To change the Docker version from the default packaged version, you can use the following cloud-config setting and select one of the available engines. In the following example, we&rsquo;ll use the cloud-config file to set BurmillaOS to use Docker 1.10.3 for User Docker.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#75715e>#cloud-config</span>
+<span style=color:#f92672>rancher</span>:
+  <span style=color:#f92672>docker</span>:
+    <span style=color:#f92672>engine</span>: <span style=color:#ae81ff>docker-19.03.13</span>
+</code></pre></div><h2 id=changing-docker-engines-after-burmillaos-has-started>Changing Docker engines after BurmillaOS has started
+<a class=anchor href=#changing-docker-engines-after-burmillaos-has-started>#</a></h2><p>If you&rsquo;ve already started BurmillaOS and want to switch Docker engines, you can change the Docker engine by using the <code>ros engine switch</code> command. In our example, we&rsquo;ll switch to Docker 19.03.13.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>$ sudo ros engine switch docker-19.03.13
+INFO<span style=color:#f92672>[</span>0001<span style=color:#f92672>]</span> Project <span style=color:#f92672>[</span>os<span style=color:#f92672>]</span>: Starting project
+INFO<span style=color:#f92672>[</span>0003<span style=color:#f92672>]</span> <span style=color:#f92672>[</span>0/18<span style=color:#f92672>]</span> <span style=color:#f92672>[</span>docker<span style=color:#f92672>]</span>: Starting
+INFO<span style=color:#f92672>[</span>0003<span style=color:#f92672>]</span> Recreating docker
+INFO<span style=color:#f92672>[</span>0003<span style=color:#f92672>]</span> <span style=color:#f92672>[</span>1/18<span style=color:#f92672>]</span> <span style=color:#f92672>[</span>docker<span style=color:#f92672>]</span>: Started
+INFO<span style=color:#f92672>[</span>0003<span style=color:#f92672>]</span> Project <span style=color:#f92672>[</span>os<span style=color:#f92672>]</span>: Project started
+
+$ docker version
+Client: Docker Engine - Community
+ Version:           19.03.13
+ API version:       1.40
+ Go version:        go1.13.15
+ Git commit:        4484c46
+ Built:             Wed Sep <span style=color:#ae81ff>16</span> 16:58:04 <span style=color:#ae81ff>2020</span>
+ OS/Arch:           linux/amd64
+ Experimental:      false
+
+Server: Docker Engine - Community
+ Engine:
+  Version:          19.03.13
+  API version:      1.40 <span style=color:#f92672>(</span>minimum version 1.12<span style=color:#f92672>)</span>
+  Go version:       go1.13.15
+  Git commit:       4484c46
+  Built:            Wed Sep <span style=color:#ae81ff>16</span> 17:04:43 <span style=color:#ae81ff>2020</span>
+  OS/Arch:          linux/amd64
+  Experimental:     false
+ containerd:
+  Version:          v1.3.7
+  GitCommit:        8fba4e9a7d01810a393d5d25a3621dc101981175
+ runc:
+  Version:          1.0.0-rc10
+  GitCommit:        dc9208a3303feef5b3839f4323d9beb36df0a9dd
+ docker-init:
+  Version:          0.18.0
+  GitCommit:        fec3683
+
+</code></pre></div><h3 id=enabling-docker-engines>Enabling Docker engines
+<a class=anchor href=#enabling-docker-engines>#</a></h3><p>If you don&rsquo;t want to automatically switch Docker engines, you can also set which version of Docker to use after the next reboot by enabling a Docker engine.</p><pre><code>$ sudo ros engine enable docker-19.03.13
+</code></pre><h2 id=using-a-custom-version-of-docker>Using a Custom Version of Docker
+<a class=anchor href=#using-a-custom-version-of-docker>#</a></h2><p>If you&rsquo;re using a version of Docker that isn&rsquo;t available by default or a custom build of Docker then you can create a custom Docker image and service file to distribute it.</p><p>Docker engine images are built by adding the binaries to a folder named <code>engine</code> and then adding this folder to a <code>FROM scratch</code> image. For example, the following Dockerfile will build a Docker engine image.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-Dockerfile data-lang=Dockerfile><span style=color:#66d9ef>FROM</span><span style=color:#e6db74> scratch</span><span style=color:#960050;background-color:#1e0010>
+</span><span style=color:#960050;background-color:#1e0010></span><span style=color:#66d9ef>COPY</span> engine /engine<span style=color:#960050;background-color:#1e0010>
+</span></code></pre></div><p>Once the image is built a
+<a href=/docs/system-services/>system service</a> configuration file must be created. An
+<a href=https://github.com/burmilla/os-services/blob/master/d/docker-19.03.13.yml>example file</a> can be found in the burmilla/os-services repo. Change the <code>image</code> field to point to the Docker engine image you&rsquo;ve built.</p><p>All of the previously mentioned methods of switching Docker engines are now available. For example, if your service file is located at <code>https://myservicefile</code> then the following cloud-config file could be used to use your custom Docker engine.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#75715e>#cloud-config</span>
+<span style=color:#f92672>rancher</span>:
+  <span style=color:#f92672>docker</span>:
+    <span style=color:#f92672>engine</span>: <span style=color:#ae81ff>https://myservicefile</span>
+</code></pre></div></article><footer class=book-footer><div class="flex flex-wrap justify-between"><div><a class="flex align-center" href=https://github.com/burmilla/burmilla.github.io/commit/d1f8103458f8d8797699dad433c52d714e54f731 title="Last modified by Basil Peace | November 2, 2024" target=_blank rel=noopener><img src=/svg/calendar.svg class=book-icon alt=Calendar>
+<span>November 2, 2024</span></a></div></div></footer><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><nav id=TableOfContents><ul><li><a href=#available-docker-engines>Available Docker engines</a></li><li><a href=#setting-the-docker-engine-using-cloud-config>Setting the Docker engine using cloud-config</a></li><li><a href=#changing-docker-engines-after-burmillaos-has-started>Changing Docker engines after BurmillaOS has started</a><ul><li><a href=#enabling-docker-engines>Enabling Docker engines</a></li></ul></li><li><a href=#using-a-custom-version-of-docker>Using a Custom Version of Docker</a></li></ul></nav></aside></main></body></html>

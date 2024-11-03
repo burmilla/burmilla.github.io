@@ -1,0 +1,110 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Configuring Docker or System Docker #  In BurmillaOS, you can configure System Docker and Docker daemons by using cloud-config.
+Configuring Docker #  In your cloud-config, Docker configuration is located under the rancher.docker key.
+#cloud-config rancher: docker: tls: true tls_args: - &#34;--tlsverify&#34; - &#34;--tlscacert=/etc/docker/tls/ca.pem&#34; - &#34;--tlscert=/etc/docker/tls/server-cert.pem&#34; - &#34;--tlskey=/etc/docker/tls/server-key.pem&#34; - &#34;-H=0.0.0.0:2376&#34; storage_driver: overlay You can also customize Docker after it&rsquo;s been started using ros config.
+$ sudo ros config set rancher."><meta name=theme-color content="#FFFFFF"><meta property="og:title" content="Docker and System Docker"><meta property="og:description" content><meta property="og:type" content="website"><meta property="og:url" content="https://burmillaos.org/docs/configuration/docker/"><title>Docker and System Docker | BurmillaOS</title><link rel=manifest href=/manifest.json><link rel=icon href=/favicon.png type=image/x-icon><link rel=stylesheet href=/book.min.6cd8553a6854f4812343f0f0c8baca31271e686434f381fbe3c7226f66639176.css integrity="sha256-bNhVOmhU9IEjQ/DwyLrKMSceaGQ084H748cib2ZjkXY="><script defer src=/en.search.min.5b67b5953e3b2a171b6b51a22a8ef1216b6eae9a8f77e6e93869f90463a51473.js integrity="sha256-W2e1lT47Khcba1GiKo7xIWturpqPd+bpOGn5BGOlFHM="></script><script defer src=/sw.min.74a8bb07f0bee86d6bb9a2750f073f14d93c7e4512f28860370cfd879e9719b4.js integrity="sha256-dKi7B/C+6G1ruaJ1Dwc/FNk8fkUS8ohgNwz9h56XGbQ="></script><link rel=alternate type=application/rss+xml href=https://burmillaos.org/docs/configuration/docker/index.xml title=BurmillaOS></head><body><input type=checkbox class="hidden toggle" id=menu-control>
+<input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><nav><h2 class=book-brand><a href=/><span>BurmillaOS</span></a></h2><div class=book-search><input type=text id=book-search-input placeholder=Search aria-label=Search maxlength=64 data-hotkeys=s/><div class="book-search-spinner hidden"></div><ul id=book-search-results></ul></div><ul><li><a href=/docs/quick-start-guide/>Quick Start Guide</a></li><li><a href=/docs/installation/ class=collapsed>Installation</a></li><li><a href=/docs/configuration/ class=collapsed>Configuration</a><ul><li><a href=/docs/configuration/advanced/ class=collapsed>Advanced</a></li><li><a href=/docs/configuration/base/ class=collapsed>Base</a></li><li><a href=/docs/configuration/docker/ class="collapsed active">Docker and System Docker</a><ul><li><a href=/docs/configuration/docker/images-prefix/>Images prefix</a></li><li><a href=/docs/configuration/docker/private-registries/>Private Registries</a></li><li><a href=/docs/configuration/docker/setting-up-docker-tls/>Setting up Docker TLS</a></li><li><a href=/docs/configuration/docker/switching-docker-versions/>Switching Docker Versions</a></li></ul></li><li><a href=/docs/configuration/kernel/ class=collapsed>Kernel</a></li></ul></li><li><a href=/docs/networking/ class=collapsed>Networking</a></li><li><a href=/docs/storage/ class=collapsed>Storage</a></li><li><a href=/docs/system-services/ class=collapsed>System Services</a></li><li><a href=/docs/additional-resources/ class=collapsed>Aditional Resources</a></li><li><a href=/docs/faqs/>FAQs</a></li><li><a href=/docs/releases/>Releases</a></li><li><a href=/docs/reference/>Reference</a></li></ul></nav><script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script></aside><div class=book-page><header class=book-header><div class="flex align-center justify-between"><label for=menu-control><img src=/svg/menu.svg class=book-icon alt=Menu></label>
+<strong>Docker and System Docker</strong>
+<label for=toc-control><img src=/svg/toc.svg class=book-icon alt="Table of Contents"></label></div><aside class="hidden clearfix"><nav id=TableOfContents><ul><li><a href=#configuring-docker>Configuring Docker</a><ul><li><a href=#user-docker-settings>User Docker settings</a></li></ul></li><li><a href=#configuring-system-docker>Configuring System Docker</a><ul><li></li></ul></li><li><a href=#using-a-pull-through-registry-mirror>Using a pull through registry mirror</a></li><li><a href=#using-multiple-user-docker-daemons>Using Multiple User Docker Daemons</a><ul><li><a href=#terminology>Terminology</a></li><li><a href=#pre-requisites>Pre-Requisites</a></li><li><a href=#create-the-other-user-docker>Create the Other User Docker</a></li><li><a href=#ssh-into-the-other-user-docker-container>SSH into the Other User Docker container</a></li><li><a href=#removing-any-other-user-docker-service>Removing any Other User Docker Service</a></li></ul></li></ul></nav></aside></header><article class=markdown><h1 id=configuring-docker-or-system-docker>Configuring Docker or System Docker
+<a class=anchor href=#configuring-docker-or-system-docker>#</a></h1><p>In BurmillaOS, you can configure System Docker and Docker daemons by using
+<a href=/docs/configuration/#cloud-config>cloud-config</a>.</p><h2 id=configuring-docker>Configuring Docker
+<a class=anchor href=#configuring-docker>#</a></h2><p>In your cloud-config, Docker configuration is located under the <code>rancher.docker</code> key.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#75715e>#cloud-config</span>
+<span style=color:#f92672>rancher</span>:
+  <span style=color:#f92672>docker</span>:
+    <span style=color:#f92672>tls</span>: <span style=color:#66d9ef>true</span>
+    <span style=color:#f92672>tls_args</span>:
+      - <span style=color:#e6db74>&#34;--tlsverify&#34;</span>
+      - <span style=color:#e6db74>&#34;--tlscacert=/etc/docker/tls/ca.pem&#34;</span>
+      - <span style=color:#e6db74>&#34;--tlscert=/etc/docker/tls/server-cert.pem&#34;</span>
+      - <span style=color:#e6db74>&#34;--tlskey=/etc/docker/tls/server-key.pem&#34;</span>
+      - <span style=color:#e6db74>&#34;-H=0.0.0.0:2376&#34;</span>
+    <span style=color:#f92672>storage_driver</span>: <span style=color:#ae81ff>overlay</span>
+</code></pre></div><p>You can also customize Docker after it&rsquo;s been started using <code>ros config</code>.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>$ sudo ros config set rancher.docker.storage_driver overlay
+</code></pre></div><h3 id=user-docker-settings>User Docker settings
+<a class=anchor href=#user-docker-settings>#</a></h3><p>Many of the standard Docker daemon arguments can be placed under the <code>rancher.docker</code> key. The command needed to start the Docker daemon will be generated based on these arguments. The following arguments are currently supported.</p><table><thead><tr><th>Key</th><th>Value</th></tr></thead><tbody><tr><td><code>bridge</code></td><td>String</td></tr><tr><td><code>bip</code></td><td>String</td></tr><tr><td><code>config_file</code></td><td>String</td></tr><tr><td><code>containerd</code></td><td>String</td></tr><tr><td><code>debug</code></td><td>Boolean</td></tr><tr><td><code>exec_root</code></td><td>String</td></tr><tr><td><code>group</code></td><td>String</td></tr><tr><td><code>graph</code></td><td>String</td></tr><tr><td><code>host</code></td><td>List</td></tr><tr><td><code>insecure_registry</code></td><td>List</td></tr><tr><td><code>live_restore</code></td><td>Boolean</td></tr><tr><td><code>log_driver</code></td><td>String</td></tr><tr><td><code>log_opts</code></td><td>Map where keys and values are strings</td></tr><tr><td><code>pid_file</code></td><td>String</td></tr><tr><td><code>registry_mirror</code></td><td>String</td></tr><tr><td><code>restart</code></td><td>Boolean</td></tr><tr><td><code>selinux_enabled</code></td><td>Boolean</td></tr><tr><td><code>storage_driver</code></td><td>String</td></tr><tr><td><code>userland_proxy</code></td><td>Boolean</td></tr></tbody></table><p>In addition to the standard daemon arguments, there are a few fields specific to BurmillaOS.</p><table><thead><tr><th>Key</th><th>Value</th><th>Default</th><th>Description</th></tr></thead><tbody><tr><td><code>extra_args</code></td><td>List of Strings</td><td><code>[]</code></td><td>Arbitrary daemon arguments, appended to the generated command</td></tr><tr><td><code>environment</code></td><td>List of Strings</td><td><code>[]</code></td><td></td></tr><tr><td><code>tls</code></td><td>Boolean</td><td><code>false</code></td><td>When
+<a href=/docs/configuration/docker/setting-up-docker-tls/>setting up TLS</a>, this key needs to be set to true.</td></tr><tr><td><code>tls_args</code></td><td>List of Strings (used only if <code>tls: true</code>)</td><td><code>[]</code></td><td></td></tr><tr><td><code>server_key</code></td><td>String (used only if <code>tls: true</code>)</td><td><code>""</code></td><td>PEM encoded server TLS key.</td></tr><tr><td><code>server_cert</code></td><td>String (used only if <code>tls: true</code>)</td><td><code>""</code></td><td>PEM encoded server TLS certificate.</td></tr><tr><td><code>ca_key</code></td><td>String (used only if <code>tls: true</code>)</td><td><code>""</code></td><td>PEM encoded CA TLS key.</td></tr><tr><td><code>storage_context</code></td><td>String</td><td><code>console</code></td><td>Specifies the name of the system container in whose context to run the Docker daemon process.</td></tr></tbody></table><h4 id=example-using-extra_args-for-setting-mtu>Example using extra_args for setting MTU
+<a class=anchor href=#example-using-extra_args-for-setting-mtu>#</a></h4><p>The following example can be used to set MTU on the Docker daemon:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#75715e>#cloud-config</span>
+<span style=color:#f92672>rancher</span>:
+  <span style=color:#f92672>docker</span>:
+    <span style=color:#f92672>extra_args</span>: [--<span style=color:#ae81ff>mtu, 1460]</span>
+</code></pre></div><h4 id=example-using-bip-for-docker0-bridge>Example using bip for docker0 bridge
+<a class=anchor href=#example-using-bip-for-docker0-bridge>#</a></h4><p>The docker0 bridge can be configured with docker args, it will take effect after reboot.</p><pre><code>$ ros config set rancher.docker.bip 192.168.0.0/16
+</code></pre><h2 id=configuring-system-docker>Configuring System Docker
+<a class=anchor href=#configuring-system-docker>#</a></h2><p>In your cloud-config, System Docker configuration is located under the <code>rancher.system_docker</code> key.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#75715e>#cloud-config</span>
+<span style=color:#f92672>rancher</span>:
+  <span style=color:#f92672>system_docker</span>:
+    <span style=color:#f92672>storage_driver</span>: <span style=color:#ae81ff>overlay</span>
+</code></pre></div><h4 id=system-docker-settings>System Docker settings
+<a class=anchor href=#system-docker-settings>#</a></h4><p>All daemon arguments shown in the first table are also available to System Docker. The following are also supported.</p><table><thead><tr><th>Key</th><th>Value</th><th>Default</th><th>Description</th></tr></thead><tbody><tr><td><code>extra_args</code></td><td>List of Strings</td><td><code>[]</code></td><td>Arbitrary daemon arguments, appended to the generated command</td></tr><tr><td><code>environment</code></td><td>List of Strings (optional)</td><td><code>[]</code></td><td></td></tr></tbody></table><p>The docker-sys bridge can be configured with system-docker args, it will take effect after reboot.</p><pre><code>$ ros config set rancher.system_docker.bip 172.19.0.0/16
+</code></pre><p>The default path of system-docker logs is <code>/var/log/system-docker.log</code>. If you want to write the system-docker logs to a separate partition,
+e.g.
+<a href=/docs/storage/custom-partition-layout/#BURMILLA_OEM>BURMILLA_OEM partition</a>, you can try <code>rancher.defaults.system_docker_logs</code>:</p><pre><code>#cloud-config
+rancher:
+  defaults:
+    system_docker_logs: /usr/share/ros/oem/system-docker.log
+</code></pre><h2 id=using-a-pull-through-registry-mirror>Using a pull through registry mirror
+<a class=anchor href=#using-a-pull-through-registry-mirror>#</a></h2><p>There are 3 Docker engines that can be configured to use the pull-through Docker Hub registry mirror cache:</p><pre><code>#cloud-config
+rancher:
+  bootstrap_docker:
+    registry_mirror: &quot;http://10.10.10.23:5555&quot;
+  docker:
+    registry_mirror: &quot;http://10.10.10.23:5555&quot;
+  system_docker:
+    registry_mirror: &quot;http://10.10.10.23:5555&quot;
+</code></pre><p><code>bootstrap_docker</code> is used to prepare and initial network and pull any cloud-config options that can be used to configure the final network configuration and System-docker - its very unlikely to pull any images.</p><p>A successful pull through mirror cache request by System-docker looks like:</p><pre><code>[root@burmilla-dev burmilla]# system-docker pull alpine
+Using default tag: latest
+DEBU[0201] Calling GET /v1.23/info
+&gt; WARN[0201] Could not get operating system name: Error opening /usr/lib/os-release: open /usr/lib/os-release: no such file or directory
+WARN[0201] Could not get operating system name: Error opening /usr/lib/os-release: open /usr/lib/os-release: no such file or directory
+DEBU[0201] Calling POST /v1.23/images/create?fromImage=alpine%3Alatest
+DEBU[0201] hostDir: /etc/docker/certs.d/10.10.10.23:5555
+DEBU[0201] Trying to pull alpine from http://10.10.10.23:5555/ v2
+DEBU[0204] Pulling ref from V2 registry: alpine:latest
+DEBU[0204] pulling blob &quot;sha256:2aecc7e1714b6fad58d13aedb0639011b37b86f743ba7b6a52d82bd03014b78e&quot; latest: Pulling from library/alpine
+DEBU[0204] Downloaded 2aecc7e1714b to tempfile /var/lib/system-docker/tmp/GetImageBlob281102233 2aecc7e1714b: Extracting  1.99 MB/1.99 MB
+DEBU[0204] Untar time: 0.161064213s
+DEBU[0204] Applied tar sha256:3fb66f713c9fa9debcdaa58bb9858bd04c17350d9614b7a250ec0ee527319e59 to 841c99a5995007d7a66b922be9bafdd38f8090af17295b4a44436ef433a2aecc7e1714b: Pull complete
+Digest: sha256:0b94d1d1b5eb130dd0253374552445b39470653fb1a1ec2d81490948876e462c
+Status: Downloaded newer image for alpine:latest
+</code></pre><h2 id=using-multiple-user-docker-daemons>Using Multiple User Docker Daemons
+<a class=anchor href=#using-multiple-user-docker-daemons>#</a></h2><p>When BurmillaOS is booted, you start with a User Docker service that is running in System Docker. With v1.5.0, BurmillaOS has the ability to create additional User Docker services that can run at the same time.</p><h3 id=terminology>Terminology
+<a class=anchor href=#terminology>#</a></h3><p>Throughout the rest of this documentation, we may simplify to use these terms when describing Docker.</p><table><thead><tr><th>Terminology</th><th>Definition</th></tr></thead><tbody><tr><td>DinD</td><td>Docker in docker</td></tr><tr><td>User Docker</td><td>The user-docker on BurmillaOS</td></tr><tr><td>Other User Docker</td><td>The other user-docker daemons you create, these user-docker daemons are automatically assumed to be Docker in Docker.</td></tr></tbody></table><h3 id=pre-requisites>Pre-Requisites
+<a class=anchor href=#pre-requisites>#</a></h3><p>User Docker must be set as Docker 17.12.1 or earlier. If it&rsquo;s a later Docker version, it will produce errors when creating a user defined network in System Docker.</p><pre><code>$ ros engine switch docker-17.12.1-ce
+</code></pre><p>You will need to create a user-defined network, which will be used when creating the Other User Docker.</p><pre><code>$ system-docker network create --subnet=172.20.0.0/16 dind
+</code></pre><h3 id=create-the-other-user-docker>Create the Other User Docker
+<a class=anchor href=#create-the-other-user-docker>#</a></h3><p>In order to create another User Docker, you will use <code>ros engine create</code>. Currently, BurmillaOS only supports Docker <code>17.12.1</code> and <code>18.03.1</code> for the Other User Docker image.</p><pre><code>$ ros engine create otheruserdockername --network=dind --fixed-ip=172.20.0.2
+</code></pre><p>After the Other User Docker service is created, users can query this service like other services.</p><pre><code>$ ros service list
+...
+...
+disabled volume-efs
+disabled volume-nfs
+enabled  otheruserdockername
+</code></pre><p>You can use <code>ros service up</code> to start the Other User Docker service.</p><pre><code>$ ros service up otheruserdockername
+</code></pre><p>After the Other User Docker service is running, you can interact with it just like you can use the built-in User Docker. You would need to append <code>-&lt;SERVICE_NAME></code> to <code>docker</code>.</p><pre><code>$ docker-otheruserdockername ps -a
+</code></pre><h3 id=ssh-into-the-other-user-docker-container>SSH into the Other User Docker container
+<a class=anchor href=#ssh-into-the-other-user-docker-container>#</a></h3><p>When creating the Other User Docker, you can set an external SSH port so you can SSH into the Other User Docker container in System Docker. By using <code>--ssh-port</code> and adding ssh keys with <code>--authorized-keys</code>, you can set up this optional SSH port.</p><pre><code>$ ros engine create  --help
+...
+...
+OPTIONS:
+    --ssh-port value
+    --authorized-keys value
+</code></pre><p>When using <code>--authorized-keys</code>, you will need to put the key file in one of the following directories:</p><pre><code>/var/lib/rancher/
+/opt/
+/home/
+</code></pre><p>BurmillaOS will generate a random password for each Other User Docker container, which can be viewed in the container logs. If you do not set any SSH keys, the password can be used.</p><pre><code>$ system-docker logs otheruserdockername
+
+======================================
+chpasswd: password for 'root' changed
+password: xCrw6fEG
+======================================
+</code></pre><p>In System Docker, you can SSH into any Other User Docker Container using <code>ssh</code>.</p><pre><code>$ system-docker ps
+CONTAINER ID        IMAGE                              COMMAND                  CREATED             STATUS              PORTS                             NAMES
+2ca07a25799b        burmilla/os-dind:17.12.1          &quot;docker-entrypoint...&quot;   5 seconds ago       Up 3 seconds        2375/tcp, 0.0.0.0:34791-&gt;22/tcp   otheruserdockername
+
+$ ssh -p 34791 root@&lt;HOST_EXTERNAL_IP&gt;
+
+$ ssh root@&lt;OTHERUSERDOCKER_CONTAINER_IP&gt;
+
+</code></pre><h3 id=removing-any-other-user-docker-service>Removing any Other User Docker Service
+<a class=anchor href=#removing-any-other-user-docker-service>#</a></h3><p>We recommend using <code>ros engine rm</code> to remove any Other User Docker service.</p><pre><code>$ ros engine rm otheruserdockername
+</code></pre></article><footer class=book-footer><div class="flex flex-wrap justify-between"><div><a class="flex align-center" href=https://github.com/burmilla/burmilla.github.io/commit/d1f8103458f8d8797699dad433c52d714e54f731 title="Last modified by Basil Peace | November 2, 2024" target=_blank rel=noopener><img src=/svg/calendar.svg class=book-icon alt=Calendar>
+<span>November 2, 2024</span></a></div></div></footer><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><nav id=TableOfContents><ul><li><a href=#configuring-docker>Configuring Docker</a><ul><li><a href=#user-docker-settings>User Docker settings</a></li></ul></li><li><a href=#configuring-system-docker>Configuring System Docker</a><ul><li></li></ul></li><li><a href=#using-a-pull-through-registry-mirror>Using a pull through registry mirror</a></li><li><a href=#using-multiple-user-docker-daemons>Using Multiple User Docker Daemons</a><ul><li><a href=#terminology>Terminology</a></li><li><a href=#pre-requisites>Pre-Requisites</a></li><li><a href=#create-the-other-user-docker>Create the Other User Docker</a></li><li><a href=#ssh-into-the-other-user-docker-container>SSH into the Other User Docker container</a></li><li><a href=#removing-any-other-user-docker-service>Removing any Other User Docker Service</a></li></ul></li></ul></nav></aside></main></body></html>
