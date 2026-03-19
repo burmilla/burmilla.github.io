@@ -32,6 +32,21 @@ We created this separation not only for the security benefits, but also to make 
 
 ![How it works](https://raw.githubusercontent.com/burmilla/burmilla.github.io/master/static/images/howitworks.png)
 
+## Supported Use Cases
+
+BurmillaOS is built around Docker and is best suited for the following workloads:
+
+- Standalone Docker containers (`docker run` / `docker create`)
+- Multi-container applications (`docker-compose`)
+- Docker Swarm mode (`docker stack deploy` / `docker service`)
+
+The following use cases are **not** the focus of BurmillaOS and issues related to them are considered low priority:
+
+- Kubernetes / K3s (consider [k3OS](https://github.com/rancher/k3os) for those use cases)
+- Rancher 2.x (requires Kubernetes)
+
+Users are free to attempt these use cases, but they are not officially supported.
+
 ## Running BurmillaOS
 
 To get started with BurmillaOS, head over to our [Quick Start Guide](/docs/quick-start-guide).
