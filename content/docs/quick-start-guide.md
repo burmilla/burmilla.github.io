@@ -3,11 +3,13 @@ weight: 1
 ---
 # Quick Start
 
-If you have a specific BurmillaOS [machine requirements](/#hardware-requirements), please check out our [guides on running BurmillaOS](/docs/installation). With the rest of this guide, we'll start up a BurmillaOS using [Docker machine](/docs/installation/workstation/docker-machine) and show you some of what BurmillaOS can do.
+If you have a specific BurmillaOS [machine requirements](/#hardware-requirements), please check out our [guides on running BurmillaOS](/docs/installation). With the rest of this guide, we'll show you some of what BurmillaOS can do.
 
-## Launching BurmillaOS using Docker Machine
+## Launching BurmillaOS
 
-Before moving forward, you'll need to have [Docker Machine](https://docs.docker.com/machine/) and [VirtualBox](https://www.virtualbox.org/wiki/Downloads) installed. Once you have VirtualBox and Docker Machine installed, it's just one command to get BurmillaOS running.
+The recommended way to get started is to [boot BurmillaOS from ISO](/docs/installation/workstation/boot-from-iso) using VirtualBox or another hypervisor.
+
+Alternatively, you can use [Docker Machine](/docs/installation/workstation/docker-machine) to launch a BurmillaOS VM. Note that the original Docker Machine project was retired by Docker Inc., but a maintained fork is available at [github.com/rancher/machine](https://github.com/rancher/machine).
 
 ```bash
 $ docker-machine create -d virtualbox \
@@ -16,9 +18,7 @@ $ docker-machine create -d virtualbox \
         <MACHINE-NAME>
 ```
 
-That's it! You're up and running a BurmillaOS instance.
-
-To log into the instance, just use the `docker-machine` command.
+To log into a Docker Machine instance, use:
 
 ```bash
 $ docker-machine ssh <MACHINE-NAME>
