@@ -75,8 +75,6 @@ Alternatively, you can set the installer image to any image in System Docker to 
 
 ### Caching Images
 
-_Available as of RancherOS v1.5.3_
-
 Some configurations included in `cloud-config` require images to be downloaded from Docker to start. After installation, these images are downloaded automatically by BurmillaOS when booting. An example of these configurations are:
 
 - rancher.services_include
