@@ -40,14 +40,14 @@ write_files:
 
       export curlimage=appropriate/curl
       export jqimage=stedolan/jq
-      export burmilla_version=v2.2.2
+      export rancher_version=v2.9.3
 
-      for image in $curlimage $jqimage "burmilla/burmilla:${burmilla_version}"; do
+      for image in $curlimage $jqimage "rancher/rancher:${rancher_version}"; do
         until docker inspect $image > /dev/null 2>&1; do
           docker pull $image
           sleep 2
         done
       done
 
-      docker run -d --restart=unless-stopped -p 80:80 -p 443:443 -v /opt/rancher:/var/lib/rancher burmilla/burmilla:${burmilla_version}
+      docker run -d --restart=unless-stopped -p 80:80 -p 443:443 -v /opt/rancher:/var/lib/rancher rancher/rancher:${rancher_version}
 ```
