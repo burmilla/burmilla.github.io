@@ -8,17 +8,19 @@ Unlike the big players, BurmillaOS boots very quick and is nearly instantly read
 
 To read more about Docker, please head over to [Docker user guide](https://docs.docker.com/config/daemon/).
 
+**If you want to know the latest project news, we invite you to join [Discord](https://bit.ly/DiscordBurmillaOS)**
+
 ## Hardware Requirements
 
 ### Memory Requirements
 
-Platform   | RAM requirements
---------   | ------------------------
-Baremetal  | 1GB
-VirtualBox | 1GB
-VMWare     | 1GB
-GCE        | 1GB
-AWS        | 1GB
+| Platform   | RAM requirements |
+| ---------- | ---------------- |
+| Baremetal  | 1GB              |
+| VirtualBox | 1GB              |
+| VMWare     | 1GB              |
+| GCE        | 1GB              |
+| AWS        | 1GB              |
 
 You can adjust memory requirements by custom building BurmillaOS, please refer to [reduce-memory-requirements](/docs/installation/custom-builds/custom-burmillaos-iso#reduce-memory-requirements)
 
