@@ -6,7 +6,7 @@ bookToc: true
 
 BurmillaOS v3 is the next major version of BurmillaOS. It is currently in testing: the latest test version is [v3.0.0-rc1](https://github.com/burmilla/os/releases/tag/v3.0.0-rc1) (see the [releases page](/docs/releases)). v2.0.x stays the stable version until v3.0.0 is released.
 
-Feedback from testers is welcome in the [v3.0.0-beta1 discussion](https://github.com/burmilla/os/discussions/226).
+Feedback from testers is welcome in the [v3.0 discussion](https://github.com/burmilla/os/discussions/226).
 
 ## What is new in v3
 
@@ -26,7 +26,12 @@ In addition the `ros` binary has been heavily refactored: service definitions ar
 
 ### Changes since beta1
 
-CHANGES_SINCE_BETA1
+- Kernel updated to 6.12.114 and Buildroot to the 2026.02.3 LTS release.
+- AppArmor is enabled again; profiles (including Docker's `docker-default`) are loaded when the console starts.
+- The Hyper-V KVP daemon no longer crash-loops.
+- Enabling the ZFS service works again (OpenZFS 2.4.4, which supports kernel 6.12).
+- All Docker engines offered on v2.0.x, plus newer ones, are available for v3. If the configured engine is missing from the service repository, BurmillaOS falls back to the default engine so Docker still starts.
+- The console now includes `multipath-tools` for SAN multipath (`nfs-common` and `open-iscsi` were already included).
 
 ## Breaking changes
 
@@ -98,7 +103,7 @@ After rebooting into v3:
    $ sudo ros console switch default
    ```
    Alternatively use `sudo ros os upgrade -i burmilla/os:v3.0.0-rc1 --upgrade-console` to replace the console as part of the upgrade.
-2. Check the user Docker engine. The v3 service repository contains a different set of Docker engines than the v2 one. If the engine version you used on v2 is not available on v3, Docker does not start after the upgrade. List the available engines and switch to one of them:
+2. Check the user Docker engine. The v3 service repository offers all engines that v2.0.x offers, plus newer ones. If the configured engine is still not available, BurmillaOS falls back to the default engine. To pick a specific engine, list the available engines and switch to one of them:
    ```bash
    $ sudo ros engine list
    $ sudo ros engine switch <engine from the list>
@@ -114,11 +119,9 @@ The previous kernel and initrd are kept, so the previous version can be selected
 
 ## Known issues
 
-The following issues were reported for v3.0.0-beta1. See [Changes since beta1](#changes-since-beta1) for the ones fixed in v3.0.0-rc1.
+- AppArmor is not enabled in the arm64 kernel.
+- On x86_64, AppArmor depends on the `security=apparmor` kernel parameter being set.
+- The Hyper-V VSS and fcopy daemons are included but not started; only the KVP daemon runs.
+- When `rancher.docker.engine` is `latest`, engine versions are compared as text, so for example `docker-29.9.x` is picked over `docker-29.10.x`.
 
-- AppArmor is not enabled.
-- The Hyper-V tools service crashes.
-- Enabling the ZFS service does not work.
-- New Docker engine versions are only added to the v2 service repository, so the v3 service repository can lack the engine version used on v2 (see [Upgrading from v2](#upgrading-from-v2)).
-
-New reports are welcome in the [v3.0.0-beta1 discussion](https://github.com/burmilla/os/discussions/226).
+New reports are welcome in the [v3.0 discussion](https://github.com/burmilla/os/discussions/226).
