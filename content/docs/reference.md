@@ -75,14 +75,12 @@
 
 #### Available Consoles
 
-| Console          | Image                | Description                                        |
-|------------------|----------------------|----------------------------------------------------|
-| `default`        | `debian:buster-slim` | Debian 10 "Buster" (slimmer base)                  |
-| `debian`         | `debian:buster`      | Debian 10 "Buster"                                 |
-| `debian_testing` | `debian:testing`     | Debian 10 "Buster" (more recent software)          |
-| `ubuntu`         | `ubuntu:latest`      | [Ubuntu "latest"](https://hub.docker.com/_/ubuntu) |
-| `alpine`         | `alpine:latest`      | [Alpine "latest"](https://hub.docker.com/_/alpine) |
-| `fedora`         | `fedora:latest`      | [Fedora "latest"](https://hub.docker.com/_/fedora) |
+| Console   | BurmillaOS | Base image            | Description          |
+|-----------|------------|-----------------------|----------------------|
+| `default` | v3.0.x     | `debian:trixie-slim`  | Debian 13 "Trixie"   |
+| `default` | v2.0.x     | `debian:bullseye-slim`| Debian 11 "Bullseye" |
+
+`default` is the only officially supported console. Other consoles (Ubuntu, Alpine, Fedora, ...) are available as [unofficial custom console images](/docs/installation/custom-builds/custom-console/#using-the-unofficial-custom-console-images).
 
 ### `ros install` Sub-Command
 
@@ -93,7 +91,7 @@
 | &nbsp; `--device` / `-d`       | storage device                                                           | `ros install --device value`       |
 | &nbsp; `--image` / `-i`        | install from a certain image                                             | `ros install --image value`        |
 | &nbsp; `--save` / `-s`         | save services and images for next booting                                | `ros install --save`               |
-| &nbsp; `--install-type` / `-t` | generic (default), amazon-ebs, gptsyslinux                               | `ros install --install-type value` |
+| &nbsp; `--install-type` / `-t` | generic (default; BIOS or UEFI layout is selected automatically on v3), amazon-ebs-hvm, googlecompute, noformat, raid | `ros install --install-type value` |
 | &nbsp; `--force` / `-f`        | **[DANGEROUS! Data loss can happen]** partition/format without prompting | `ros install --force`              |
 | &nbsp; `--partition` / `-p`    | partition to install to                                                  | `ros install --partition value`    |
 | &nbsp; `--append` / `-a`       | append additional kernel parameters                                      | `ros install --append value`       |

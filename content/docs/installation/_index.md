@@ -9,6 +9,8 @@ BurmillaOS runs on virtualization platforms, cloud providers and bare metal serv
 
 To start running BurmillaOS as quickly as possible, follow our [Quick Start Guide](/docs/quick-start-guide).
 
+To upgrade an existing installation, see [Upgrading](/docs/installation/upgrading) and, for the next major version, [Upgrading to v3](/docs/installation/upgrading-to-v3).
+
 # Platforms
 Refer to the below resources for more information on installing BurmillaOS on your platform.
 

@@ -1,6 +1,6 @@
 # Custom Console
 
-When [booting from the ISO](/docs/installation/workstation/boot-from-iso), BurmillaOS starts with the `default` console, which is based on [`debian:buster-slim`](https://github.com/burmilla/os/blob/v1.9.x/images/02-console/Dockerfile).
+When [booting from the ISO](/docs/installation/workstation/boot-from-iso), BurmillaOS starts with the `default` console, which is based on [`debian:trixie-slim`](https://github.com/burmilla/os/blob/master/images/02-console/Dockerfile) (Debian 13) on BurmillaOS v3.0.x and on [`debian:bullseye-slim`](https://github.com/burmilla/os/blob/v2.0.6/images/02-console/Dockerfile) (Debian 11) on v2.0.x.
 
 No other console is officially supported.
 
@@ -28,7 +28,7 @@ When launching BurmillaOS with a [cloud-config](/docs/configuration/#cloud-confi
 Currently, the list of available consoles (with above setting using the unofficial console images) are:
 
 * official image
-  * default (debian:buster-slim)
+  * default (debian:trixie-slim on v3.0.x, debian:bullseye-slim on v2.0.x)
 * unofficial images
   * debian (debian:buster)
   * debian_testing (debian:testing)
