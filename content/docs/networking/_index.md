@@ -241,29 +241,3 @@ $ sudo system-docker restart network
 ```
 
 > **Note:** For Intel wireless adapters, there are some built-in firmware and modules, which prevents requiring to install any new modules or firmware. For other adapters, you may need to install additional os kernel-extras.
-
-## 4G-LTE
-
-_Available as of RancherOS v1.5_
-
-In order to support 4G-LTE, 4G-LTE module will need to be connected to the motherboard and to get a good signal, an external antenna will need to be added. You can assemble such a device, which supports USB interface and SIM cards slot.
-
-In order to use BurmillaOS, you will need to use the ISO built for 4G-LTE support. This ISO has a built-in `modem-manager` service and is available with each release.
-
-After booting the ISO, there will be a 4G NIC, such as `wwan0`. Use the following `cloud-config` to set the APN parameter.
-
-```yaml
-rancher:
-  network:
-    modem_networks:
-      wwan0:
-        apn: xxx
-```
-
-After any configuration changes, restart the `modem-manager` service to apply these changes.
-
-```bash
-$ sudo system-docker restart modem-manager
-```
-
-> **Note:** Currently, BurmillaOS has some built-in  rules in `udev` rules to allow BurmillaOS to recognize specific 4G devices, but there are additional vendors that may be missing. If you need to add these in, please file an issue.
