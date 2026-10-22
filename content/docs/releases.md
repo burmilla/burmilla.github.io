@@ -11,7 +11,7 @@ The following is a list of the versions of the operating system in their differe
 - [v2.0.6](https://github.com/burmilla/os/releases/tag/v2.0.6) | 2026-10-01
 
 #### Testing
-- [v3.0.0-beta2](https://github.com/burmilla/os/releases/tag/v3.0.0-beta2) | BETA2_DATE
+- [v3.0.0-beta2](https://github.com/burmilla/os/releases/tag/v3.0.0-beta2) | 2026-10-22
 - [v3.0.0-beta1](https://github.com/burmilla/os/releases/tag/v3.0.0-beta1) | 2026-07-30
 
 BurmillaOS v3 contains breaking changes compared to v2. Read [Upgrading to v3](/docs/installation/upgrading-to-v3) before testing it.
