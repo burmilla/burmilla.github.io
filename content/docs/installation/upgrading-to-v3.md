@@ -4,13 +4,13 @@ bookToc: true
 ---
 # Upgrading to v3
 
-BurmillaOS v3 is the next major version of BurmillaOS. It is currently in testing: the latest test version is [v3.0.0-rc1](https://github.com/burmilla/os/releases/tag/v3.0.0-rc1) (see the [releases page](/docs/releases)). v2.0.x stays the stable version until v3.0.0 is released.
+BurmillaOS v3 is the next major version of BurmillaOS. It is currently in testing: the latest test version is [v3.0.0-beta2](https://github.com/burmilla/os/releases/tag/v3.0.0-beta2) (see the [releases page](/docs/releases)). v2.0.x stays the stable version until v3.0.0 is released.
 
 Feedback from testers is welcome in the [v3.0 discussion](https://github.com/burmilla/os/discussions/226).
 
 ## What is new in v3
 
-| Component              | v2.0.x (stable)                  | v3.0.0-rc1                                      |
+| Component              | v2.0.x (stable)                  | v3.0.0-beta2                                      |
 |------------------------|----------------------------------|-------------------------------------------------|
 | Kernel                 | 5.10.x                           | 6.12.114 (6.12.x LTS, with BTF support) |
 | Buildroot (base)       | 2023.05                          | 2025.02.18                           |
@@ -24,7 +24,7 @@ Feedback from testers is welcome in the [v3.0 discussion](https://github.com/bur
 
 In addition the `ros` binary has been heavily refactored: service definitions are now handled with [compose-go](https://github.com/compose-spec/compose-go) types instead of the unmaintained libcompose ones, and it is built with Go modules and Go 1.26. The default user Docker engine (`rancher.docker.engine`) is `latest`, so new installations switch to the latest engine available in the v3 service repository on first boot.
 
-### Changes since beta1
+### Changes in beta2
 
 - Kernel updated to 6.12.114 and Buildroot to the 2025.02.18 LTS release.
 - AppArmor is enabled again; profiles (including Docker's `docker-default`) are loaded when the console starts.
@@ -32,6 +32,12 @@ In addition the `ros` binary has been heavily refactored: service definitions ar
 - Enabling the ZFS service works again (OpenZFS 2.4.4, which supports kernel 6.12).
 - All Docker engines offered on v2.0.x, plus newer ones, are available for v3. If the configured engine is missing from the service repository, BurmillaOS falls back to the default engine so Docker still starts.
 - The console now includes `multipath-tools` for SAN multipath (`nfs-common` and `open-iscsi` were already included).
+- AppArmor is the default LSM in the x86 kernel, and linux-firmware is updated to 20261019.
+- Hot-added CPUs and memory are brought online automatically.
+- New `ros console sshd disable|enable|status` command; `disable --if-idle` only disables sshd when no SSH session is open. sshd stays disabled until it is enabled again or the system reboots.
+- File permission fixes: engine binaries, saved cloud-config and the `rancher`/`docker` users' shell profiles are no longer world- or group-writable.
+- `ros` is built with Go 1.26.10.
+- New optional system services: `fleet-client` (connects the server to [Fleet Manager](https://github.com/burmilla/os-fleet-manager) for inventory, SSH key management and coordinated upgrades) and `otel-collector` (OpenTelemetry Collector exporting host and container metrics and logs over OTLP). Enable them with `sudo ros service enable <name>`.
 
 ## Breaking changes
 
@@ -86,7 +92,7 @@ The service definitions in cloud-config are now parsed by compose-go. Existing s
 A v2 system reads its release list from the v2 channel (`https://raw.githubusercontent.com/burmilla/releases/v2.0.x/releases.yml`), which does not contain v3 versions, so `ros os list` and a plain `ros os upgrade` do not offer v3. Upgrade by naming the image explicitly:
 
 ```bash
-$ sudo ros os upgrade -i burmilla/os:v3.0.0-rc1
+$ sudo ros os upgrade -i burmilla/os:v3.0.0-beta2
 ```
 
 The v3 default configuration points to the v3 release channel (`https://raw.githubusercontent.com/burmilla/releases/v3.0.x/releases.yml`) and the v3 service repository, so after the upgrade `ros os list` shows v3 versions. If you have set `rancher.upgrade.url` yourself (for example when [migrating from RancherOS](/docs/installation/upgrading/#upgrade-rancheros-to-burmillaos)), point it to the v3 channel:
@@ -102,7 +108,7 @@ After rebooting into v3:
    ```bash
    $ sudo ros console switch default
    ```
-   Alternatively use `sudo ros os upgrade -i burmilla/os:v3.0.0-rc1 --upgrade-console` to replace the console as part of the upgrade.
+   Alternatively use `sudo ros os upgrade -i burmilla/os:v3.0.0-beta2 --upgrade-console` to replace the console as part of the upgrade.
 2. Check the user Docker engine. The v3 service repository offers all engines that v2.0.x offers, plus newer ones. If the configured engine is still not available, BurmillaOS falls back to the default engine. To pick a specific engine, list the available engines and switch to one of them:
    ```bash
    $ sudo ros engine list
@@ -120,7 +126,6 @@ The previous kernel and initrd are kept, so the previous version can be selected
 ## Known issues
 
 - AppArmor is not enabled in the arm64 kernel.
-- On x86_64, AppArmor depends on the `security=apparmor` kernel parameter being set.
 - The Hyper-V VSS and fcopy daemons are included but not started; only the KVP daemon runs.
 - When `rancher.docker.engine` is `latest`, engine versions are compared as text, so for example `docker-29.9.x` is picked over `docker-29.10.x`.
 
