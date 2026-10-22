@@ -12,10 +12,10 @@ Feedback from testers is welcome in the [v3.0.0-beta1 discussion](https://github
 
 | Component              | v2.0.x (stable)                  | v3.0.0-rc1                                      |
 |------------------------|----------------------------------|-------------------------------------------------|
-| Kernel                 | 5.10.x                           | KERNEL_VERSION_RC1 (6.12.x LTS, with BTF support) |
-| Buildroot (base)       | 2023.05                          | BUILDROOT_VERSION_RC1                           |
-| `os-base`              | v2023.05-1                       | OS_BASE_VERSION_RC1                             |
-| `os-initrd-base`       | v2023.02.10-2                    | OS_INITRD_BASE_VERSION_RC1                      |
+| Kernel                 | 5.10.x                           | 6.12.114 (6.12.x LTS, with BTF support) |
+| Buildroot (base)       | 2023.05                          | 2026.02.3                           |
+| `os-base`              | v2023.05-1                       | v2026.02.3-1                             |
+| `os-initrd-base`       | v2023.02.10-2                    | v2026.02.3-1                      |
 | Default console        | Debian 11 "Bullseye"             | Debian 13 "Trixie"                              |
 | System Docker          | 17.06.107                        | 17.06.113 (heavily stripped)                    |
 | cgroups                | v1                               | v2 (unified hierarchy)                          |
