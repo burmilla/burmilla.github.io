@@ -72,6 +72,11 @@
 | `switch`                 | switch console without a reboot         | `ros console switch default`           |
 | &nbsp; `--force` / `-f`  | do not prompt for input                 | `ros console switch --force default`   |
 | &nbsp; `--no-pull`       | don't pull console image                | `ros console switch --no-pull default` |
+||||
+| `sshd status`            | print whether sshd is enabled or disabled | `ros console sshd status`            |
+| `sshd disable`           | stop sshd until enabled again or reboot | `ros console sshd disable`             |
+| &nbsp; `--if-idle`       | only when no SSH connection is established | `ros console sshd disable --if-idle` |
+| `sshd enable`            | start sshd again                        | `ros console sshd enable`              |
 
 #### Available Consoles
 
