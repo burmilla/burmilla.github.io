@@ -9,6 +9,8 @@ Since BurmillaOS is a kernel and initrd, the upgrade process is downloading a ne
 
 Before upgrading to any version, please review the release notes on our [releases page](https://github.com/burmilla/os/releases) in GitHub to review any updates in the release.
 
+> **Note:** Upgrading from v2.0.x to v3.0.x contains breaking changes (e.g. cgroup v2 and a new console). Read [Upgrading to v3](/docs/installation/upgrading-to-v3) first.
+
 > **Note:** If you are using [`docker-machine`](/docs/installation/workstation/docker-machine) then you will not be able to upgrade your BurmillaOS version. You need to delete and re-create the machine.
 
 

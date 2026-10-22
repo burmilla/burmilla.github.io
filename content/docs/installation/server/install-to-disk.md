@@ -58,6 +58,8 @@ Status: Downloaded newer image for burmilla/os:v2.0.0
 Continue with reboot [y/N]:
 ```
 
+Starting from BurmillaOS v3.0.x, `ros install` uses the boot mode in which the ISO was booted: in UEFI mode the disk is partitioned as GPT with an EFI system partition, in BIOS mode a single MBR partition is used. See [Upgrading to v3](/docs/installation/upgrading-to-v3/#uefi-installation) for details. BurmillaOS v2.0.x supports BIOS boot only.
+
 After installing BurmillaOS to disk, you will no longer be automatically logged in as the `rancher` user. You'll need to have added in SSH keys within your [cloud-config file](/docs/configuration/base/#cloud-config).
 
 ### Installing a Different Version

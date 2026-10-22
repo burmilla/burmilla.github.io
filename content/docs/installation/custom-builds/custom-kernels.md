@@ -9,7 +9,8 @@ BurmillaOS basically uses the standard Linux kernel, but we maintain a kernel co
 
 BurmillaOS | Kernel
 --------- | ------
-=v2.0.x   | 5.9.x
+=v3.0.x   | 6.12.x
+=v2.0.x   | 5.10.x
 =v1.9.x   | 4.14.x
 
 ## Building and Packaging a Kernel to be used in BurmillaOS

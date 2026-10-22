@@ -8,12 +8,16 @@ weight: 12
 The following is a list of the versions of the operating system in their different branches:
 
 #### Stable
-- [v2.0.5](https://github.com/burmilla/os/releases/tag/v2.0.5) | 2025-11-14
+- [v2.0.6](https://github.com/burmilla/os/releases/tag/v2.0.6) | 2026-10-01
 
 #### Testing
-- [v2.0.6-rc1](https://github.com/burmilla/os/releases/tag/v2.0.6-rc1) | 2026-01-21
+- [v3.0.0-beta2](https://github.com/burmilla/os/releases/tag/v3.0.0-beta2) | 2026-10-22
+- [v3.0.0-beta1](https://github.com/burmilla/os/releases/tag/v3.0.0-beta1) | 2026-07-30
+
+BurmillaOS v3 contains breaking changes compared to v2. Read [Upgrading to v3](/docs/installation/upgrading-to-v3) before testing it.
 
 #### Old stable
+- [v2.0.5](https://github.com/burmilla/os/releases/tag/v2.0.5) | 2025-11-14
 - [v2.0.4](https://github.com/burmilla/os/releases/tag/v2.0.4) | 2025-07-14
 - [v2.0.3](https://github.com/burmilla/os/releases/tag/v2.0.3) | 2025-05-12
 - [v2.0.2](https://github.com/burmilla/os/releases/tag/v2.0.2) | 2025-01-14
