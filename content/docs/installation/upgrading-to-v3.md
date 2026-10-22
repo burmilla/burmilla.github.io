@@ -13,9 +13,9 @@ Feedback from testers is welcome in the [v3.0 discussion](https://github.com/bur
 | Component              | v2.0.x (stable)                  | v3.0.0-rc1                                      |
 |------------------------|----------------------------------|-------------------------------------------------|
 | Kernel                 | 5.10.x                           | 6.12.114 (6.12.x LTS, with BTF support) |
-| Buildroot (base)       | 2023.05                          | 2026.02.3                           |
-| `os-base`              | v2023.05-1                       | v2026.02.3-1                             |
-| `os-initrd-base`       | v2023.02.10-2                    | v2026.02.3-1                      |
+| Buildroot (base)       | 2023.05                          | 2025.02.18                           |
+| `os-base`              | v2023.05-1                       | v2025.02.18-1                             |
+| `os-initrd-base`       | v2023.02.10-2                    | v2025.02.18-1                      |
 | Default console        | Debian 11 "Bullseye"             | Debian 13 "Trixie"                              |
 | System Docker          | 17.06.107                        | 17.06.113 (heavily stripped)                    |
 | cgroups                | v1                               | v2 (unified hierarchy)                          |
@@ -26,7 +26,7 @@ In addition the `ros` binary has been heavily refactored: service definitions ar
 
 ### Changes since beta1
 
-- Kernel updated to 6.12.114 and Buildroot to the 2026.02.3 LTS release.
+- Kernel updated to 6.12.114 and Buildroot to the 2025.02.18 LTS release.
 - AppArmor is enabled again; profiles (including Docker's `docker-default`) are loaded when the console starts.
 - The Hyper-V KVP daemon no longer crash-loops.
 - Enabling the ZFS service works again (OpenZFS 2.4.4, which supports kernel 6.12).
