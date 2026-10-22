@@ -42,3 +42,5 @@ write_files:
 ```
 
 > **Note:** Currently, writing files to a specific system service is only supported for BurmillaOS's built-in services. You are unable to write files to any custom system services.
+
+For example, the [OpenTelemetry Collector](/docs/system-services/opentelemetry-collector/#additional-configuration) system service reads an additional config file written with `write_files` to `/var/lib/rancher/conf/otel-collector.yaml`.
