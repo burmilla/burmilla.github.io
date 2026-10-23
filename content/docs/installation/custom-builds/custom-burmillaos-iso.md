@@ -82,7 +82,7 @@ BurmillaOS supports `APPEND_SYSTEM_IMAGES`. It can save images to the `initrd` f
 You can build the ISO like this:
 
 ```bash
-APPEND_SYSTEM_IMAGES="burmilla/os-openvmtools:10.3.10-1" make release
+APPEND_SYSTEM_IMAGES="burmilla/os-openvmtools:12.2.5-1" make release
 ```
 
 BurmillaOS also supports `APPEND_USER_IMAGES`. It can save images to the `initrd` file, and is loaded with `user-docker` when booting.
@@ -90,7 +90,7 @@ BurmillaOS also supports `APPEND_USER_IMAGES`. It can save images to the `initrd
 You can build the ISO like this:
 
 ```bash
-APPEND_USER_IMAGES="alpine:3.9 ubuntu:bionic" make release
+APPEND_USER_IMAGES="alpine:3.22 debian:trixie" make release
 ```
 
 Please note that these will be packaged into the `initrd`, and the predefined images will affect the resource footprint at startup.
