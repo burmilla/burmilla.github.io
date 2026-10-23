@@ -37,7 +37,7 @@ In addition the `ros` binary has been heavily refactored: service definitions ar
 - New `ros console sshd disable|enable|status` command; `disable --if-idle` only disables sshd when no SSH session is open. sshd stays disabled until it is enabled again or the system reboots.
 - File permission fixes: engine binaries, saved cloud-config and the `rancher`/`docker` users' shell profiles are no longer world- or group-writable.
 - `ros` is built with Go 1.26.10.
-- New optional system services: `fleet-client` (connects the server to [Fleet Manager](https://github.com/burmilla/os-fleet-manager) for inventory, SSH key management and coordinated upgrades) and `otel-collector` (OpenTelemetry Collector exporting host and container metrics and logs over OTLP). Enable them with `sudo ros service enable <name>`.
+- New optional system services: `fleet-client` (connects the server to [BurFleet](https://github.com/burmilla/os-fleet-manager) for inventory, SSH key management and coordinated upgrades) and `otel-collector` (OpenTelemetry Collector exporting host and container metrics and logs over OTLP). Enable them with `sudo ros service enable <name>`.
 
 ## Breaking changes
 
