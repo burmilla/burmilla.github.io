@@ -8,4 +8,5 @@ bookCollapseSection: true
 - [Additional Mounts](additional-mounts)
 - [Custom Partition Layout](custom-partition-layout)
 - [Persistent State Partition](state-partition)
+- [Using iSCSI](iscsi)
 - [Using ZFS](using-zfs)

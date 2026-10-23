@@ -5,6 +5,8 @@ weight: 12
 
 # Releases
 
+This page is updated by hand and can lag behind. The authoritative list of releases, with release notes and download links, is the [GitHub releases page](https://github.com/burmilla/os/releases). To get notified about new releases, open the [burmilla/os](https://github.com/burmilla/os) repository on GitHub, click **Watch** -> **Custom** and tick **Releases**. On a running system `sudo ros os list` shows the versions available for [upgrading](/docs/installation/upgrading).
+
 The following is a list of the versions of the operating system in their different branches:
 
 #### Stable

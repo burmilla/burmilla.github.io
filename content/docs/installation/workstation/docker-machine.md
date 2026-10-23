@@ -1,7 +1,11 @@
 # Using Docker Machine
 
-Before we get started, you'll need to make sure that you have docker machine installed. Download it directly from the docker machine [releases](https://github.com/docker/machine/releases).
-You also need to know the [memory requirements](#hardware-requirements).
+Docker Machine was retired by Docker Inc. in 2021 and the original [docker/machine](https://github.com/docker/machine) repository is archived. A maintained fork is available at [rancher/machine](https://github.com/rancher/machine); its releases include `docker-machine` binaries for Linux, macOS and Windows. The commands below work with both the original tool and the fork.
+
+For other ways to run BurmillaOS on a workstation, see [booting from ISO](/docs/installation/workstation/boot-from-iso), and for servers and clouds the [installation guides](/docs/installation).
+
+Before we get started, you'll need to make sure that you have docker machine installed. Download it from the [rancher/machine releases](https://github.com/rancher/machine/releases).
+You also need to know the [memory requirements](/#hardware-requirements).
 
 > **Note:** If you create a BurmillaOS instance using Docker Machine, you will not be able to upgrade your version of BurmillaOS.
 
@@ -84,7 +88,7 @@ That’s it! You should now have a BurmillaOS host running on VMWare Fusion. You
 
 ### Using Hyper-V
 
-You should refer to the documentation of [Hyper-V driver](https://docs.docker.com/machine/drivers/hyper-v/), here is an example of using the latest BurmillaOS URL. We recommend using a specific version so you know which version of BurmillaOS that you are installing.
+You should refer to the documentation of the [Hyper-V driver](https://github.com/rancher/machine/blob/master/docs/drivers/hyper-v.md), here is an example of using the latest BurmillaOS URL. We recommend using a specific version so you know which version of BurmillaOS that you are installing.
 
 ```bash
 $ docker-machine.exe create -d hyperv \

@@ -69,7 +69,7 @@ Continue with reboot [y/N]: y
 INFO[0037] Rebooting
 ```
 
-> **Note:** The default console container is persistent and will NOT be updated by default.  Use `ros console switch default` to update the `os-console` container.  This is a destructive operation - see [console persistence](/docs/installation/custom-builds/custom-console/#console-persistence) for info about what will be retained.
+> **Note:** The default console container is persistent and will NOT be updated by default.  Use `ros console switch default` after the reboot to update the `os-console` container, or add `--upgrade-console` to `ros os upgrade` to replace the console as part of the upgrade.  Both are destructive operations for anything installed into the console container - see [console persistence](/docs/installation/custom-builds/custom-console/#console-persistence) for info about what will be retained.
 
 > **Note:** To make the default container non-persistent, set `io.docker.compose.rebuild: "always"` on the console container [os-config.tpl](https://github.com/burmilla/os/blob/v2.0.0/os-config.tpl.yml#L246)
 
@@ -138,6 +138,39 @@ During an upgrade, the template of the upgrade is downloaded from the burmilla/o
 
 ```bash
 $ sudo ros os upgrade -s -i burmilla/os:v2.0.0
+```
+
+### Cleaning Up After Upgrades
+
+BurmillaOS does not remove anything when it is upgraded. Over the years a system which has been upgraded many times collects:
+
+- Old `burmilla/os` (and `rancher/os`) installer images and old service images in System Docker.
+- Old kernels and initrds in the boot directory of the state partition. Only the versions referenced by `linux-current.cfg` and `linux-previous.cfg` can be selected from the boot menu, the rest are unused.
+- `usr-<version>` directories in the root of the state partition, one for every version that has been booted.
+
+To remove unused images from System Docker (images which are still in use are kept, Docker prints an error for those which you can ignore):
+
+```bash
+$ sudo system-docker image prune -a
+```
+
+If your System Docker version does not have `image prune`, `sudo system-docker rmi $(sudo system-docker images -q)` does the same.
+
+For the user Docker, `docker system prune` removes stopped containers, unused networks and dangling images as usual.
+
+The boot files are not visible in the console. Mount the state partition to look at them (on a system installed in UEFI mode with v3.0.x, the kernels are on the EFI system partition labeled `RANCHER_EFI` instead):
+
+```bash
+$ sudo mkdir -p /mnt/state
+$ sudo mount LABEL=RANCHER_STATE /mnt/state
+$ ls -lh /mnt/state/boot
+$ cat /mnt/state/boot/linux-current.cfg /mnt/state/boot/linux-previous.cfg
+```
+
+Every `vmlinuz-*` and `initrd-*` file which is **not** named in `linux-current.cfg` or `linux-previous.cfg` can be deleted, as can `usr-<version>` directories in `/mnt/state` whose version is neither the running nor the previous one. Do not touch `global.cfg`, `syslinux/`, `EFI/` or the files named in the two cfg files. Unmount the partition afterwards:
+
+```bash
+$ sudo umount /mnt/state
 ```
 
 ### Custom Upgrade Sources
