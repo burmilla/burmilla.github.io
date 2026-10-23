@@ -117,7 +117,7 @@ $ ros config set rancher.system_docker.bip 172.19.0.0/16
 ```
 
 The default path of system-docker logs is `/var/log/system-docker.log`. If you want to write the system-docker logs to a separate partition,
-e.g. [BURMILLA_OEM partition](/docs/storage/custom-partition-layout#BURMILLA_OEM), you can try `rancher.defaults.system_docker_logs`:
+e.g. [RANCHER_OEM partition](/docs/storage/custom-partition-layout#rancher_oem), you can try `rancher.defaults.system_docker_logs`:
 
 ```
 #cloud-config

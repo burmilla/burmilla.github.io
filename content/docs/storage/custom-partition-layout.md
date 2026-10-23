@@ -104,13 +104,13 @@ If you are not using the first partition as a BOOT partition, you need to set BO
 
 > In this mode, the RANCHER_BOOT partition capacity cannot exceed 3.8GiB, otherwise the bootloader may not recognize the boot disk. This is the test result on VirtualBox.
 
-### BURMILLA_OEM
+### RANCHER_OEM
 
-If you format any partition with the label BURMILLA_OEM, ROS will mount this partition to `/usr/share/ros/oem`:
+If you format any partition with the label RANCHER_OEM, ROS will mount this partition to `/usr/share/ros/oem`. The `RANCHER_` prefix is kept for backward compatibility with RancherOS, the same applies to `RANCHER_STATE` and `RANCHER_BOOT`:
 
 ```shell
 [root@burmilla burmilla]# blkid
-/dev/sda2: LABEL="BURMILLA_OEM" UUID="4f438455-63a3-4d29-ac90-50adbeced412" TYPE="ext4" PARTUUID="9fff87e9-02"
+/dev/sda2: LABEL="RANCHER_OEM" UUID="4f438455-63a3-4d29-ac90-50adbeced412" TYPE="ext4" PARTUUID="9fff87e9-02"
 
 [root@burmilla burmilla]# df -hT | grep sda2
 /dev/sda2            ext4            1.4G      4.3M      1.3G   0% /usr/share/ros/oem
@@ -137,6 +137,8 @@ runcmd:
 - swapon -L BURMILLA_SWAP
 ```
 
+The label itself is only used by your `swapon` command, so you can pick any name.
+
 Then check the memory information:
 
 ```shell
@@ -146,3 +148,32 @@ Mem:          1996        774       1221        237         20        614
 -/+ buffers/cache:        139       1856
 Swap:          487          0        487
 ```
+
+### Swap file
+
+If you do not want to change the partition layout, a swap file works too, but it has to live on the state partition. The console runs in a container, and its root filesystem is an overlay filesystem which does not support swap files: `swapon` on a file under e.g. `/var/vm` fails with `swapon failed: Invalid argument`. Directories like `/var/lib/rancher`, `/home` and `/opt` are on the [state partition](/docs/storage/state-partition) and work.
+
+The following cloud-config creates a 4 GiB swap file under `/var/lib/rancher/swap` on every boot and enables it (a swap file must not be sparse, so it is created with `dd` instead of `fallocate`):
+
+```yaml
+#cloud-config
+write_files:
+- path: /etc/rc.local
+  permissions: "0755"
+  owner: root
+  content: |
+    #!/bin/bash
+    SWAP_FILE=/var/lib/rancher/swap/swapfile
+    SWAP_SIZE_MB=4096
+    if [ ! -f "${SWAP_FILE}" ]; then
+      mkdir -p "$(dirname "${SWAP_FILE}")"
+      dd if=/dev/zero of="${SWAP_FILE}" bs=1M count=${SWAP_SIZE_MB} status=none
+      chmod 600 "${SWAP_FILE}"
+      mkswap "${SWAP_FILE}"
+    fi
+    sysctl -w vm.swappiness=10
+    swapon "${SWAP_FILE}"
+    exit 0
+```
+
+Check the result with `free -m` or `swapon --show`.
