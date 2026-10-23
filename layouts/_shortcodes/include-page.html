@@ -1,0 +1,6 @@
+{{- /* Renders the content of another page in place, e.g. {{< include-page "/docs/configuration/base" >}} */ -}}
+{{- with site.GetPage (.Get 0) -}}
+  {{- .Content -}}
+{{- else -}}
+  {{- errorf "include-page: page %q not found (in %s)" (.Get 0) $.Position -}}
+{{- end -}}
