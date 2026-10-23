@@ -1,24 +1,54 @@
-baseurl = "https://burmillaos.org/"
-languageCode = "en-us"
+baseURL = "https://burmillaos.org/"
+locale = "en-US"
 title = "BurmillaOS"
 
 theme = "book"
 enableGitInfo = true
-disableKinds = ['taxonomy', 'taxonomyTerm']
-pygmentsStyle = "monokai"
+copyright = "© 2020–2026 [BurmillaOS community](https://github.com/burmilla) · Documentation licensed under [Apache 2.0](https://github.com/burmilla/burmilla.github.io/blob/master/LICENSE)"
+disableKinds = ['taxonomy', 'term']
 
-[Params]
+[markup]
+  [markup.goldmark.renderer]
+    unsafe = true
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 4
+  [markup.highlight]
+    style = "github"
+    noClasses = false
+
+[params]
   BookTheme = 'auto'
   BookToC = true
-  favicon = "img/favicon.ico"
+  BookFavicon = "img/favicon.ico"
   BookDateFormat = "January 2, 2006"
   BookSearch = true
   BookComments = false
   BookRepo = 'https://github.com/burmilla/burmilla.github.io'
-  BookPortableLinks = true
+  BookLastChangeLink = '{{ .Site.Params.BookRepo }}/commit/{{ .GitInfo.Hash }}'
+  BookEditLink = '{{ .Site.Params.BookRepo }}/edit/master/content/{{ .Path }}'
+  BookPortableLinks = 'warning'
   BookServiceWorker = true
+
+[menu]
+  [[menu.after]]
+    name = "GitHub"
+    url = "https://github.com/burmilla/os"
+    weight = 10
+  [[menu.after]]
+    name = "Releases"
+    url = "https://github.com/burmilla/os/releases"
+    weight = 20
+  [[menu.after]]
+    name = "Discussions"
+    url = "https://github.com/burmilla/os/discussions"
+    weight = 30
+  [[menu.after]]
+    name = "Discord"
+    url = "https://discord.com/invite/AR6daurAAk"
+    weight = 40
 
 [languages]
   [languages.en]
-    languageName = "English"
+    label = "English"
     weight = 1

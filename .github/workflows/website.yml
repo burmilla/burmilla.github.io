@@ -10,12 +10,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Install extended version of Hugo
         run: |
-          wget -O - -o /dev/null https://github.com/gohugoio/hugo/releases/download/v0.79.0/hugo_extended_0.79.0_Linux-64bit.deb | tee /tmp/hugo.deb
+          wget -q -O /tmp/hugo.deb https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb
           sudo dpkg -i /tmp/hugo.deb
+        env:
+          HUGO_VERSION: 0.168.0
 
       - name: Generate Hugo pages
         run: |

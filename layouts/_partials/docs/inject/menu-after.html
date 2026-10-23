@@ -1,0 +1,25 @@
+<div class="book-theme-switch" role="group" aria-label="Colour mode">
+  <button type="button" data-theme-choice="light">Light</button>
+  <button type="button" data-theme-choice="auto">Auto</button>
+  <button type="button" data-theme-choice="dark">Dark</button>
+</div>
+<script>
+  (function () {
+    var root = document.documentElement;
+    var buttons = document.querySelectorAll(".book-theme-switch button");
+    function render() {
+      var current = root.getAttribute("data-theme") || "auto";
+      buttons.forEach(function (b) {
+        b.setAttribute("aria-pressed", b.dataset.themeChoice === current ? "true" : "false");
+      });
+    }
+    buttons.forEach(function (b) {
+      b.addEventListener("click", function () {
+        root.setAttribute("data-theme", b.dataset.themeChoice);
+        try { localStorage.setItem("book-theme", b.dataset.themeChoice); } catch (e) {}
+        render();
+      });
+    });
+    render();
+  })();
+</script>

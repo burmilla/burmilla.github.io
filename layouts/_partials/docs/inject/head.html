@@ -1,0 +1,11 @@
+<!-- Apply the colour mode chosen with the theme switch before the page is painted -->
+<script>
+  (function () {
+    try {
+      var t = localStorage.getItem("book-theme");
+      if (t === "light" || t === "dark" || t === "auto") {
+        document.documentElement.setAttribute("data-theme", t);
+      }
+    } catch (e) {}
+  })();
+</script>

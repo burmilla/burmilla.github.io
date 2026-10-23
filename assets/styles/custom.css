@@ -1,0 +1,749 @@
+/*
+  BurmillaOS look on top of hugo-book.
+  Colors are defined as variables for light and dark mode; the dark values
+  apply both when the user picks the dark theme and when `auto` follows the
+  OS preference. Syntax highlighting is Chroma's github / github-dark palette
+  (hugo gen chromastyles) scoped to the same two modes.
+*/
+
+:root {
+  --font-size: 100%;
+  --font-size-smaller: 0.9rem;
+  --font-size-smallest: 0.8rem;
+  --border-radius: 0.5rem;
+  --menu-width: 17rem;
+  --toc-width: 15rem;
+  --container-max-width: 96rem;
+
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, "JetBrains Mono", "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+@layer theme {
+  :root,
+  :root[data-theme="light"],
+  :root[data-theme="auto"] {
+    --body-background: #ffffff;
+    --body-font-color: #1f2937;
+    --color-muted: #6b7280;
+
+    --color-link: #1d4ed8;
+    --color-visited-link: #1d4ed8;
+    --color-accent: #2563eb;
+    --color-accent-soft: #eff6ff;
+
+    --gray-100: #f6f8fa;
+    --gray-200: #e5e7eb;
+    --gray-500: #9ca3af;
+
+    --panel-background: #f8fafc;
+    --code-background: #f6f8fa;
+    --code-border: #e5e7eb;
+    --code-color: #24292f;
+
+    --color-accent-default:   #64748b;
+    --color-accent-note:      #2563eb;
+    --color-accent-tip:       #16a34a;
+    --color-accent-important: #7c3aed;
+    --color-accent-warning:   #d97706;
+    --color-accent-caution:   #dc2626;
+  }
+
+  :root[data-theme="dark"] {
+    --body-background: #0f172a;
+    --body-font-color: #e2e8f0;
+    --color-muted: #94a3b8;
+
+    --color-link: #7dd3fc;
+    --color-visited-link: #7dd3fc;
+    --color-accent: #60a5fa;
+    --color-accent-soft: rgba(96, 165, 250, 0.14);
+
+    --gray-100: #1e293b;
+    --gray-200: #334155;
+    --gray-500: #94a3b8;
+
+    --panel-background: #111c33;
+    --code-background: #0b1220;
+    --code-border: #1e293b;
+    --code-color: #e6edf3;
+
+    --color-accent-default:   #94a3b8;
+    --color-accent-note:      #60a5fa;
+    --color-accent-tip:       #4ade80;
+    --color-accent-important: #c084fc;
+    --color-accent-warning:   #fbbf24;
+    --color-accent-caution:   #f87171;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root[data-theme="auto"] {
+      --body-background: #0f172a;
+      --body-font-color: #e2e8f0;
+      --color-muted: #94a3b8;
+
+      --color-link: #7dd3fc;
+      --color-visited-link: #7dd3fc;
+      --color-accent: #60a5fa;
+      --color-accent-soft: rgba(96, 165, 250, 0.14);
+
+      --gray-100: #1e293b;
+      --gray-200: #334155;
+      --gray-500: #94a3b8;
+
+      --panel-background: #111c33;
+      --code-background: #0b1220;
+      --code-border: #1e293b;
+      --code-color: #e6edf3;
+
+      --color-accent-default:   #94a3b8;
+      --color-accent-note:      #60a5fa;
+      --color-accent-tip:       #4ade80;
+      --color-accent-important: #c084fc;
+      --color-accent-warning:   #fbbf24;
+      --color-accent-caution:   #f87171;
+    }
+  }
+}
+
+/* ---------- Base typography ---------- */
+
+body {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+code, kbd, pre, samp {
+  font-family: var(--font-mono);
+}
+
+/* ---------- Layout: side panels ---------- */
+
+.book-menu .book-menu-content,
+.book-toc .book-toc-content {
+  scrollbar-width: thin;
+}
+
+.book-menu {
+  font-size: var(--font-size-smaller);
+
+  .book-menu-content {
+    padding: 1.25rem 1rem;
+    background: var(--panel-background);
+    border-inline-end: 1px solid var(--gray-200);
+  }
+
+  nav > ul > li {
+    margin: 0.125rem 0;
+  }
+
+  a, label {
+    border-radius: 0.375rem;
+    transition: background-color 0.1s ease-in-out, color 0.1s ease-in-out;
+  }
+
+  a {
+    padding: 0.375rem 0.625rem;
+  }
+
+  a[href]:hover, a[role=button]:hover {
+    opacity: 1;
+    background: var(--gray-200);
+  }
+
+  a.active {
+    color: var(--color-link);
+    background: var(--color-accent-soft);
+    font-weight: 600;
+  }
+
+  label > img:last-child {
+    margin-inline-end: 0.5rem;
+    opacity: 0.6;
+  }
+
+  ul ul {
+    padding-inline-start: 0.75rem;
+    margin-inline-start: 0.625rem;
+    border-inline-start: 1px solid var(--gray-200);
+  }
+}
+
+.book-brand {
+  margin-bottom: 1rem;
+  padding: 0 0.625rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+
+  a[href]:hover {
+    background: none;
+    opacity: 1;
+  }
+
+  a::before {
+    content: "";
+    display: inline-block;
+    width: 0.75rem;
+    height: 0.75rem;
+    margin-inline-end: 0.625rem;
+    border-radius: 0.25rem;
+    background: linear-gradient(135deg, var(--color-accent), #7c3aed);
+    flex: none;
+  }
+
+  span {
+    color: var(--body-font-color);
+  }
+}
+
+.book-search {
+  margin: 0 0 1rem;
+
+  input {
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.5rem;
+    background: var(--body-background);
+    border-color: var(--gray-200);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+
+    &:focus {
+      outline: 2px solid var(--color-accent);
+      outline-offset: 0;
+      border-color: transparent;
+    }
+  }
+}
+
+/* Links section (GitHub, Releases, ...) at the end of the menu */
+.book-menu nav > ul:last-of-type {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--gray-200);
+  color: var(--color-muted);
+}
+
+.book-toc {
+  font-size: var(--font-size-smallest);
+
+  .book-toc-content {
+    padding: 1.25rem 1rem;
+  }
+
+  nav > ul {
+    border-inline-start: 1px solid var(--gray-200);
+  }
+
+  nav ul a {
+    padding: 0.25rem 0.75rem;
+    color: var(--color-muted);
+    border-inline-start: 2px solid transparent;
+    margin-inline-start: -1px;
+
+    &:hover {
+      opacity: 1;
+      color: var(--color-link);
+      border-inline-start-color: var(--color-accent);
+    }
+  }
+
+  nav ul ul {
+    padding-inline-start: 0.75rem;
+  }
+}
+
+.book-toc-content:has(#TableOfContents ul)::before {
+  content: "On this page";
+  display: block;
+  margin: 0 0 0.5rem 0.75rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+/* ---------- Page content ---------- */
+
+.book-page {
+  padding: 2rem 2.5rem 3rem;
+}
+
+.book-article {
+  max-width: 52rem;
+}
+
+.markdown {
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    color: var(--body-font-color);
+    scroll-margin-top: 1.5rem;
+  }
+
+  h1 {
+    font-size: 2.25rem;
+    line-height: 1.15;
+    margin-bottom: 1.25rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    margin-top: 2.5em;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--gray-200);
+  }
+
+  h3 { font-size: 1.2rem; }
+  h4 { font-size: 1.05rem; }
+
+  a[href] {
+    color: var(--color-link);
+    text-decoration: underline;
+    text-decoration-color: color-mix(in srgb, var(--color-link) 35%, transparent);
+    text-underline-offset: 0.2em;
+
+    &:hover {
+      text-decoration-color: var(--color-link);
+    }
+  }
+
+  code {
+    padding: 0.15em 0.4em;
+    font-size: 0.875em;
+    background: var(--gray-100);
+    border: 1px solid var(--gray-200);
+    border-radius: 0.375rem;
+  }
+
+  pre {
+    margin: 1.25rem 0;
+    padding: 1rem 1.25rem;
+    line-height: 1.55;
+    font-size: 0.875rem;
+    color: var(--code-color);
+    background: var(--code-background);
+    border: 1px solid var(--code-border);
+    border-radius: var(--border-radius);
+    tab-size: 4;
+
+    code {
+      font-size: inherit;
+      color: inherit;
+    }
+  }
+
+  .highlight {
+    margin: 1.25rem 0;
+
+    pre {
+      margin: 0;
+    }
+  }
+
+  /* Chroma wraps highlighted blocks; colours below are the github / github-dark styles */
+  .chroma {
+    background: var(--code-background);
+  }
+
+  blockquote {
+    margin: 1.25rem 0;
+    padding: 0.75rem 1rem;
+    color: inherit;
+    background: var(--color-accent-soft);
+    border-inline-start: 3px solid var(--color-accent-note);
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
+
+    code {
+      background: var(--body-background);
+    }
+  }
+
+  table {
+    width: fit-content;
+    max-width: 100%;
+    margin: 1.25rem 0;
+    font-size: 0.925rem;
+    border: 1px solid var(--gray-200);
+    border-radius: var(--border-radius);
+
+    tr th,
+    tr td {
+      padding: 0.6rem 0.9rem;
+      border: 0;
+      border-bottom: 1px solid var(--gray-200);
+      vertical-align: top;
+    }
+
+    tr th {
+      background: var(--gray-100);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    tr:nth-child(2n) {
+      background: transparent;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    tbody tr:hover {
+      background: var(--gray-100);
+    }
+  }
+
+  hr {
+    margin: 2rem 0;
+  }
+
+  img {
+    border-radius: var(--border-radius);
+  }
+
+  ul, ol {
+    padding-inline-start: 1.5rem;
+  }
+
+  li + li {
+    margin-top: 0.25rem;
+  }
+}
+
+/* ---------- Footer under the article ---------- */
+
+.book-footer {
+  margin-top: 3rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--gray-200);
+  font-size: var(--font-size-smaller);
+  color: var(--color-muted);
+
+  a {
+    color: var(--color-muted);
+
+    &:hover {
+      color: var(--color-link);
+    }
+  }
+}
+
+.book-copyright {
+  font-size: var(--font-size-smallest);
+}
+
+/* ---------- Theme switch (see layouts/_partials/docs/inject/menu-after.html) ---------- */
+
+.book-theme-switch {
+  display: flex;
+  gap: 0.25rem;
+  margin-top: 1rem;
+  padding: 0.25rem;
+  border: 1px solid var(--gray-200);
+  border-radius: 0.5rem;
+  background: var(--body-background);
+
+  button {
+    flex: 1;
+    padding: 0.3rem 0;
+    font: inherit;
+    font-size: var(--font-size-smallest);
+    color: var(--color-muted);
+    background: none;
+    border: 0;
+    border-radius: 0.375rem;
+    cursor: pointer;
+
+    &:hover {
+      color: var(--body-font-color);
+    }
+
+    &[aria-pressed="true"] {
+      color: var(--body-font-color);
+      background: var(--gray-200);
+      font-weight: 600;
+    }
+  }
+}
+
+/* ---------- Mobile header ---------- */
+
+.book-header {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--gray-200);
+
+  h3 {
+    font-weight: 600;
+  }
+}
+
+@media screen and (max-width: 56rem) {
+  .book-page {
+    padding: 1rem 1rem 2rem;
+  }
+
+  .markdown h1 {
+    font-size: 1.75rem;
+  }
+
+  .book-menu .book-menu-content {
+    border-inline-end: 0;
+  }
+}
+
+/* Keep the sidebars from touching the top edge on wide screens */
+@media screen and (min-width: 90rem) {
+  main {
+    gap: 0;
+    padding: 0;
+  }
+
+  .book-menu .book-menu-content,
+  .book-toc .book-toc-content {
+    padding-top: 1.25rem;
+  }
+}
+
+/* ---------- Syntax highlighting (Chroma) ---------- */
+
+:root,
+:root[data-theme="light"],
+:root[data-theme="auto"] {
+  .chroma .err { color:#f6f8fa;background-color:#82071e }
+  .chroma .lnlinks { outline:none;text-decoration:none;color:inherit }
+  .chroma .lntd { vertical-align:top;padding:0;margin:0;border:0; }
+  .chroma .lntable { border-spacing:0;padding:0;margin:0;border:0; }
+  .chroma .hl { background-color:#dedede }
+  .chroma .lnt { white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f }
+  .chroma .ln { white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f }
+  .chroma .line { display:flex; }
+  .chroma .k { color:#cf222e }
+  .chroma .kc { color:#cf222e }
+  .chroma .kd { color:#cf222e }
+  .chroma .kn { color:#cf222e }
+  .chroma .kp { color:#cf222e }
+  .chroma .kr { color:#cf222e }
+  .chroma .kt { color:#cf222e }
+  .chroma .na { color:#1f2328 }
+  .chroma .nc { color:#1f2328 }
+  .chroma .no { color:#0550ae }
+  .chroma .nd { color:#0550ae }
+  .chroma .ni { color:#6639ba }
+  .chroma .nl { color:#900;font-weight:bold }
+  .chroma .nn { color:#24292e }
+  .chroma .nx { color:#1f2328 }
+  .chroma .nt { color:#0550ae }
+  .chroma .nb { color:#6639ba }
+  .chroma .bp { color:#6a737d }
+  .chroma .nv { color:#953800 }
+  .chroma .vc { color:#953800 }
+  .chroma .vg { color:#953800 }
+  .chroma .vi { color:#953800 }
+  .chroma .vm { color:#953800 }
+  .chroma .nf { color:#6639ba }
+  .chroma .fm { color:#6639ba }
+  .chroma .s { color:#0a3069 }
+  .chroma .sa { color:#0a3069 }
+  .chroma .sb { color:#0a3069 }
+  .chroma .sc { color:#0a3069 }
+  .chroma .dl { color:#0a3069 }
+  .chroma .sd { color:#0a3069 }
+  .chroma .s2 { color:#0a3069 }
+  .chroma .se { color:#0a3069 }
+  .chroma .sh { color:#0a3069 }
+  .chroma .si { color:#0a3069 }
+  .chroma .sx { color:#0a3069 }
+  .chroma .sr { color:#0a3069 }
+  .chroma .s1 { color:#0a3069 }
+  .chroma .ss { color:#032f62 }
+  .chroma .m { color:#0550ae }
+  .chroma .mb { color:#0550ae }
+  .chroma .mf { color:#0550ae }
+  .chroma .mh { color:#0550ae }
+  .chroma .mi { color:#0550ae }
+  .chroma .il { color:#0550ae }
+  .chroma .mo { color:#0550ae }
+  .chroma .o { color:#0550ae }
+  .chroma .ow { color:#0550ae }
+  .chroma .or { color:#0550ae }
+  .chroma .p { color:#1f2328 }
+  .chroma .c { color:#57606a }
+  .chroma .ch { color:#57606a }
+  .chroma .cm { color:#57606a }
+  .chroma .c1 { color:#57606a }
+  .chroma .cs { color:#57606a }
+  .chroma .cp { color:#57606a }
+  .chroma .cpf { color:#57606a }
+  .chroma .gd { color:#82071e;background-color:#ffebe9 }
+  .chroma .ge { color:#1f2328 }
+  .chroma .gi { color:#116329;background-color:#dafbe1 }
+  .chroma .go { color:#1f2328 }
+  .chroma .gl { text-decoration:underline }
+  .chroma .w { color:#fff }
+}
+
+:root[data-theme="dark"] {
+  .chroma .err { color:#f85149 }
+  .chroma .lnlinks { outline:none;text-decoration:none;color:inherit }
+  .chroma .lntd { vertical-align:top;padding:0;margin:0;border:0; }
+  .chroma .lntable { border-spacing:0;padding:0;margin:0;border:0; }
+  .chroma .hl { background-color:#6e7681 }
+  .chroma .lnt { white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#737679 }
+  .chroma .ln { white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#6e7681 }
+  .chroma .line { display:flex; }
+  .chroma .k { color:#ff7b72 }
+  .chroma .kc { color:#79c0ff }
+  .chroma .kd { color:#ff7b72 }
+  .chroma .kn { color:#ff7b72 }
+  .chroma .kp { color:#79c0ff }
+  .chroma .kr { color:#ff7b72 }
+  .chroma .kt { color:#ff7b72 }
+  .chroma .nc { color:#f0883e;font-weight:bold }
+  .chroma .no { color:#79c0ff;font-weight:bold }
+  .chroma .nd { color:#d2a8ff;font-weight:bold }
+  .chroma .ni { color:#ffa657 }
+  .chroma .ne { color:#f0883e;font-weight:bold }
+  .chroma .nl { color:#79c0ff;font-weight:bold }
+  .chroma .nn { color:#ff7b72 }
+  .chroma .nx { color:#e6edf3 }
+  .chroma .py { color:#79c0ff }
+  .chroma .nt { color:#7ee787 }
+  .chroma .nv { color:#79c0ff }
+  .chroma .vc { color:#79c0ff }
+  .chroma .vg { color:#79c0ff }
+  .chroma .vi { color:#79c0ff }
+  .chroma .vm { color:#79c0ff }
+  .chroma .nf { color:#d2a8ff;font-weight:bold }
+  .chroma .fm { color:#d2a8ff;font-weight:bold }
+  .chroma .l { color:#a5d6ff }
+  .chroma .ld { color:#79c0ff }
+  .chroma .s { color:#a5d6ff }
+  .chroma .sa { color:#79c0ff }
+  .chroma .sb { color:#a5d6ff }
+  .chroma .sc { color:#a5d6ff }
+  .chroma .dl { color:#79c0ff }
+  .chroma .sd { color:#a5d6ff }
+  .chroma .s2 { color:#a5d6ff }
+  .chroma .se { color:#79c0ff }
+  .chroma .sh { color:#79c0ff }
+  .chroma .si { color:#a5d6ff }
+  .chroma .sx { color:#a5d6ff }
+  .chroma .sr { color:#79c0ff }
+  .chroma .s1 { color:#a5d6ff }
+  .chroma .ss { color:#a5d6ff }
+  .chroma .m { color:#a5d6ff }
+  .chroma .mb { color:#a5d6ff }
+  .chroma .mf { color:#a5d6ff }
+  .chroma .mh { color:#a5d6ff }
+  .chroma .mi { color:#a5d6ff }
+  .chroma .il { color:#a5d6ff }
+  .chroma .mo { color:#a5d6ff }
+  .chroma .o { color:#ff7b72;font-weight:bold }
+  .chroma .ow { color:#ff7b72;font-weight:bold }
+  .chroma .or { color:#ff7b72;font-weight:bold }
+  .chroma .c { color:#8b949e;font-style:italic }
+  .chroma .ch { color:#8b949e;font-style:italic }
+  .chroma .cm { color:#8b949e;font-style:italic }
+  .chroma .c1 { color:#8b949e;font-style:italic }
+  .chroma .cs { color:#8b949e;font-weight:bold;font-style:italic }
+  .chroma .cp { color:#8b949e;font-weight:bold;font-style:italic }
+  .chroma .cpf { color:#8b949e;font-weight:bold;font-style:italic }
+  .chroma .gd { color:#ffa198;background-color:#490202 }
+  .chroma .ge { font-style:italic }
+  .chroma .gr { color:#ffa198 }
+  .chroma .gh { color:#79c0ff;font-weight:bold }
+  .chroma .gi { color:#56d364;background-color:#0f5323 }
+  .chroma .go { color:#8b949e }
+  .chroma .gp { color:#8b949e }
+  .chroma .gs { font-weight:bold }
+  .chroma .gu { color:#79c0ff }
+  .chroma .gt { color:#ff7b72 }
+  .chroma .gl { text-decoration:underline }
+  .chroma .w { color:#6e7681 }
+  .chroma .p { color: inherit }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root[data-theme="auto"] {
+    .chroma .err { color:#f85149 }
+    .chroma .lnlinks { outline:none;text-decoration:none;color:inherit }
+    .chroma .lntd { vertical-align:top;padding:0;margin:0;border:0; }
+    .chroma .lntable { border-spacing:0;padding:0;margin:0;border:0; }
+    .chroma .hl { background-color:#6e7681 }
+    .chroma .lnt { white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#737679 }
+    .chroma .ln { white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#6e7681 }
+    .chroma .line { display:flex; }
+    .chroma .k { color:#ff7b72 }
+    .chroma .kc { color:#79c0ff }
+    .chroma .kd { color:#ff7b72 }
+    .chroma .kn { color:#ff7b72 }
+    .chroma .kp { color:#79c0ff }
+    .chroma .kr { color:#ff7b72 }
+    .chroma .kt { color:#ff7b72 }
+    .chroma .nc { color:#f0883e;font-weight:bold }
+    .chroma .no { color:#79c0ff;font-weight:bold }
+    .chroma .nd { color:#d2a8ff;font-weight:bold }
+    .chroma .ni { color:#ffa657 }
+    .chroma .ne { color:#f0883e;font-weight:bold }
+    .chroma .nl { color:#79c0ff;font-weight:bold }
+    .chroma .nn { color:#ff7b72 }
+    .chroma .nx { color:#e6edf3 }
+    .chroma .py { color:#79c0ff }
+    .chroma .nt { color:#7ee787 }
+    .chroma .nv { color:#79c0ff }
+    .chroma .vc { color:#79c0ff }
+    .chroma .vg { color:#79c0ff }
+    .chroma .vi { color:#79c0ff }
+    .chroma .vm { color:#79c0ff }
+    .chroma .nf { color:#d2a8ff;font-weight:bold }
+    .chroma .fm { color:#d2a8ff;font-weight:bold }
+    .chroma .l { color:#a5d6ff }
+    .chroma .ld { color:#79c0ff }
+    .chroma .s { color:#a5d6ff }
+    .chroma .sa { color:#79c0ff }
+    .chroma .sb { color:#a5d6ff }
+    .chroma .sc { color:#a5d6ff }
+    .chroma .dl { color:#79c0ff }
+    .chroma .sd { color:#a5d6ff }
+    .chroma .s2 { color:#a5d6ff }
+    .chroma .se { color:#79c0ff }
+    .chroma .sh { color:#79c0ff }
+    .chroma .si { color:#a5d6ff }
+    .chroma .sx { color:#a5d6ff }
+    .chroma .sr { color:#79c0ff }
+    .chroma .s1 { color:#a5d6ff }
+    .chroma .ss { color:#a5d6ff }
+    .chroma .m { color:#a5d6ff }
+    .chroma .mb { color:#a5d6ff }
+    .chroma .mf { color:#a5d6ff }
+    .chroma .mh { color:#a5d6ff }
+    .chroma .mi { color:#a5d6ff }
+    .chroma .il { color:#a5d6ff }
+    .chroma .mo { color:#a5d6ff }
+    .chroma .o { color:#ff7b72;font-weight:bold }
+    .chroma .ow { color:#ff7b72;font-weight:bold }
+    .chroma .or { color:#ff7b72;font-weight:bold }
+    .chroma .c { color:#8b949e;font-style:italic }
+    .chroma .ch { color:#8b949e;font-style:italic }
+    .chroma .cm { color:#8b949e;font-style:italic }
+    .chroma .c1 { color:#8b949e;font-style:italic }
+    .chroma .cs { color:#8b949e;font-weight:bold;font-style:italic }
+    .chroma .cp { color:#8b949e;font-weight:bold;font-style:italic }
+    .chroma .cpf { color:#8b949e;font-weight:bold;font-style:italic }
+    .chroma .gd { color:#ffa198;background-color:#490202 }
+    .chroma .ge { font-style:italic }
+    .chroma .gr { color:#ffa198 }
+    .chroma .gh { color:#79c0ff;font-weight:bold }
+    .chroma .gi { color:#56d364;background-color:#0f5323 }
+    .chroma .go { color:#8b949e }
+    .chroma .gp { color:#8b949e }
+    .chroma .gs { font-weight:bold }
+    .chroma .gu { color:#79c0ff }
+    .chroma .gt { color:#ff7b72 }
+    .chroma .gl { text-decoration:underline }
+    .chroma .w { color:#6e7681 }
+    .chroma .p { color: inherit }
+  }
+}
