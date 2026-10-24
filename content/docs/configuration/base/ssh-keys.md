@@ -51,3 +51,5 @@ disabled
 With `--if-idle` sshd is only stopped when no SSH connection is established. Established sessions are kept when sshd is stopped. sshd stays stopped until `sudo ros console sshd enable` is run or the system reboots, so SSH is always available after boot.
 
 [BurFleet](https://github.com/burmilla/os-fleet-manager) can do this automatically for a fleet with the `ssh.disable_after_boot` setting, e.g. `10m` after boot.
+
+To turn off all interactive access to the server, also on the ttys and across reboots, see [disabling console access](/docs/configuration/base/switching-consoles/#disabling-console-access).
