@@ -5,7 +5,7 @@ bookToc: false
 ---
 # Consoles
 
-When [booting from the ISO](/docs/installation/workstation/boot-from-iso), BurmillaOS starts with the default console, which is based on busybox.
+When [booting from the ISO](/docs/installation/workstation/boot-from-iso), BurmillaOS starts with the default console, which is based on Debian.
 
 You can select which console you want BurmillaOS to start with using the [cloud-config](/docs/configuration/#cloud-config).
 
@@ -33,6 +33,29 @@ You can easily list the available consoles in BurmillaOS and what their status i
 $ sudo ros console list
 current  default
 ```
+
+### Disabling console access
+
+In most environments the console is only used to log in to the server, over SSH or on a tty. Servers which are managed in other ways (Docker API over TLS, a GitOps agent, [BurFleet](https://github.com/burmilla/os-fleet-manager)) can turn that off:
+
+```shell
+$ sudo ros console access disable
+disabled
+$ sudo ros console access status
+disabled
+```
+
+This stops sshd and the logins on the ttys (including `rancher.autologin`) and sets `rancher.console_access: false`, so they stay off after a reboot. Established SSH sessions are kept, tty sessions are hung up. The console container itself keeps running, because User Docker runs inside it and uses its tools, so Docker volumes on iSCSI or NFS keep working. `sudo ros console access enable` (or any other way to run `ros`, e.g. a privileged container with `/var/run/system-docker.sock`) starts sshd and the tty logins again, without a reboot and without restarting Docker.
+
+The same can be set in the cloud-config:
+
+```yaml
+#cloud-config
+rancher:
+  console_access: false
+```
+
+BurFleet manages this for a whole fleet with the `console_access` setting.
 
 ### Console persistence
 

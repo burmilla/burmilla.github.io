@@ -79,6 +79,10 @@ This page lists the `ros` commands and the keys which can be used in [cloud-conf
 | `sshd disable`           | stop sshd until enabled again or reboot | `ros console sshd disable`             |
 | &nbsp; `--if-idle`       | only when no SSH connection is established | `ros console sshd disable --if-idle` |
 | `sshd enable`            | start sshd again                        | `ros console sshd enable`              |
+||||
+| `access status`          | print whether interactive access (sshd and tty logins) is enabled | `ros console access status` |
+| `access disable`         | stop sshd and tty logins, also after reboots (`rancher.console_access: false`) | `ros console access disable` |
+| `access enable`          | start sshd and tty logins again         | `ros console access enable`            |
 
 #### Available Consoles
 
