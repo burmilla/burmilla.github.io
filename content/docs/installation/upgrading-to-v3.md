@@ -4,22 +4,23 @@ bookToc: true
 ---
 # Upgrading to v3
 
-BurmillaOS v3 is the next major version of BurmillaOS. It is currently in testing: the latest test version is [v3.0.0-beta2](https://github.com/burmilla/os/releases/tag/v3.0.0-beta2) (see the [releases page](/docs/releases)). v2.0.x stays the stable version until v3.0.0 is released.
+BurmillaOS v3 is the next major version of BurmillaOS. It is currently in testing: the latest test version is [v3.0.0-beta4](https://github.com/burmilla/os/releases/tag/v3.0.0-beta4) (see the [releases page](/docs/releases)). v2.0.x stays the stable version until v3.0.0 is released.
 
 Feedback from testers is welcome in the [v3.0 discussion](https://github.com/burmilla/os/discussions/226).
 
 ## What is new in v3
 
-| Component              | v2.0.x (stable)                  | v3.0.0-beta2                                      |
+| Component              | v2.0.x (stable)                  | v3.0.0-beta4                                      |
 |------------------------|----------------------------------|-------------------------------------------------|
 | Kernel                 | 5.10.x                           | 6.12.114 (6.12.x LTS, with BTF support) |
-| Buildroot (base)       | 2023.05                          | 2025.02.18                           |
-| `os-base`              | v2023.05-1                       | v2025.02.18-1                             |
-| `os-initrd-base`       | v2023.02.10-2                    | v2025.02.18-1                      |
+| Buildroot (base)       | 2023.05                          | 2025.02.18 (amd64, arm64), 2026.02.3 (riscv64, loong64) |
+| `os-base`              | v2023.05-1                       | v2025.02.18-2                             |
+| `os-initrd-base`       | v2023.02.10-2                    | v2025.02.18-3                      |
 | Default console        | Debian 11 "Bullseye"             | Debian 13 "Trixie"                              |
-| System Docker          | 17.06.107                        | 17.06.113 (heavily stripped)                    |
+| System Docker          | 17.06.107                        | 17.06.117 (heavily stripped)                    |
 | cgroups                | v1                               | v2 (unified hierarchy)                          |
 | Boot / install         | BIOS (MBR + Syslinux)            | BIOS (MBR + Syslinux) and UEFI (GPT + Syslinux EFI) |
+| Architectures          | amd64                            | amd64; arm64, riscv64 and loong64 experimental  |
 | Release channel        | `releases/v2.0.x`                | `releases/v3.0.x`                               |
 
 In addition the `ros` binary has been heavily refactored: service definitions are now handled with [compose-go](https://github.com/compose-spec/compose-go) types instead of the unmaintained libcompose ones, and it is built with Go modules and Go 1.26. The default user Docker engine (`rancher.docker.engine`) is `latest`, so new installations switch to the latest engine available in the v3 service repository on first boot.
@@ -38,6 +39,32 @@ In addition the `ros` binary has been heavily refactored: service definitions ar
 - File permission fixes: engine binaries, saved cloud-config and the `rancher`/`docker` users' shell profiles are no longer world- or group-writable.
 - `ros` is built with Go 1.26.10.
 - New optional system services: `fleet-client` (connects the server to [BurFleet](https://github.com/burmilla/os-fleet-manager) for inventory, SSH key management and coordinated upgrades) and `otel-collector` (OpenTelemetry Collector exporting host and container metrics and logs over OTLP). Enable them with `sudo ros service enable <name>`.
+
+### Changes in beta3
+
+- System Docker 17.06.116: the engine is stripped to what System Docker uses (swarm mode, live-restore and other unused features removed), built with a current Go; the minimum accepted Docker API version is 1.24.
+- The system image tarballs and the initrd are zstd compressed.
+- Systems upgraded from v2 whose engine was stored as `latest` boot with a working Docker: `latest` is resolved to the latest engine of the service repository.
+- The state partition is mounted with `discard` on ext4, xfs, btrfs and f2fs, so thin provisioned disks get freed space back.
+- The Raspberry Pi image build was removed.
+
+### Changes in beta4
+
+- os-base v2025.02.18-2 and os-initrd-base v2025.02.18-3, the first releases built for all four architectures.
+- The root CA bundle is regenerated from Mozilla NSS 3.131.1: the roots behind the compromised eMudhra intermediates (`emSign ECC Root CA - G3`, `AAA Certificate Services`) are no longer trusted.
+- System Docker 17.06.117, built for all four architectures.
+- Experimental arm64, riscv64 and loong64 builds, see [below](#experimental-architectures).
+- `ros console sshd disable|enable|status` was removed again.
+
+## Experimental architectures
+
+Since v3.0.0-beta4 the releases also carry `vmlinuz-<arch>`, `initrd-<arch>` and `rootfs-<arch>.tar.gz` for **arm64**, **riscv64** and **loong64** (LoongArch64), and the system images are on Docker Hub with the `_<arch>` tag suffix. Only amd64 is supported; the other architectures are experimental:
+
+- They are cross built and have not been boot-tested. Reports are welcome in the [v3.0 discussion](https://github.com/burmilla/os/discussions/226).
+- There is no ISO and no installer. Boot the kernel and initrd with your own boot loader, for example from an existing OS, U-Boot or a [PXE server](/docs/installation/server/pxe), with the same kernel arguments as the amd64 ISO uses (`rancher.state.dev=LABEL=RANCHER_STATE rancher.state.autoformat=[/dev/sda,/dev/vda]` and so on).
+- riscv64 and loong64 have no user Docker engine yet, because Docker does not publish riscv64 or loong64 binaries, and no `system-cron` service.
+- The loong64 console is a busybox console (the os-base image) instead of Debian 13, because Debian has no loong64 image yet.
+- AppArmor is not enabled in the arm64 kernel.
 
 ## Breaking changes
 
