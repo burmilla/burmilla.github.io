@@ -13,10 +13,11 @@ The following is a list of the versions of the operating system in their differe
 - [v2.0.6](https://github.com/burmilla/os/releases/tag/v2.0.6) | 2026-10-01
 
 #### Testing
+- [v3.0.0-beta3](https://github.com/burmilla/os/releases/tag/v3.0.0-beta3) | 2026-10-24
 - [v3.0.0-beta2](https://github.com/burmilla/os/releases/tag/v3.0.0-beta2) | 2026-10-22
 - [v3.0.0-beta1](https://github.com/burmilla/os/releases/tag/v3.0.0-beta1) | 2026-07-30
 
-BurmillaOS v3 contains breaking changes compared to v2. Read [Upgrading to v3](/docs/installation/upgrading-to-v3) before testing it.
+BurmillaOS v3 contains breaking changes compared to v2. Read [Upgrading to v3](/docs/installation/upgrading-to-v3) before testing it. Only amd64 is supported; the arm64, riscv64 and loong64 files on the v3 releases are [experimental](/docs/installation/upgrading-to-v3/#experimental-architectures).
 
 #### Old stable
 - [v2.0.5](https://github.com/burmilla/os/releases/tag/v2.0.5) | 2025-11-14
